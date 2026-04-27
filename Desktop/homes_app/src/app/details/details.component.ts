@@ -19,9 +19,13 @@ import { HousingLocation } from '../housing-location';
       <h2 class="section-heading">A proposito di questa posizione abitativa</h2>
       <ul>
         <li>Unità disponibili: {{ housingLocation?.availableUnits}}</li>
-         <li>Questa struttura ha il wifi: {{housingLocation?.wifi}}</li>
-        <li>Questa struttura ha la lavanderia {{housingLocation?.laundry}}</li>
+         <li>Questa struttura ha il wifi:{{housingLocation?.wifi}}</li>
+        <li>Questa struttura ha la lavanderia:{{housingLocation?.laundry}}</li>
       </ul>
+    </section>
+    <section class="listing-aplly">
+      <h2 class="section-heading">Fai domanda ora per vivere qui </h2>
+      <button class="primary" type="button"> Applicare ora </button>
     </section>
 
   </article>
