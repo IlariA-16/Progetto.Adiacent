@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
-import { DetailsComponent } from "./details/details.component";
+import { DetailsMicoComponent } from "./details-mico/details-mico.component";
 const routeConfig: Routes = [
     {
     path: '',
@@ -8,9 +8,9 @@ const routeConfig: Routes = [
     title: 'Home page'
   },
   {
-    path:'details/:id',
-    component:DetailsComponent,
-    title:'Details Page'
+    path: 'details-mico/:id',
+    component: DetailsMicoComponent,
+    title:'Details mico'
   }
 ];
 
