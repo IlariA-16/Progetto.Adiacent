@@ -30,8 +30,9 @@ export class DetailsMicoComponent {
 
     constructor() {
       const housingLocationId = Number(this.route.snapshot.params['id']);
-      this.housingLocation = this.housingService.getHousingLocationById(housingLocationId);
+     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
+      this.housingLocation = housingLocation;
+     });
     }
-  
 
-  }
+}
