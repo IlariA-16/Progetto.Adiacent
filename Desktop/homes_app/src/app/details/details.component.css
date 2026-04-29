@@ -69,3 +69,13 @@ input {
     height: 400px;
   }
 }
+.error-text {
+  color: #d9534f;
+  font-size: 0.8rem;
+  margin: 0 0 10px 0;
+}
+
+/* Opzionale: colora il bordo dell'input di rosso se è sbagliato */
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}

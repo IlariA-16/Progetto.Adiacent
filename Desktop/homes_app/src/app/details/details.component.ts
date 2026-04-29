@@ -1,9 +1,9 @@
 import { Component,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HousingService } from '../housing.service'; 
 import { HousingLocation } from '../housing-location'; 
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 @Component({
   selector: 'app-details',
   standalone: true,
@@ -44,13 +44,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 
 export class DetailsComponent {
   route:ActivatedRoute = inject (ActivatedRoute);
+  router: Router = inject(Router);
 
   housingService = inject (HousingService);
   housingLocation:HousingLocation | undefined;
   applyForm = new FormGroup ({
-    firstName:new FormControl (''),
-    lastName: new FormControl (''),
-    email: new FormControl ('')
+    firstName:new FormControl ('', Validators.required),
+    lastName: new FormControl ('', Validators.required),
+    email: new FormControl ('', [Validators.required,Validators.email])
   });
 
   constructor() {
@@ -60,11 +61,21 @@ export class DetailsComponent {
      });
   }
   submitApplication() {
+    // AGGIUNTO: Se il form è invalido, non fare nulla e segna i campi come "toccati" per mostrare il rosso
+    if (this.applyForm.invalid) {
+      this.applyForm.markAllAsTouched();
+      return;
+    }
+      // Salviamo il nome in una costante per poterlo riutilizzare sotto
+      const firstName = this.applyForm.value.firstName ?? '';
       this.housingService.submitApplication(
-      this.applyForm.value.firstName?? '',
+      firstName,
       this.applyForm.value.lastName?? '',
       this.applyForm.value.email?? '',
     );
+    
+    // Passiamo il nome come parametro nell'URL (es: /thank-you?name=Ilaria)
+    this.router.navigate(['/thank-you'], { queryParams: { name: firstName } });
   }
 
 }
