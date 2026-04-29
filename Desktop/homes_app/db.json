@@ -10,7 +10,8 @@
       "wifi": true,
       "laundry": true,
       "metratura": 85,
-      "piano": "3° piano con ascensore"
+      "piano": "3° piano con ascensore",
+      "description": "Questo spazioso trilocale a Chicago offre una zona giorno molto luminosa e rifiniture moderne. Ideale per famiglie, si trova in una zona ricca di servizi e parchi pubblici."
     },
     {
       "id": 1,
@@ -22,7 +23,8 @@
       "wifi": false,
       "laundry": true,
       "metratura": 45,
-      "piano": "Piano terra"
+      "piano": "Piano terra",
+      "description": "Accogliente bilocale situato a pochi passi dalla spiaggia. Nonostante la metratura contenuta, gli spazi sono ottimizzati perfettamente per garantire il massimo comfort in una delle zone più ambite di Santa Monica."
     },
     {
       "id": 2,
@@ -34,19 +36,21 @@
       "wifi": false,
       "laundry": false,
       "metratura": 60,
-      "piano": "1° piano"
+      "piano": "1° piano",
+      "description": "Una soluzione abitativa calda e sicura nel cuore di Juneau. Gli interni presentano dettagli in legno tipici della zona e un eccellente isolamento termico per affrontare i climi più rigidi."
     },
     {
       "id": 3,
       "name": "Homesteady Housing",
       "city": "Chicago",
       "state": "IL",
-      "photo": "/assets/ian-macdonald-W8z6aiwfi1E-unsplash.jpg",
+      "photo": "/assets/ian-macdonald-W8z6aifi1E-unsplash.jpg",
       "availableUnits": 1,
       "wifi": true,
       "laundry": false,
       "metratura": 110,
-      "piano": "Ultimo piano (Attico)"
+      "piano": "Ultimo piano (Attico)",
+      "description": "Splendido attico con vista panoramica sullo skyline di Chicago. Dispone di ampie vetrate, pavimenti in parquet e una cucina open-space di ultima generazione."
     },
     {
       "id": 4,
@@ -58,7 +62,8 @@
       "wifi": true,
       "laundry": false,
       "metratura": 70,
-      "piano": "2° piano"
+      "piano": "2° piano",
+      "description": "Appartamento tranquillo e ben collegato, situato in un contesto residenziale curato. La soluzione ideale per chi cerca un equilibrio tra vita cittadina e serenità domestica."
     },
     {
       "id": 5,
@@ -70,7 +75,8 @@
       "wifi": true,
       "laundry": true,
       "metratura": 95,
-      "piano": "4° piano con balcone"
+      "piano": "4° piano con balcone",
+      "description": "Moderno appartamento ad Oakland con un ampio balcone vivibile. La struttura è recente e dotata di sistemi di risparmio energetico all'avanguardia e fibra ottica già installata."
     },
     {
       "id": 6,
@@ -82,7 +88,8 @@
       "wifi": true,
       "laundry": true,
       "metratura": 120,
-      "piano": "Casa indipendente"
+      "piano": "Casa indipendente",
+      "description": "Villetta indipendente con giardino privato. Perfetta per chi possiede animali domestici o per chi ama il giardinaggio. Zona estremamente sicura e silenziosa."
     },
     {
       "id": 7,
@@ -94,7 +101,8 @@
       "wifi": true,
       "laundry": true,
       "metratura": 55,
-      "piano": "3° piano"
+      "piano": "3° piano",
+      "description": "Bilocale ristrutturato di recente con uno stile minimalista ed elegante. Situato vicino alle principali arterie di comunicazione, è ottimo per pendolari."
     },
     {
       "id": 8,
@@ -106,7 +114,8 @@
       "wifi": false,
       "laundry": false,
       "metratura": 150,
-      "piano": "Su più livelli (Duplex)"
+      "piano": "Su più livelli (Duplex)",
+      "description": "Ampio duplex perfetto per la condivisione o per famiglie numerose. Gli ampi spazi comuni permettono una vivibilità eccellente, pur mantenendo la privacy nelle zone notte separate."
     },
     {
       "id": 9,
@@ -118,7 +127,8 @@
       "wifi": true,
       "laundry": true,
       "metratura": 80,
-      "piano": "1° piano con parcheggio"
+      "piano": "1° piano con parcheggio",
+      "description": "Comodo appartamento a Portland con posto auto riservato incluso. La casa è ben isolata acusticamente e offre un'atmosfera rilassante e moderna."
     }
   ]
 }

@@ -25,6 +25,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
         <li>Questa struttura ha il wifi: {{housingLocation?.wifi ? 'Sì' : 'No'}}</li>
         <li>Questa struttura ha la lavanderia: {{housingLocation?.laundry ? 'Sì' : 'No'}}</li>
       </ul>
+      <button class="primary" type="button" (click)="mostraDescrizione = !mostraDescrizione" style="margin-top: 10px;">
+          {{ mostraDescrizione ? 'Chiudi descrizione' : 'Leggi descrizione completa' }}
+        </button>
+
+        <div *ngIf="mostraDescrizione" style="margin-top: 15px; padding: 10px; background: #eee; border-radius: 8px;">
+          <p>{{ housingLocation?.description }}</p>
+        </div>
     </section>
     <section class="listing-apply">
       <h2 class="section-heading">Fai domanda ora per vivere qui </h2>
@@ -68,6 +75,8 @@ export class DetailsComponent {
     lastName: new FormControl ('', Validators.required),
     email: new FormControl ('', [Validators.required,Validators.email])
   });
+
+   mostraDescrizione = false; 
 
   constructor() {
      const housingLocationId = Number(this.route.snapshot.params['id']);

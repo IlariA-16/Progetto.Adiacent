@@ -34,3 +34,46 @@ section.listing a::after {
   content: "\203A";
   margin-left: 5px;
 }
+/* Stile base della modale nativa */
+.modal-container {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* Sfondo oscurato (backdrop) */
+.modal-container::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.btn-maps {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color:#e0e7ff;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid #5d5dff;
+}
+.btn-maps:hover {
+  background-color: #c7d2fe; /* Si scurisce leggermente al passaggio del mouse */
+}

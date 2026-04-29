@@ -9,4 +9,5 @@ export interface HousingLocation {
     laundry: boolean;
     metratura: number;
     piano: string;
+    description: string;
 }
