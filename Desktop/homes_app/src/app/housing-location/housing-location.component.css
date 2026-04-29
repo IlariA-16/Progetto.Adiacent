@@ -77,3 +77,8 @@ section.listing a::after {
 .btn-maps:hover {
   background-color: #c7d2fe; /* Si scurisce leggermente al passaggio del mouse */
 }
+.modal-header button {
+    font-weight: bold;
+    color: #ff4d4d; /* La rende rossa per far capire che chiude */
+    font-size: 1.8rem;
+}

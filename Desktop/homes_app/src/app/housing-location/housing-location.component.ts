@@ -17,7 +17,6 @@ import { RouterModule } from '@angular/router';
 
       <a [routerLink]="['/details-mico', housingLocation.id]">Dettaglio Mico</a>
       <a [routerLink]="['/details', housingLocation.id]">Dettaglio Ilaria</a>
-
       <dialog #mapModal class="modal-container">
       <div class="modal-header">
         <h3>Posizione di {{housingLocation.name}}</h3>
