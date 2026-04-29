@@ -8,7 +8,9 @@
       "photo": "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
       "availableUnits": 4,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "metratura": 85,
+      "piano": "3° piano con ascensore"
     },
     {
       "id": 1,
@@ -18,7 +20,9 @@
       "photo": "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
       "availableUnits": 0,
       "wifi": false,
-      "laundry": true
+      "laundry": true,
+      "metratura": 45,
+      "piano": "Piano terra"
     },
     {
       "id": 2,
@@ -28,7 +32,9 @@
       "photo": "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
       "availableUnits": 1,
       "wifi": false,
-      "laundry": false
+      "laundry": false,
+      "metratura": 60,
+      "piano": "1° piano"
     },
     {
       "id": 3,
@@ -38,7 +44,9 @@
       "photo": "/assets/ian-macdonald-W8z6aiwfi1E-unsplash.jpg",
       "availableUnits": 1,
       "wifi": true,
-      "laundry": false
+      "laundry": false,
+      "metratura": 110,
+      "piano": "Ultimo piano (Attico)"
     },
     {
       "id": 4,
@@ -48,7 +56,9 @@
       "photo": "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
       "availableUnits": 1,
       "wifi": true,
-      "laundry": false
+      "laundry": false,
+      "metratura": 70,
+      "piano": "2° piano"
     },
     {
       "id": 5,
@@ -58,7 +68,9 @@
       "photo": "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
       "availableUnits": 2,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "metratura": 95,
+      "piano": "4° piano con balcone"
     },
     {
       "id": 6,
@@ -68,7 +80,9 @@
       "photo": "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
       "availableUnits": 5,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "metratura": 120,
+      "piano": "Casa indipendente"
     },
     {
       "id": 7,
@@ -78,7 +92,9 @@
       "photo": "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
       "availableUnits": 2,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "metratura": 55,
+      "piano": "3° piano"
     },
     {
       "id": 8,
@@ -88,7 +104,9 @@
       "photo": "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
       "availableUnits": 10,
       "wifi": false,
-      "laundry": false
+      "laundry": false,
+      "metratura": 150,
+      "piano": "Su più livelli (Duplex)"
     },
     {
       "id": 9,
@@ -98,7 +116,9 @@
       "photo": "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
       "availableUnits": 6,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "metratura": 80,
+      "piano": "1° piano con parcheggio"
     }
   ]
 }

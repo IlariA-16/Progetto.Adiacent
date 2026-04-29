@@ -11,6 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   template: `
   <article>
     <img class="listing-photo" [src] = "housingLocation?.photo">
+    <div class="listing-info-container"> 
     <section class="listing-description">
       <h2 class="listing-heading">{{housingLocation?.name}}</h2>
       <p class="listing-location"> {{housingLocation?.city}},{{housingLocation?.state}}</p>
@@ -19,8 +20,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
       <h2 class="section-heading">A proposito di questa posizione abitativa</h2>
       <ul>
         <li>Unità disponibili: {{ housingLocation?.availableUnits}}</li>
-        <li>Questa struttura ha il wifi:{{housingLocation?.wifi}}</li>
-        <li>Questa struttura ha la lavanderia:{{housingLocation?.laundry}}</li>
+        <li>Metratura: {{ housingLocation?.metratura }} mq</li>
+        <li>Piano: {{ housingLocation?.piano }}</li>
+        <li>Questa struttura ha il wifi: {{housingLocation?.wifi ? 'Sì' : 'No'}}</li>
+        <li>Questa struttura ha la lavanderia: {{housingLocation?.laundry ? 'Sì' : 'No'}}</li>
       </ul>
     </section>
     <section class="listing-apply">
@@ -28,15 +31,27 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
       <form [formGroup]="applyForm" (submit)="submitApplication()">
         <label for="first-name">Nome</label>
         <input id="first-name" type="text" formControlName="firstName">
+        <p *ngIf="applyForm.get('firstName')?.invalid && applyForm.get('firstName')?.touched" class="error-text">
+          Il nome è obbligatorio
+        </p>
 
         <label  for="last-name">Cognome</label>
         <input id="last-name" type="text" formControlName="lastName">
+        <p *ngIf="applyForm.get('lastName')?.invalid && applyForm.get('lastName')?.touched" class="error-text">
+          Il cognome è obbligatorio
+        </p>
+
 
         <label for="email">Email </label>
         <input id="email" type="email" formControlName="email">
+        <p *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched" class="error-text">
+          Inserisci un'email valida
+        </p>
+
         <button type="submit" class="primary">Applica ora</button>
       </form>
     </section>
+  </div>
   </article>
   `,
   styleUrls: ['./details.component.css']
