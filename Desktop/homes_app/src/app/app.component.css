@@ -17,3 +17,12 @@ header img {
   height: 40px;
   vertical-align: middle;
 }
+.btn-fav-page {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+}

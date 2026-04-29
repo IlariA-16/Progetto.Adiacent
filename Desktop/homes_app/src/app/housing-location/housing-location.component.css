@@ -82,3 +82,14 @@ section.listing a::after {
     color: #ff4d4d; /* La rende rossa per far capire che chiude */
     font-size: 1.8rem;
 }
+.star-btn {
+  background: none;
+  border: none;
+  color: gold;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}

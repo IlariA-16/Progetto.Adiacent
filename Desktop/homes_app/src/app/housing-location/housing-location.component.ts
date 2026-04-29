@@ -17,6 +17,12 @@ import { RouterModule } from '@angular/router';
 
       <a [routerLink]="['/details-mico', housingLocation.id]">Dettaglio Mico</a>
       <a [routerLink]="['/details', housingLocation.id]">Dettaglio Ilaria</a>
+
+      
+        <button class="star-btn" (click)="toggleFavorite($event)">
+          {{ isFavorite ? '★' : '☆' }}
+        </button>
+
       <dialog #mapModal class="modal-container">
       <div class="modal-header">
         <h3>Posizione di {{housingLocation.name}}</h3>
@@ -38,5 +44,30 @@ import { RouterModule } from '@angular/router';
 })
 export class HousingLocationComponent {
   @Input() housingLocation!:HousingLocation;
+    isFavorite: boolean = false;
+     ngOnInit() {
+    // Controlla se questa casa è già tra i preferiti al caricamento
+    const favorites = JSON.parse(localStorage.getItem('myFavorites') || '[]');
+    this.isFavorite = favorites.includes(this.housingLocation.id);
+  }
+
+  toggleFavorite(event: Event) {
+    event.stopPropagation(); // Evita interferenze con altri click
+    this.isFavorite = !this.isFavorite;
+
+    let favorites = JSON.parse(localStorage.getItem('myFavorites') || '[]');
+
+    if (this.isFavorite) {
+      // Aggiungi l'ID se non c'è
+      if (!favorites.includes(this.housingLocation.id)) {
+        favorites.push(this.housingLocation.id);
+      }
+    } else {
+      // Rimuovi l'ID
+      favorites = favorites.filter((id: number) => id !== this.housingLocation.id);
+    }
+
+    localStorage.setItem('myFavorites', JSON.stringify(favorites));
+  }
 
 }
