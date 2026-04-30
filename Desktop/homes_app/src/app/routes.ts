@@ -38,7 +38,7 @@ const routeConfig: Routes = [
     component: AboutComponent,
     title: 'Chi siamo'
   }
-
+,
 
   
 ];
