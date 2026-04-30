@@ -35,16 +35,13 @@ export class FavoritesComponent implements OnInit {
   constructor() {}
 
   async ngOnInit() {
-    // 1. Recupera tutte le case dal servizio
+    // 1. Recupera tutte le case dal database/server
     const allLocations = await this.housingService.getAllHousingLocation();
     
-    // 2. Recupera gli ID salvati nel browser
-    const savedFavs = localStorage.getItem('myFavorites');
-    const favIds: number[] = savedFavs ? JSON.parse(savedFavs) : [];
-    
-    // 3. Filtra la lista per mostrare solo i preferiti
+    // 2. Filtra la lista usando DIRETTAMENTE il metodo isFavorite del Service
+    // In questo modo usiamo la stessa chiave 'favorites' che usa la Dashboard!
     this.favoriteList = allLocations.filter(location => 
-      favIds.includes(location.id)
+      this.housingService.isFavorite(location.id)
     );
   }
 }

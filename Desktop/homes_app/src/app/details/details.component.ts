@@ -74,6 +74,7 @@ export class DetailsComponent {
     firstName:new FormControl ('', Validators.required),
     lastName: new FormControl ('', Validators.required),
     email: new FormControl ('', [Validators.required,Validators.email])
+    
   });
 
    mostraDescrizione = false; 
@@ -96,6 +97,8 @@ export class DetailsComponent {
       firstName,
       this.applyForm.value.lastName?? '',
       this.applyForm.value.email?? '',
+      this.housingLocation?.name ?? 'Alloggio senza nome', 
+      this.housingLocation?.city ?? 'Città ignota'
     );
     
     // Passiamo il nome come parametro nell'URL (es: /thank-you?name=Ilaria)

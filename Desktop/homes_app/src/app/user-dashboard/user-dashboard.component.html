@@ -1,0 +1,53 @@
+<section class="dashboard">
+  <header class="dashboard-header">
+    <h1>La tua Dashboard</h1>
+    <!-- Qui il nome cambierà in base a chi ha fatto domanda -->
+    <p>{{ saluto }}, <strong>{{ userName }}</strong>! Qui puoi monitorare le tue richieste.</p>
+
+
+  </header>
+
+  <div class="stats-overview">
+    <div class="stat-box">
+      <span class="number">{{ applicationsCount }}</span>
+      <span class="label">Domande Inviate</span>
+    </div>
+    
+    <div class="stat-box">
+        <span class="number">{{ favoritesCount }}</span>
+        <span class="label">Alloggi Preferiti</span>
+    </div>
+  </div>
+
+  <section class="applications-section">
+    <h2>Stato delle Candidature</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Alloggio</th>
+            <th>Località</th>
+            <th>Data Invio</th>
+            <th>Stato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of appliedHouses">
+            <td>{{ app.name }}</td>
+            <td>{{ app.location }}</td>
+            <td>{{ app.date }}</td>
+            <td><span class="status-badge pending">{{ app.status }}</span></td>
+          </tr>
+
+          <tr *ngIf="appliedHouses.length === 0">
+            <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
+              Non hai ancora inviato nessuna candidatura.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <button class="primary" routerLink="/">Cerca nuovi alloggi</button>
+</section>
