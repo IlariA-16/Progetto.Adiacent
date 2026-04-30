@@ -28,6 +28,32 @@
   transform: translateX(-5px);
 }
 
+/* Banner Immagine */
+.house-banner {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.house-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1));
+}
+
 /* Header e Titolo */
 .header-section {
   margin-bottom: 40px;
@@ -84,16 +110,68 @@
   white-space: pre-line;
 }
 
-/* Footer della pagina */
-.footer-info {
-  margin-top: 40px;
+/* --- NUOVA SEZIONE CONTATTI --- */
+.contact-section {
+  margin-top: 60px;
   text-align: center;
-  color: #888;
-  font-size: 0.9rem;
+  animation: fadeIn 0.8s ease-out;
 }
 
-.footer-info a {
+.contact-header {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  border-top: 5px solid #605dec; /* Richiama il tuo viola */
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(96, 93, 236, 0.1);
+}
+
+.icon-circle {
+  font-size: 1.8rem;
+  background: rgba(96, 93, 236, 0.1); /* Stesso stile del badge */
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-item h3 {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-item p, .contact-item a {
+  font-size: 0.95rem;
   color: #605dec;
+  font-weight: 700;
+  margin: 0;
   text-decoration: none;
 }
 
@@ -108,29 +186,5 @@
   .house-title { font-size: 2rem; }
   .card-body { padding: 30px 20px; }
   .description-text { font-size: 1.1rem; }
+  .contact-item { width: 100%; }
 }
-.house-banner {
-  width: 100%;
-  height: 300px; /* Puoi alzare o abbassare questo valore */
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.house-banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Fondamentale per non schiacciare la foto */
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1));
-}
-
