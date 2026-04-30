@@ -11,7 +11,27 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   template: `
   <article>
-    <img class="listing-photo" [src]="housingLocation?.photo">
+    <!-- Contenitore per Foto + FAQ -->
+    <div class="photo-side">
+      <img class="listing-photo" [src]="housingLocation?.photo">
+      
+      <!-- SEZIONE FAQ SOTTO LA FOTO -->
+      <section class="faq-section">
+        <h2 class="section-heading">Domande Frequenti 💡</h2>
+        
+        <div *ngFor="let faq of faqs; let i = index" class="faq-item">
+          <button (click)="toggleFaq(i)" class="faq-question">
+            {{ faq.question }}
+            <span class="icon">{{ faq.open ? '−' : '+' }}</span>
+          </button>
+          
+          <div *ngIf="faq.open" class="faq-answer">
+            {{ faq.answer }}
+          </div>
+        </div>
+      </section>
+    </div>
+
     <div class="listing-info-container"> 
       <section class="listing-description">
         <h2 class="listing-heading">{{housingLocation?.name}}</h2>
@@ -47,6 +67,65 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
       </section>
     </div>
   </article>
+
+  <style>
+    /* Organizzazione layout: Foto/FAQ a sinistra, Info a destra */
+    article {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+    }
+    .photo-side {
+      flex: 1;
+    }
+    .listing-info-container {
+      flex: 1;
+    }
+    .listing-photo {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    /* Stili FAQ */
+    .faq-section {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 15px;
+    }
+    .faq-item {
+      border-bottom: 1px solid #eee;
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      padding: 12px 0;
+      font-weight: bold;
+      color: #6b5cd7; /* Il tuo viola */
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .faq-answer {
+      padding: 0 0 12px 0;
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .icon {
+      font-size: 1.2rem;
+    }
+
+    /* Responsive per mobile */
+    @media (max-width: 800px) {
+      article {
+        flex-direction: column;
+      }
+    }
+  </style>
   `,
   styleUrls: ['./details.component.css']
 })
@@ -55,6 +134,40 @@ export class DetailsComponent {
   router: Router = inject(Router);
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
+
+  // Lista delle FAQ
+  faqs = [
+     { 
+    question: "Tutte le strutture sono arredate?", 
+    answer: "Sì, ogni nostra soluzione abitativa viene consegnata completa di arredi essenziali (letto, armadio, cucina e tavolo) per permettere un ingresso immediato.",
+    open: false 
+    },
+    { 
+      question: "Le utenze sono incluse?", 
+      answer: "Sì, i costi di acqua, luce e riscaldamento.",
+      open: false 
+    },
+    { 
+    question: "Posso visitare la casa prima di decidere?", 
+    answer: "Certamente. Una volta approvata la domanda preliminare, organizzeremo un sopralluogo guidato per permetterti di visionare gli spazi di persona.",
+    open: false 
+    },
+    { 
+    question: "Quali documenti sono necessari per la domanda?", 
+    answer: "Sono richiesti un documento d'identità valido, il codice fiscale e, se disponibile, la documentazione rilasciata dai servizi sociali di riferimento.",
+    open: false 
+  },
+  { 
+    question: "Sono ammessi animali domestici?", 
+    answer: "La politica varia a seconda della struttura.",
+    open: false 
+  },
+   { 
+    question: "C'è un limite di età per fare domanda?", 
+    answer: "Le nostre strutture sono aperte a maggiorenni o a nuclei familiari. Per i minori non accompagnati esistono percorsi dedicati tramite i servizi locali.",
+    open: false 
+  }
+  ];
 
   applyForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -67,6 +180,10 @@ export class DetailsComponent {
     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;
     });
+  }
+
+  toggleFaq(index: number) {
+    this.faqs[index].open = !this.faqs[index].open;
   }
 
   submitApplication() {

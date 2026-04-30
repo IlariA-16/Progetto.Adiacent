@@ -15,9 +15,7 @@ import { RouterModule } from '@angular/router';
 
          <div class="nav-links">
           <a [routerLink]="['/dashboard']" class="btn-dashboard-page">🚀 La mia Dashboard</a>
-          <a [routerLink]="['/favorites']" class="btn-fav-page">
-            ⭐ I miei Preferiti
-          </a>
+          <a [routerLink]="['/favorites']" class="btn-fav-page">⭐ I miei Preferiti</a>
           
           <a [routerLink]="['/about']" class="btn-about-page">
             ℹ️ Chi Siamo
