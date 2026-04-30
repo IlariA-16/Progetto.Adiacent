@@ -1,0 +1,32 @@
+<div class="description-page-container" *ngIf="housingLocation">
+  <div class="content-wrapper">
+    <!-- Link di ritorno stilizzato -->
+    <a [routerLink]="['/details', housingLocation.id]" class="back-link">
+      <span class="arrow">←</span> Torna alla scheda dell'immobile
+    </a>
+
+    <!-- Banner con l'immagine della casa -->
+    <div class="house-banner">
+      <img [src]="housingLocation.photo" [alt]="housingLocation.name">
+      <div class="banner-overlay"></div>
+    </div>
+
+    <header class="header-section">
+      <h1 class="house-title">{{ housingLocation.name }}</h1>
+      <div class="accent-bar"></div>
+    </header>
+
+    <main class="main-card">
+      <div class="card-header">
+        <span class="badge">Descrizione Completa</span>
+      </div>
+      <div class="card-body">
+        <p class="description-text">{{ housingLocation.description }}</p>
+      </div>
+    </main>
+
+    <footer class="footer-info">
+      <p>Hai bisogno di più informazioni? <a href="mailto:support@homes.com">Contattaci</a></p>
+    </footer>
+  </div>
+</div>

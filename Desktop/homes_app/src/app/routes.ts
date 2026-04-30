@@ -6,6 +6,8 @@ import { ThankYouComponent } from "./thank-you/thank-you.component";
 import { FavoritesComponent } from './favorites/favorites.component';
 import { AboutComponent } from './about/about.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { DetailsDescriptionComponent } from './details/details-description/details-description.component';
+
 const routeConfig: Routes = [
   {
     path: '',
@@ -22,7 +24,12 @@ const routeConfig: Routes = [
   {
     path: 'details/:id',
     component: DetailsComponent,
-    title:'Details '
+    title: 'Dettagli Casa'
+  },
+  {
+  path: 'details/:id/description',
+  component: DetailsDescriptionComponent,
+  title: 'Descrizione Completa'
   },
   {
   path: 'thank-you',
@@ -48,4 +55,4 @@ const routeConfig: Routes = [
   
 ];
 
-export default routeConfig;
+export default routeConfig
