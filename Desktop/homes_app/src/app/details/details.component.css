@@ -1,20 +1,32 @@
+/* Layout Principale */
 article {
   display: flex;
-  flex-direction: row-reverse; /* Foto a destra */
+  flex-direction: row;
   gap: 40px;
-  align-items: center; /* <--- QUESTO centra la foto verticalmente rispetto al testo */
   margin-bottom: 50px;
   width: 100%;
 }
+
+.photo-side {
+  flex: 1;
+}
+
+.listing-info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Immagine */
 .listing-photo {
-  width: 50%;
+  width: 100%;
   height: 600px; 
   object-fit: cover;
   border-radius: 30px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
 }
 
-
+/* Testi e Intestazioni */
 .listing-heading {
   font-size: 40pt;
   font-weight: bold;
@@ -34,24 +46,13 @@ article {
   content: url('/assets/location-pin.svg');
   margin-right: 10px;
 }
-.listing-info-container {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centra il testo internamente */
-}
 
-/* Sezione Caratteristiche */
+/* Sezione Caratteristiche (Grigio) */
 .listing-features {
- padding: 25px;
+  padding: 25px;
   background-color: #f1f3f5; 
   border-radius: 20px; 
-}
-
-.listing-features > .section-heading {
-  color: var(--primary-color);
-  font-size: 22pt;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .listing-features ul {
@@ -64,26 +65,14 @@ article {
   margin-bottom: 12px;
   color: #333;
 }
+
+/* Sezione Form (Fai domanda ora) */
 .listing-apply {
-  clear: both; 
-  padding-top: 40px;
-  display: block;
-}
-
-.listing-apply .section-heading {
-  font-size: 24pt;
-  margin-bottom: 20px;
-  color: var(--primary-color);
-}
-
-
-label, input, .error-text {
-  display: block; 
-  width: 100%;
-  max-width: 400px; 
+  padding-top: 20px;
 }
 
 label {
+  display: block;
   color: var(--secondary-color);
   font-weight: bold;
   text-transform: uppercase;
@@ -92,8 +81,10 @@ label {
 }
 
 input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
   font-size: 16pt;
-  margin-bottom: 5px;
   padding: 10px 0;
   border: none;
   border-bottom: solid 2px var(--primary-color);
@@ -105,45 +96,85 @@ input:focus {
   border-bottom: solid 2px var(--secondary-color);
 }
 
-/* Pulsante Applica */
-.primary {
-  display: block;
-  margin-top: 30px;
-}
-
-/* Messaggi di Errore */
-.error-text {
+/* Validazione e Errori */
+.error-msg {
   color: #d9534f;
   font-size: 10pt;
   font-weight: bold;
   margin-top: 5px;
-  margin-bottom: 10px;
+  display: block;
 }
 
 input.ng-invalid.ng-touched {
   border-bottom: 2px solid #d9534f;
 }
 
+/* --- SEZIONE PULSANTI MODIFICATA --- */
+.primary {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+  background-color: #6b5cd7; /* VIOLA */
+  color: white !important;   /* TESTO BIANCO */
+  padding: 12px 35px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16pt;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+.primary:hover:not(:disabled) {
+  background-color: #5a4cb3; /* Viola più scuro al passaggio del mouse */
+}
+
+button.primary:disabled {
+  background-color: #cccccc !important; /* GRIGIO se mancano i dati */
+  color: #666666 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+/* ---------------------------------- */
+
+/* Sezione FAQ */
+.faq-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 15px;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-weight: bold;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.faq-answer {
+  padding: 0 0 12px 0;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-  .listing-photo {
-    width: 100%;
-    height: 400px;
-    float: none;
-    margin-left: 0;
-    margin-bottom: 20px;
+  article {
+    flex-direction: column;
   }
   
-  .listing-features {
-    max-width: 100%;
+  .listing-photo {
+    height: 400px;
   }
   
   input {
     max-width: 100%; 
   }
-}
-.description-btn {
-  margin-top: 20px;
-  width: 100%;
-  max-width: 250px;
 }

@@ -56,76 +56,30 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
       <section class="listing-apply">
         <h2 class="section-heading">Fai domanda ora per vivere qui </h2>
         <form [formGroup]="applyForm" (submit)="submitApplication()">
-          <label for="first-name">Nome</label>
+          
+          <label for="first-name">NOME</label>
           <input id="first-name" type="text" formControlName="firstName">
-          <label for="last-name">Cognome</label>
+          <p *ngIf="applyForm.get('firstName')?.invalid && applyForm.get('firstName')?.touched" class="error-msg">
+            Il nome è obbligatorio
+          </p>
+
+          <label for="last-name">COGNOME</label>
           <input id="last-name" type="text" formControlName="lastName">
-          <label for="email">Email </label>
+          <p *ngIf="applyForm.get('lastName')?.invalid && applyForm.get('lastName')?.touched" class="error-msg">
+            Il cognome è obbligatorio
+          </p>
+
+          <label for="email">EMAIL</label>
           <input id="email" type="email" formControlName="email">
-          <button type="submit" class="primary">Applica ora</button>
+          <p *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched" class="error-msg">
+            Inserisci un'email valida
+          </p>
+
+          <button type="submit" class="primary" [disabled]="applyForm.invalid">Applica ora</button>
         </form>
       </section>
     </div>
   </article>
-
-  <style>
-    /* Organizzazione layout: Foto/FAQ a sinistra, Info a destra */
-    article {
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-    }
-    .photo-side {
-      flex: 1;
-    }
-    .listing-info-container {
-      flex: 1;
-    }
-    .listing-photo {
-      width: 100%;
-      border-radius: 20px;
-      object-fit: cover;
-    }
-
-    /* Stili FAQ */
-    .faq-section {
-      margin-top: 20px;
-      padding: 15px;
-      background: #f9f9f9;
-      border-radius: 15px;
-    }
-    .faq-item {
-      border-bottom: 1px solid #eee;
-    }
-    .faq-question {
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 12px 0;
-      font-weight: bold;
-      color: #6b5cd7; /* Il tuo viola */
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-    .faq-answer {
-      padding: 0 0 12px 0;
-      color: #444;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    .icon {
-      font-size: 1.2rem;
-    }
-
-    /* Responsive per mobile */
-    @media (max-width: 800px) {
-      article {
-        flex-direction: column;
-      }
-    }
-  </style>
   `,
   styleUrls: ['./details.component.css']
 })
@@ -135,12 +89,11 @@ export class DetailsComponent {
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
 
-  // Lista delle FAQ
   faqs = [
-     { 
-    question: "Tutte le strutture sono arredate?", 
-    answer: "Sì, ogni nostra soluzione abitativa viene consegnata completa di arredi essenziali (letto, armadio, cucina e tavolo) per permettere un ingresso immediato.",
-    open: false 
+    { 
+      question: "Tutte le strutture sono arredate?", 
+      answer: "Sì, ogni nostra soluzione abitativa viene consegnata completa di arredi essenziali (letto, armadio, cucina e tavolo) per permettere un ingresso immediato.",
+      open: false 
     },
     { 
       question: "Le utenze sono incluse?", 
@@ -148,25 +101,25 @@ export class DetailsComponent {
       open: false 
     },
     { 
-    question: "Posso visitare la casa prima di decidere?", 
-    answer: "Certamente. Una volta approvata la domanda preliminare, organizzeremo un sopralluogo guidato per permetterti di visionare gli spazi di persona.",
-    open: false 
+      question: "Posso visitare la casa prima di decidere?", 
+      answer: "Certamente. Una volta approvata la domanda preliminare, organizzeremo un sopralluogo guidato per permetterti di visionare gli spazi di persona.",
+      open: false 
     },
     { 
-    question: "Quali documenti sono necessari per la domanda?", 
-    answer: "Sono richiesti un documento d'identità valido, il codice fiscale e, se disponibile, la documentazione rilasciata dai servizi sociali di riferimento.",
-    open: false 
-  },
-  { 
-    question: "Sono ammessi animali domestici?", 
-    answer: "La politica varia a seconda della struttura.",
-    open: false 
-  },
-   { 
-    question: "C'è un limite di età per fare domanda?", 
-    answer: "Le nostre strutture sono aperte a maggiorenni o a nuclei familiari. Per i minori non accompagnati esistono percorsi dedicati tramite i servizi locali.",
-    open: false 
-  }
+      question: "Quali documenti sono necessari per la domanda?", 
+      answer: "Sono richiesti un documento d'identità valido, il codice fiscale e, se disponibile, la documentazione rilasciata dai servizi sociali di riferimento.",
+      open: false 
+    },
+    { 
+      question: "Sono ammessi animali domestici?", 
+      answer: "La politica varia a seconda della struttura.",
+      open: false 
+    },
+    { 
+      question: "C'è un limite di età per fare domanda?", 
+      answer: "Le nostre strutture sono aperte a maggiorenni o a nuclei familiari. Per i minori non accompagnati esistono percorsi dedicati tramite i servizi locali.",
+      open: false 
+    }
   ];
 
   applyForm = new FormGroup({
@@ -187,8 +140,9 @@ export class DetailsComponent {
   }
 
   submitApplication() {
-    if (this.applyForm.invalid) return;
-    const firstName = this.applyForm.value.firstName ?? '';
-    this.router.navigate(['/thank-you'], { queryParams: { name: firstName } });
+    if (this.applyForm.valid) {
+      const firstName = this.applyForm.value.firstName ?? '';
+      this.router.navigate(['/thank-you'], { queryParams: { name: firstName } });
+    }
   }
 }
