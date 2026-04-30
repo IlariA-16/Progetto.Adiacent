@@ -1,44 +1,26 @@
-:host {
-  --content-padding: 20px;
-}
-header {
-  display: flex;
-  align-items: center;
-  height: 80px;
-  padding: 0 var(--content-padding);
-  box-shadow: 0px 5px 25px var(--shadow-color);
-  background-color: white;
-}
-.content {
-  padding: var(--content-padding);
-}
-
-header img {
-  height: 40px;
-  vertical-align: middle;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* Spazio preciso e uguale tra i pulsanti */
-}
-
 .btn-fav-page {
   background-color: var(--primary-color);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 10px; /* Angoli più moderni */
+  color: white !important;
+  padding: 10px 22px;
+  border-radius: 12px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  white-space: nowrap; /* Impedisce al testo di andare a capo */
-  transition: all 0.2s ease;
+  gap: 8px;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+  border: none;
 }
 
+/* Rimosso l'effetto ::before che creava la seconda stella */
+
 .btn-fav-page:hover {
-  filter: brightness(90%);
-  transform: translateY(-2px); /* Leggero movimento verso l'alto */
+  filter: brightness(110%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-fav-page:active {
+  transform: translateY(1px);
 }

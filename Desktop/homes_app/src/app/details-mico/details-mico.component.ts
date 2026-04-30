@@ -53,43 +53,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular
         </button>
         </form>
       </section>
-
-        <!-- NUOVA SEZIONE: FAQ -->
-      <hr class="divider">
-      <section class="info-section">
-        <h2 class="section-heading">Domande Frequenti</h2>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>Come funziona il processo di affitto?</h3>
-            <p>Una volta inviata la richiesta, verrai ricontattato entro 24 ore per una visita virtuale o in presenza.</p>
-          </div>
-          <div class="faq-item">
-            <h3>Sono inclusi i costi delle utenze?</h3>
-            <p>Dipende dalla posizione. Controlla la sezione "Caratteristiche" per vedere se i servizi sono inclusi nel canone.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- NUOVA SEZIONE: FOOTER AZIENDALE -->
-      <footer class="company-footer">
-        <div class="footer-content">
-          <div class="brand-info">
-            <h2 class="footer-logo">Homes</h2>
-            <p>La piattaforma leader per trovare la tua prossima casa in modo semplice, veloce e sicuro.</p>
-          </div>
-          <div class="contact-info">
-            <h3>Contatti</h3>
-            <ul>
-              <li>📍 Via Roma 123, Milano</li>
-              <li>📞 +39 02 123 4567</li>
-              <li>✉️ info@homes-rent.it</li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2024 Homes Inc. Progettato con cura per i nostri inquilini.</p>
-        </div>
-      </footer>
       
     </article>
         `,

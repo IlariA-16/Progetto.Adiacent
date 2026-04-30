@@ -20,12 +20,24 @@ import { HousingService } from '../housing.service';
 
 
       <h2 class="listing-heading">{{housingLocation.name}}</h2>
-      <a [routerLink]="['/details-mico', housingLocation.id]" >Dettaglio Mico</a>
-      <a [routerLink]="['/details', housingLocation.id]" >Dettaglio Ilaria</a>
+      <div class="details-container">
+        <a [routerLink]="['/details-mico', housingLocation.id]">Dettaglio Mico</a>
+        <a [routerLink]="['/details', housingLocation.id]">Dettaglio Ilaria</a>
+      </div>
 
       <button class="star-btn" (click)="toggleFavorite($event)">
         {{ housingService.isFavorite(housingLocation.id) ? '★' : '☆' }}
       </button>
+
+      <footer class="listing-footer">
+
+        <div class="company-info">
+          <p class="brand-name">Housing Homes S.r.l.</p>
+          <p>P.IVA: 1234567890 | <a href="tel:+390123456">📞 Chiama ufficio</a></p>
+        </div>
+
+      </footer>
+      
 
     </section>
   `,
