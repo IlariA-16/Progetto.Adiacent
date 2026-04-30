@@ -1,6 +1,7 @@
 :host {
   --content-padding: 20px;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -8,7 +9,9 @@ header {
   padding: 0 var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
   background-color: white;
+  justify-content: space-between; /* Spinge i pulsanti a destra se il logo è a sinistra */
 }
+
 .content {
   padding: var(--content-padding);
 }
@@ -17,12 +20,20 @@ header img {
   height: 40px;
   vertical-align: middle;
 }
-.btn-fav-page {
+
+/* Stile comune per entrambi i pulsanti */
+.btn-fav-page, .btn-about-page {
   background-color: var(--primary-color);
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  margin-left: 20px;
+  margin-left: 10px; /* Ridotto un po' per farli stare vicini */
+  display: inline-block;
+}
+
+/* Effetto al passaggio del mouse */
+.btn-fav-page:hover, .btn-about-page:hover {
+  filter: brightness(90%);
 }

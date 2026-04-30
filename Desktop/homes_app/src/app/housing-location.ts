@@ -10,4 +10,6 @@ export interface HousingLocation {
     metratura: number;
     piano: string;
     description: string;
+    lati: number;
+    long: number;
 }

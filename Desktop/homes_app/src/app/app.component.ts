@@ -9,9 +9,15 @@ import { RouterModule } from '@angular/router';
     <main>
       <header class="brand-name">
         <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">
-        <a [routerLink]="['/favorites']" class="btn-fav-page">
-        ⭐ I miei Preferiti
-      </a>
+         <div class="nav-links">
+          <a [routerLink]="['/favorites']" class="btn-fav-page">
+            ⭐ I miei Preferiti
+          </a>
+          
+          <a [routerLink]="['/about']" class="btn-about-page">
+            ℹ️ Chi Siamo
+          </a>
+        </div>
       </header>
       <section class="content">
         <router-outlet> </router-outlet>
