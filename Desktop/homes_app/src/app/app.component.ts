@@ -8,7 +8,11 @@ import { RouterModule } from '@angular/router';
     template: `
     <main>
       <header class="brand-name">
-        <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">
+        <!-- AGGIUNTO: Link che riporta alla Home cliccando sul logo -->
+        <a [routerLink]="['/']" style="cursor: pointer; display: flex; align-items: center;">
+          <img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">
+        </a>
+
          <div class="nav-links">
           <a [routerLink]="['/dashboard']" class="btn-dashboard-page">🚀 La mia Dashboard</a>
           <a [routerLink]="['/favorites']" class="btn-fav-page">
@@ -27,7 +31,7 @@ import { RouterModule } from '@angular/router';
   `,
 
   styleUrls: ['./app.component.css'],
-  imports:[HomeComponent,RouterModule]
+  imports:[HomeComponent, RouterModule]
 })
 export class AppComponent {
   title = 'homes';

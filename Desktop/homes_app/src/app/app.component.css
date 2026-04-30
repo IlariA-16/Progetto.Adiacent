@@ -5,11 +5,18 @@
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Logo a sinistra, pulsanti a destra */
   height: 80px;
   padding: 0 var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
   background-color: white;
-  justify-content: space-between; /* Spinge i pulsanti a destra se il logo è a sinistra */
+}
+
+/* CONTENITORE PULSANTI: Li mette uno accanto all'altro */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spazio preciso e uguale tra i pulsanti */
 }
 
 .content {
@@ -21,21 +28,50 @@ header img {
   vertical-align: middle;
 }
 
-/* Aggiungi .btn-dashboard-page all'inizio dell'elenco */
-.btn-dashboard-page, .btn-fav-page, .btn-about-page {
+/* STILE PULSANTI UNIFICATO */
+.btn-dashboard-page, 
+.btn-fav-page, 
+.btn-about-page {
   background-color: var(--primary-color);
   color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 10px 18px;
+  border-radius: 10px; /* Angoli più moderni */
   text-decoration: none;
   font-weight: bold;
-  margin-left: 10px;
-  display: inline-block;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Impedisce al testo di andare a capo */
+  transition: all 0.2s ease;
 }
 
-
-/* Effetto al passaggio del mouse */
-.btn-dashboard-page:hover,.btn-fav-page:hover, .btn-about-page:hover {
+/* EFFETTO AL PASSAGGIO DEL MOUSE */
+.btn-dashboard-page:hover,
+.btn-fav-page:hover, 
+.btn-about-page:hover {
   filter: brightness(90%);
+  transform: translateY(-2px); /* Leggero movimento verso l'alto */
 }
 
+/* STILE LOGO CLICCABILE */
+.brand-name a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.brand-logo {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.brand-name a:focus {
+  outline: none;
+}
