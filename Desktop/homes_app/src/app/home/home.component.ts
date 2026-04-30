@@ -10,6 +10,10 @@ import {RouterModule} from '@angular/router';
   standalone: true,
   imports: [CommonModule,HousingLocationComponent,RouterModule],
   template: `
+
+  
+
+
     <section>
       <form>
         <input type="text" placeholder="Filtra per città" #filter>
@@ -27,11 +31,15 @@ export class HomeComponent {
   housingService :HousingService = inject(HousingService);
   filteredLocationList:HousingLocation [] = [];
 
+  favorites: any[] = [];
+
   constructor(){
     this.housingService.getAllHousingLocation().then((housingLocationList : HousingLocation[]) => {
       this.housingLocationList = housingLocationList;
       this.filteredLocationList = housingLocationList; // Resetta il filtro assegnando alla lista visualizzata l'intero array dei dati originali
     });
+
+     this.favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
   }
 
   filterResults (text: string) {

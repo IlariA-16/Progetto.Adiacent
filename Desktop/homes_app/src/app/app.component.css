@@ -17,3 +17,28 @@ header img {
   height: 40px;
   vertical-align: middle;
 }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spazio preciso e uguale tra i pulsanti */
+}
+
+.btn-fav-page {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px; /* Angoli più moderni */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap; /* Impedisce al testo di andare a capo */
+  transition: all 0.2s ease;
+}
+
+.btn-fav-page:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px); /* Leggero movimento verso l'alto */
+}
