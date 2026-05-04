@@ -4,7 +4,7 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { HousingLocation } from '../housing-location';
 import { HousingService } from '../housing.service';
 import { RouterModule } from '@angular/router';
- 
+
 @Component({
   selector: 'app-favorites',
   standalone: true,
@@ -12,16 +12,23 @@ import { RouterModule } from '@angular/router';
   template: `
     <section class="content">
       <h2 class="section-heading">I miei Preferiti ⭐</h2>
+
+      <section class="search-section">
+        <form (submit)="filterResults(filter.value); $event.preventDefault()">
+          <input type="text" placeholder="Cerca tra i preferiti..." #filter>
+          <button class="primary" type="submit">Cerca</button>
+        </form>
+      </section>
+
       <div class="results">
-        <!-- Ciclo che mostra solo le case preferite -->
         <app-housing-location
-          *ngFor="let housingLocation of favoriteList"
-          [housingLocation]="housingLocation">
+          *ngFor="let housingLocation of filteredFavoriteList"
+          [housingLocation]="housingLocation"
+          (favChanged)="updateFavoriteList()">
         </app-housing-location>
-       
-        <!-- Messaggio se non ci sono preferiti -->
-        <p *ngIf="favoriteList.length === 0">
-          Non hai ancora aggiunto nessuna casa ai tuoi preferiti.
+        
+        <p *ngIf="filteredFavoriteList.length === 0" class="empty-message">
+          Nessun risultato trovato nei tuoi preferiti.
         </p>
       </div>
     </section>
@@ -29,22 +36,34 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent implements OnInit {
+  allLocations: HousingLocation[] = [];
   favoriteList: HousingLocation[] = [];
+  filteredFavoriteList: HousingLocation[] = [];
+  
   housingService: HousingService = inject(HousingService);
- 
-  constructor() {}
- 
+
   async ngOnInit() {
-    // 1. Recupera tutte le case dal database/server
-    const allLocations = await this.housingService.getAllHousingLocation();
-   
-    // 2. Filtra la lista usando DIRETTAMENTE il metodo isFavorite del Service
-    // In questo modo usiamo la stessa chiave 'favorites' che usa la Dashboard!
-    this.favoriteList = allLocations.filter(location =>
+    this.allLocations = await this.housingService.getAllHousingLocation();
+    this.updateFavoriteList();
+  }
+
+  updateFavoriteList() {
+    this.favoriteList = this.allLocations.filter(location =>
       this.housingService.isFavorite(location.id)
+    );
+    this.filteredFavoriteList = [...this.favoriteList];
+  }
+
+  filterResults(text: string) {
+    if (!text) {
+      this.filteredFavoriteList = this.favoriteList;
+      return;
+    }
+    const searchTerm = text.toLowerCase();
+    this.filteredFavoriteList = this.favoriteList.filter(location =>
+      location?.city.toLowerCase().includes(searchTerm) ||
+      location?.name.toLowerCase().includes(searchTerm) ||
+      location?.state.toLowerCase().includes(searchTerm)
     );
   }
 }
- 
- 
- 

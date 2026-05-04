@@ -1,20 +1,73 @@
-.results {
-  display: grid;
-  /* Crea colonne da circa 300px, rimpicciolendo le card */
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-  gap: 20px;
-  justify-items: center; /* Centra le card se ce ne sono poche */
-  padding: 20px 0;
+.content {
+  padding: 20px;
 }
 
-/* Opzionale: limita la larghezza massima di ogni singola card nei preferiti */
-app-housing-location {
-  max-width: 320px;
+/* Barra di ricerca */
+.search-section {
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  border: solid 1px var(--primary-color);
+  padding: 12px;
+  border-radius: 8px;
+  flex: 1;
+  max-width: 400px;
+}
+
+button.primary {
+  padding: 10px 25px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* GRIGLIA: Uguale alla Home per dimensioni */
+.results {
+  display: grid;
+  /* minmax(400px, 1fr) garantisce che la card sia larga e cresca con lo schermo */
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
+  gap: 30px;
+  justify-items: start; /* Allinea a sinistra */
   width: 100%;
 }
 
-.section-heading {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+/* Forziamo il componente a occupare tutto lo spazio della sua cella */
+app-housing-location {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Se usi l'incapsulamento standard di Angular, questo serve per 
+   evitare che la card resti piccola dentro il tag del componente */
+::ng-deep .listing {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.empty-message {
+  grid-column: 1 / -1;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Responsive per schermi piccoli */
+@media (max-width: 500px) {
+  .results {
+    grid-template-columns: 1fr;
+  }
+  form {
+    flex-direction: column;
+  }
+  input[type="text"] {
+    max-width: 100%;
+  }
 }

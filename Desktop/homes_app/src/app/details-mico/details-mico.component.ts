@@ -3,84 +3,108 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HousingService } from '../housing.service'; 
 import { HousingLocation } from '../housing-location'; 
-import { FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-
-
-
-
-
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-details-mico',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   template: `
-    <article>
-      <img class="listing-photo" [src]="housingLocation?.photo" 
-      alt="Exterior photo of {{housingLocation?.name}}">
-      <section class="listing-description">
-      <h2 class="listing-heading">{{housingLocation?.name}}</h2>
-      <p class="listing-location">{{housingLocation?.city}}, {{housingLocation?.state}}</p>
-    </section>
-    
-
-    <section class="listing-features"> 
-      <h2 class="section-heading">A proposito di questa posizione abitativa</h2>
-      <ul>
-        <li>case disponibili: {{housingLocation?.availableUnits}}</li>
-        <li>questa casa ha il wifi: {{housingLocation?.wifi}}</li>
-        <li>questa casa ha la lavanderia: {{housingLocation?.laundry}}</li>
-        </ul>
-      </section>
-      <section class="listing-apply">
-       <h2 class="section-heading">fai richiesta ora per vivere qui</h2>
-
-       <form [formGroup]="applyForm" (ngSubmit)="onSubmit()">
-        <label for="first-name">First Name</label>
-        <input id="first-name" type="text" formControlName="firstName">
-
-        <label for="last-name">Last Name</label>
-        <input id="last-name" type="text" formControlName="lastName">
-
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email">
-        <button type="submit" 
-        class="primary" 
-        [disabled]="!applyForm.valid"
-        [style.opacity]="applyForm.valid ? '1' : '0.5'"
-        [style.cursor]="applyForm.valid ? 'pointer' : 'not-allowed'">
-        Applica ora
-        </button>
-        </form>
-      </section>
+    <article class="details-container">
+      <div class="hero-section">
+        <img class="listing-photo" [src]="housingLocation?.photo" 
+          alt="Foto di {{housingLocation?.name}}">
+        <div class="photo-overlay"></div>
+      </div>
       
-    </article>
-        `,
-  styleUrls: ['./details-mico.component.css']
+      <div class="content-grid">
+        <section class="main-info">
+          <header>
+            <h2 class="listing-heading">{{housingLocation?.name}}</h2>
+            <p class="listing-location">
+              <span class="pin-icon">📍</span> {{housingLocation?.city}}, {{housingLocation?.state}}
+            </p>
+          </header>
 
+          <div class="description-box">
+            <h3 class="section-heading">Descrizione immobile</h3>
+            <p class="text-content">
+              Benvenuti a {{housingLocation?.name}}. Questa struttura offre un'esperienza abitativa 
+              confortevole nel cuore di {{housingLocation?.city}}. Gli interni sono curati per 
+              garantire il massimo relax e funzionalità.
+            </p>
+          </div>
+
+          <div class="features-box">
+            <h3 class="section-heading">Dettagli e Servizi</h3>
+            <div class="features-grid">
+              <div class="feature-item">
+                <span class="label">Disponibilità</span>
+                <span class="value">{{housingLocation?.availableUnits}} unità</span>
+              </div>
+              <div class="feature-item">
+                <span class="label">Wi-Fi</span>
+                <span class="value">{{housingLocation?.wifi ? 'Incluso' : 'Non disponibile'}}</span>
+              </div>
+              <div class="feature-item">
+                <span class="label">Lavanderia</span>
+                <span class="value">{{housingLocation?.laundry ? 'Presente' : 'Non presente'}}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="apply-section">
+          <div class="sticky-form">
+            <h2 class="section-heading">Prenota una visita</h2>
+            <p class="form-subtext">Compila i campi sottostanti per inviare la tua richiesta.</p>
+            
+            <form [formGroup]="applyForm" (ngSubmit)="onSubmit()">
+              <div class="input-group">
+                <label for="first-name">Nome</label>
+                <input id="first-name" type="text" formControlName="firstName">
+              </div>
+
+              <div class="input-group">
+                <label for="last-name">Cognome</label>
+                <input id="last-name" type="text" formControlName="lastName">
+              </div>
+
+              <div class="input-group">
+                <label for="email">Email</label>
+                <input id="email" type="email" formControlName="email">
+              </div>
+
+              <button type="submit" class="primary-btn" [disabled]="!applyForm.valid">
+                Invia Candidatura
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </article>
+  `,
+  styleUrls: ['./details-mico.component.css']
 })
 export class DetailsMicoComponent {
-   route:ActivatedRoute = inject (ActivatedRoute);
-   router: Router = inject(Router);
-    housingService = inject (HousingService);
-    housingLocation:HousingLocation | undefined;
+  route: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
+  housingService = inject(HousingService);
+  housingLocation: HousingLocation | undefined;
 
- // SOSTITUISCI DA QUI...
   applyForm = new FormGroup({
-    firstName: new FormControl('', Validators.required), // Aggiunto Validators.required
-    lastName: new FormControl('', Validators.required),  // Aggiunto Validators.required
-    email: new FormControl('', [Validators.required, Validators.email]), // Aggiunto required e controllo email
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
-  // ...A QUI
 
-    constructor() {
-      const housingLocationId = Number(this.route.snapshot.params['id']);
-     this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
+  constructor() {
+    const housingLocationId = Number(this.route.snapshot.params['id']);
+    this.housingService.getHousingLocationById(housingLocationId).then(housingLocation => {
       this.housingLocation = housingLocation;
-     });
-    }
+    });
+  }
 
-   // Il tuo onSubmit rimane uguale, ora funzionerà perfettamente con i nuovi controlli
   onSubmit() {
     if (this.applyForm.valid) {
       this.housingService.submitApplication(
