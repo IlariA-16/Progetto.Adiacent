@@ -8,44 +8,58 @@ import { HousingLocation } from './housing-location';
   providedIn: 'root'
 })
 export class DbService extends Dexie {
-
   locations!: Table<HousingLocation, number>;
   locations$: Observable<HousingLocation[]>;
 
   constructor() {
     super('HousingDatabase');
 
+    // Definiamo gli indici. 
+    // AGGIUNGO 'name' così puoi filtrare velocemente anche per nome se vorrai.
     this.version(1).stores({
-      locations: '++id, city'
+      locations: '++id, name, city'
     });
 
     this.locations = this.table('locations');
 
-    // ✅ conversione corretta in Observable Angular-friendly
+    // liveQuery trasforma Dexie in un database "reattivo"
     this.locations$ = from(
       liveQuery(() => this.locations.toArray())
     );
   }
 
-  // ✅ Popola il DB solo se vuoto
+  /**
+   * ✅ Popola il DB dal tuo array di dati (che caricherai dal JSON)
+   * Usiamo bulkAdd per performance migliori con molti dati.
+   */
   async seedDatabase(data: HousingLocation[]): Promise<void> {
     const count = await this.locations.count();
-
     if (count === 0) {
       await this.locations.bulkAdd(data);
-      console.log('Database Dexie popolato!');
+      console.log('Database Dexie popolato con i dati iniziali!');
     }
   }
-  async addLocation(location: HousingLocation) {
-  return await this.locations.add(location);
-}
 
-  // ✅ Cancella tutto (utile per test)
+  /**
+   * ✅ Salva una nuova casa nel DB
+   */
+  async addLocation(location: HousingLocation) {
+    // Rimuoviamo l'id se è nullo o 0, così Dexie lo autoincrementa correttamente
+    const { id, ...locationWithoutId } = location; 
+    return await this.locations.add(locationWithoutId as HousingLocation);
+  }
+
+  /**
+   * ✅ Elimina una casa tramite ID
+   */
+  async deleteLocation(id: number): Promise<void> {
+    await this.locations.delete(id);
+  }
+
+  /**
+   * ✅ Svuota tutto (utile per resettare il progetto)
+   */
   async clearDatabase(): Promise<void> {
     await this.locations.clear();
-    
-  }
-    async deleteLocation(id: number): Promise<void> {
-    await this.locations.delete(id);
   }
 }

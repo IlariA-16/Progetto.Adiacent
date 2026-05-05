@@ -5,6 +5,9 @@ import { RouterModule } from '@angular/router';
 import { DbService } from '../db.service';
 import { HousingLocation } from '../housing-location'; 
 
+// Importiamo i dati dal file db.json
+import data from '../../../db.json';
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +21,7 @@ import { HousingLocation } from '../housing-location';
       </form>
     </section>
     <section class="results">
-      <!-- Mostra le case filtrate o tutte quelle caricate dal DB -->
+      <!-- La lista si aggiornerà da sola grazie a liveQuery nel service -->
       <app-housing-location 
         *ngFor="let housingLocation of filteredLocationList" 
         [housingLocation]="housingLocation">
@@ -28,25 +31,28 @@ import { HousingLocation } from '../housing-location';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // Liste per gestire i dati originali e quelli filtrati
   housingLocationList: HousingLocation[] = [];
   filteredLocationList: HousingLocation[] = [];
 
-  // Iniettiamo il DbService che usa Dexie
   private dbService = inject(DbService);
 
   constructor() {}
 
-  ngOnInit() {
-    // Sottoscrizione all'Observable locations$ definito nel tuo DbService.
-    // Grazie a liveQuery, questo blocco si esegue da solo ogni volta che il DB cambia.
-    this.dbService.locations$.subscribe((data: HousingLocation[]) => {
-      this.housingLocationList = data;
-      this.filteredLocationList = data;
+  async ngOnInit() {
+    // 1. Popoliamo il database Dexie con i dati del file JSON (se il DB è vuoto)
+    if (data && data.locations) {
+      await this.dbService.seedDatabase(data.locations);
+    }
+
+    // 2. Ci sottoscriviamo all'Observable reattivo. 
+    // Ogni volta che aggiungerai o eliminerai una casa, la vista cambierà subito.
+    this.dbService.locations$.subscribe((results: HousingLocation[]) => {
+      this.housingLocationList = results;
+      this.filteredLocationList = results;
     });
   }
 
-  // Funzione per filtrare le case in base alla città inserita
+  // Funzione di filtraggio (rimane invariata)
   filterResults(text: string) {
     if (!text) {
       this.filteredLocationList = this.housingLocationList;
