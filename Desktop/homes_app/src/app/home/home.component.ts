@@ -1,45 +1,60 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
-import { HousingLocation } from '../housing-location';
-import { HousingService } from '../housing.service';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { DbService } from '../db.service';
+import { HousingLocation } from '../housing-location'; 
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,HousingLocationComponent,RouterModule],
+  imports: [CommonModule, HousingLocationComponent, RouterModule],
   template: `
     <section>
       <form>
-        <input type="text" placeholder="Filtra per città" #filter>
+        <input type="text" placeholder="Filtra per città" #filter id="city-filter" name="city-filter">
         <button class="primary" type="button" (click)="filterResults(filter.value)">Cerca</button>
       </form>
     </section>
     <section class="results">
-      <app-housing-location *ngFor="let housingLocation of filteredLocationList" [housingLocation]="housingLocation"></app-housing-location>
+      <!-- Mostra le case filtrate o tutte quelle caricate dal DB -->
+      <app-housing-location 
+        *ngFor="let housingLocation of filteredLocationList" 
+        [housingLocation]="housingLocation">
+      </app-housing-location>
     </section>
   `,
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  // Liste per gestire i dati originali e quelli filtrati
   housingLocationList: HousingLocation[] = [];
-  housingService :HousingService = inject(HousingService);
-  filteredLocationList:HousingLocation [] = [];
+  filteredLocationList: HousingLocation[] = [];
 
-  constructor(){
-    this.housingService.getAllHousingLocation().then((housingLocationList : HousingLocation[]) => {
-      this.housingLocationList = housingLocationList;
-      this.filteredLocationList = housingLocationList; // Resetta il filtro assegnando alla lista visualizzata l'intero array dei dati originali
+  // Iniettiamo il DbService che usa Dexie
+  private dbService = inject(DbService);
+
+  constructor() {}
+
+  ngOnInit() {
+    // Sottoscrizione all'Observable locations$ definito nel tuo DbService.
+    // Grazie a liveQuery, questo blocco si esegue da solo ogni volta che il DB cambia.
+    this.dbService.locations$.subscribe((data: HousingLocation[]) => {
+      this.housingLocationList = data;
+      this.filteredLocationList = data;
     });
   }
 
-  filterResults (text: string) {
-     //Se l'input è vuoto, resetta la lista mostrando tutti gli elementi originali
-    if(!text) this.filteredLocationList = this.housingLocationList;
-    this.filteredLocationList = this.housingLocationList.filter(housingLocation => housingLocation?.city.toLowerCase().includes(text.toLocaleLowerCase()));
-    // Filtra la lista originale in base alla città
-    // Trasforma tutto in minuscolo per rendere la ricerca "case-insensitive" (non distingue tra maiuscole e minuscole)
+  // Funzione per filtrare le case in base alla città inserita
+  filterResults(text: string) {
+    if (!text) {
+      this.filteredLocationList = this.housingLocationList;
+      return;
+    }
 
+    this.filteredLocationList = this.housingLocationList.filter(
+      housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+    );
   }
 }

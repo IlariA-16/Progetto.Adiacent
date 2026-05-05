@@ -2,7 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocation } from '../housing-location';
 import { RouterModule } from '@angular/router';
-import { HousingService } from '../housing.service'; // Importante: importiamo il service
+import { HousingService } from '../housing.service'; 
 
 @Component({
   selector: 'app-housing-location',
@@ -22,7 +22,10 @@ import { HousingService } from '../housing.service'; // Importante: importiamo i
     
       <!-- La stella ora chiede direttamente al Service se la casa è tra i preferiti -->
       <button class="star-btn" (click)="toggleFavorite($event)">
-        {{ housingService.isFavorite(housingLocation.id) ? '★' : '☆' }}
+        {{ housingService.isFavorite(housingLocation.id!) ? '★' : '☆' }}
+      </button>
+       <button class="btn-elimina" (click)="eliminaCasa()">
+        Elimina
       </button>
 
       <dialog #mapModal class="modal-container">
@@ -53,6 +56,16 @@ export class HousingLocationComponent {
     
     // Usiamo il metodo del Service! 
     // Questo aggiornerà l'array centrale che la Dashboard legge.
-    this.housingService.toggleFavorite(this.housingLocation.id);
+    this.housingService.toggleFavorite(this.housingLocation.id!);
+  }
+  async eliminaCasa() {
+  if (confirm("Sei sicuro di voler eliminare questa proprietà?")) {
+    // Chiamiamo il metodo del service
+    await this.housingService.deleteHousingLocation(this.housingLocation.id!);
+    
+    // IMPORTANTE: Poiché siamo in una card singola, dopo l'eliminazione 
+    // dobbiamo ricaricare la pagina per non vedere più la casa nella lista.
+    window.location.reload();
+  }
   }
 }

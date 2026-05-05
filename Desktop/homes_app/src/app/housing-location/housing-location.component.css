@@ -93,3 +93,17 @@ section.listing a::after {
   display: flex;
   align-items: center;
 }
+.btn-elimina {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #ff4d4d; /* Rosso */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-elimina:hover {
+  background-color: #cc0000; /* Rosso più scuro al passaggio del mouse */
+}

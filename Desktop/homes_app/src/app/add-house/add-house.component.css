@@ -9,14 +9,13 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* Card: Elegante con un'ombra morbida che riprende il brand */
+/* Card: Elegante con un'ombra morbida */
 .form-container {
   background: #ffffff;
   width: 100%;
   max-width: 480px;
   padding: 40px;
   border-radius: 20px;
-  /* Ombra leggermente violacea per dare profondità */
   box-shadow: 0 10px 30px rgba(96, 93, 200, 0.08);
   border: 1px solid rgba(96, 93, 200, 0.1);
 }
@@ -27,7 +26,6 @@ h2 {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 30px;
-  /* Un tocco di gradiente discreto sul titolo */
   background: linear-gradient(to right, #4a47a3, #605dc8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -37,7 +35,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Label: Grigio scuro per leggibilità, icone con opacità */
 label {
   display: flex;
   align-items: center;
@@ -48,7 +45,6 @@ label {
   font-size: 14px;
 }
 
-/* Input: Puliti, ma con focus viola */
 input[type="text"], 
 input[type="number"] {
   width: 100%;
@@ -58,18 +54,20 @@ input[type="number"] {
   background: #ffffff;
   font-size: 15px;
   transition: all 0.2s ease;
+  box-sizing: border-box; /* Importante per non far uscire l'input dalla card */
 }
 
 input:focus {
   outline: none;
-  border-color: #605dc8; /* Il tuo viola */
+  border-color: #605dc8;
   box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
 }
 
-/* Box Servizi: Più integrato e meno invasivo */
+/* Box Servizi: Ho unito le tue due versioni per uno stile tratteggiato elegante */
 .checkbox-container {
   display: flex;
   justify-content: space-around;
+  gap: 20px;
   padding: 15px;
   background: #fdfcff;
   border: 1px dashed #dcd7fe;
@@ -83,15 +81,17 @@ input:focus {
   gap: 8px;
   cursor: pointer;
   font-weight: 500;
-  color: #6366f1; /* Viola soft */
+  color: #6366f1;
   font-size: 13px;
 }
 
 input[type="checkbox"] {
   accent-color: #605dc8;
+  width: 18px;
+  height: 18px;
 }
 
-/* Bottone: Il vero tocco di classe "Premium" */
+/* Bottone Premium */
 .primary {
   width: 100%;
   padding: 14px;
@@ -110,4 +110,10 @@ input[type="checkbox"] {
   background: #4a47a3;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(96, 93, 200, 0.3);
+}
+
+.primary:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  box-shadow: none;
 }

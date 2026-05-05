@@ -41,7 +41,7 @@ export class FavoritesComponent implements OnInit {
     // 2. Filtra la lista usando DIRETTAMENTE il metodo isFavorite del Service
     // In questo modo usiamo la stessa chiave 'favorites' che usa la Dashboard!
     this.favoriteList = allLocations.filter(location => 
-      this.housingService.isFavorite(location.id)
+      this.housingService.isFavorite(location.id!)
     );
   }
 }

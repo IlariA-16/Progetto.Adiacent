@@ -2,22 +2,7 @@ import { Injectable } from '@angular/core';
 import Dexie, { Table } from 'dexie';
 import { liveQuery } from 'dexie';
 import { from, Observable } from 'rxjs';
-
-export interface HousingLocation {
-  id?: number;
-  name: string;
-  city: string;
-  state: string;
-  photo: string;
-  availableUnits: number;
-  wifi: boolean;
-  laundry: boolean;
-  metratura: number;
-  piano: string;
-  description: string;
-  lat: number;   // ✅ corretto (non "lati")
-  long: number;
-}
+import { HousingLocation } from './housing-location'; 
 
 @Injectable({
   providedIn: 'root'
@@ -58,5 +43,9 @@ export class DbService extends Dexie {
   // ✅ Cancella tutto (utile per test)
   async clearDatabase(): Promise<void> {
     await this.locations.clear();
+    
+  }
+    async deleteLocation(id: number): Promise<void> {
+    await this.locations.delete(id);
   }
 }

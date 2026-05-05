@@ -56,8 +56,8 @@ const routeConfig: Routes = [
     path: 'add',
     component: AddHouseComponent,
     title: 'Aggiungi Proprietà'
-  }
-
+  },
+  
   
 ];
 

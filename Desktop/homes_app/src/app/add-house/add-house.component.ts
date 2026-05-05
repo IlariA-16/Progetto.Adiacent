@@ -1,7 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DbService, HousingLocation } from '../db.service';
+import { HousingLocation } from '../housing-location';
+import { DbService } from '../db.service';
+
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-house',
@@ -11,12 +15,15 @@ import { DbService, HousingLocation } from '../db.service';
   styleUrls: ['./add-house.component.css']
 })
 export class AddHouseComponent {
-  dbService = inject(DbService);
+  // Iniettiamo il servizio del database e il router per la navigazione
+  private dbService = inject(DbService);
+  private router = inject(Router);
 
+  // Definizione del form con i nomi corretti per il tuo DB
   applyForm = new FormGroup({
     name: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
-    state: new FormControl(''),
+    state: new FormControl('Italia'),
     photo: new FormControl(''),
     availableUnits: new FormControl(1),
     metratura: new FormControl(0),
@@ -28,17 +35,54 @@ export class AddHouseComponent {
     long: new FormControl(0)
   });
 
+  // Funzione chiamata al click sul tasto "Salva Proprietà"
   async submitApplication() {
-    if (this.applyForm.invalid) return;
+    // Se il form non è valido (mancano nome o città), non fare nulla
+    if (this.applyForm.invalid) {
+      alert('Per favore, inserisci almeno il nome della casa e la città.');
+      return;
+    }
 
-    const newLocation: HousingLocation = this.applyForm.value as HousingLocation;
+    // Mappiamo i valori del form nell'oggetto HousingLocation
+    // Usiamo Number() e !! per assicurarci che i tipi siano corretti
+    const newLocation: HousingLocation = {
+      name: this.applyForm.value.name ?? '',
+      city: this.applyForm.value.city ?? '',
+      state: this.applyForm.value.state ?? 'Italia',
+      photo: this.applyForm.value.photo ?? '',
+      availableUnits: Number(this.applyForm.value.availableUnits) ?? 1,
+      metratura: Number(this.applyForm.value.metratura) ?? 0,
+      piano: this.applyForm.value.piano ?? '',
+      description: this.applyForm.value.description ?? '',
+      wifi: !!this.applyForm.value.wifi,
+      laundry: !!this.applyForm.value.laundry,
+      lati: Number(this.applyForm.value.lat) ?? 0,
+      long: Number(this.applyForm.value.long) ?? 0
+    };
 
     try {
+      // Salvataggio nel database locale Dexie
       await this.dbService.addLocation(newLocation);
+      
       alert('Proprietà salvata con successo!');
-      this.applyForm.reset({ availableUnits: 1, metratura: 0, lat: 0, long: 0 });
+      
+      // Reset del form ai valori iniziali
+      this.applyForm.reset({ 
+        availableUnits: 1, 
+        metratura: 0, 
+        lat: 0, 
+        long: 0, 
+        state: 'Italia',
+        wifi: false,
+        laundry: false 
+      });
+
+      // Opzionale: Reindirizza l'utente alla Home per vedere la nuova casa
+      this.router.navigate(['/']);
+
     } catch (error) {
-      console.error("Errore:", error);
+      console.error("Errore durante il salvataggio:", error);
+      alert('Si è verificato un errore durante il salvataggio.');
     }
   }
 }

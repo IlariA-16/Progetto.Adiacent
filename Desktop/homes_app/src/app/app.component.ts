@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DbService, HousingLocation } from './db.service';
-
-// ⚠️ assicurati che tsconfig abbia: "resolveJsonModule": true
+import { DbService } from './db.service';
+import { HousingLocation } from './housing-location'; 
 import housingData from '../../db.json';
 
 @Component({
