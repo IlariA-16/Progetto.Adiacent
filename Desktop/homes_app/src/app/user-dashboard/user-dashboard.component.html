@@ -1,14 +1,13 @@
 <section class="dashboard">
   <header class="dashboard-header">
     <h1>La tua Dashboard</h1>
-    <!-- Qui il nome cambierà in base a chi ha fatto domanda -->
+    <!-- Saluto dinamico (Bentornato/a) e nome dell'utente -->
     <p>{{ saluto }}, <strong>{{ userName }}</strong>! Qui puoi monitorare le tue richieste.</p>
-
-
   </header>
 
   <div class="stats-overview">
     <div class="stat-box">
+      <!-- Numero reale delle candidature dal DB -->
       <span class="number">{{ applicationsCount }}</span>
       <span class="label">Domande Inviate</span>
     </div>
@@ -32,13 +31,25 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Usiamo app.locationName e app.city che abbiamo preparato nel .ts -->
           <tr *ngFor="let app of appliedHouses">
-            <td>{{ app.name }}</td>
-            <td>{{ app.location }}</td>
+            <td>{{ app.locationName }}</td>
+            <td>{{ app.city }}</td>
             <td>{{ app.date }}</td>
-            <td><span class="status-badge pending">{{ app.status }}</span></td>
+            <td>
+              <!-- Classe dinamica per il colore dello stato -->
+              <span class="status-badge" 
+                    [ngClass]="{
+                      'approved': app.status === 'Approvata',
+                      'rejected': app.status === 'Rifiutata',
+                      'pending': app.status !== 'Approvata' && app.status !== 'Rifiutata'
+                    }">
+                {{ app.status }}
+              </span>
+            </td>
           </tr>
 
+          <!-- Messaggio se non ci sono candidature -->
           <tr *ngIf="appliedHouses.length === 0">
             <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
               Non hai ancora inviato nessuna candidatura.

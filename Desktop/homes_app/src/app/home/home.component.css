@@ -1,3 +1,4 @@
+/* --- LAYOUT GENERALE --- */
 .results {
   display: grid;
   column-gap: 20px;
@@ -6,6 +7,7 @@
   margin-top: 50px;
 }
 
+/* --- FORM DI RICERCA --- */
 input[type="text"] {
   border: solid 1px var(--primary-color);
   padding: 10px;
@@ -22,8 +24,111 @@ button {
   background: var(--primary-color);
   color: white;
   border-radius: 8px;
+  cursor: pointer;
 }
 
+/* --- MODALE (OVERLAY E CONTENITORE) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 650px; /* Leggermente più larga per far stare le azioni */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  animation: modalScale 0.2s ease-out;
+}
+
+@keyframes modalScale {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-content h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+/* --- TABELLA CANDIDATURE --- */
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.app-table th {
+  text-align: left;
+  border-bottom: 2px solid #eee;
+  padding: 10px 5px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.app-table td {
+  padding: 12px 5px;
+  border-bottom: 1px solid #f5f5f5;
+  vertical-align: middle;
+}
+
+/* --- PULSANTI DI AZIONE NELLA TABELLA --- */
+.action-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-icon {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  font-size: 0.85em;
+  transition: transform 0.1s, opacity 0.2s;
+  min-width: 35px;
+}
+
+.btn-icon:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-icon:active {
+  transform: translateY(0);
+}
+
+/* Colori stati */
+.approve { background-color: #2ecc71; } /* Verde */
+.reject  { background-color: #e67e22; } /* Arancio */
+.delete  { background-color: #e74c3c; } /* Rosso */
+
+/* --- STATI VUOTI E CHIUSURA --- */
+.empty-state {
+  padding: 30px;
+  text-align: center;
+  color: #888;
+}
+
+.close-btn {
+  margin-top: 15px;
+  float: right;
+}
+
+/* --- RESPONSIVE --- */
 @media (min-width: 500px) and (max-width: 768px) {
   .results {
       grid-template-columns: repeat(2, 1fr);
@@ -36,5 +141,12 @@ button {
 @media (max-width: 499px) {
   .results {
       grid-template-columns: 1fr;
-  }    
+  }
+  .modal-content {
+      padding: 20px;
+  }
+  .action-cell {
+      flex-direction: column; /* Impila i tasti su schermi piccolissimi */
+      gap: 4px;
+  }
 }

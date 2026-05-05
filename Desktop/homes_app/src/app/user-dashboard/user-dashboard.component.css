@@ -1,3 +1,4 @@
+/* --- LAYOUT GENERALE --- */
 .dashboard {
   padding: 20px;
   max-width: 1000px;
@@ -6,10 +7,16 @@
 }
 
 .dashboard-header h1 {
-  color: #605ce7; /* Il tuo viola */
+  color: #605ce7; /* Il tuo viola principale */
   margin-bottom: 5px;
 }
 
+.dashboard-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+/* --- BOX DELLE STATISTICHE --- */
 .stats-overview {
   display: flex;
   gap: 20px;
@@ -19,25 +26,50 @@
 .stat-box {
   background: #f8f9ff;
   border: 1px solid #e2e8f0;
-  padding: 20px;
+  padding: 25px;
   border-radius: 12px;
   flex: 1;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-3px);
 }
 
 .stat-box .number {
   display: block;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
   color: #605ce7;
+  margin-bottom: 5px;
+}
+
+.stat-box .label {
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+/* --- TABELLA DELLE CANDIDATURE --- */
+.applications-section {
+  margin-top: 40px;
+}
+
+.applications-section h2 {
+  font-size: 1.3rem;
+  color: #1e293b;
+  margin-bottom: 15px;
 }
 
 .table-wrapper {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   overflow: hidden;
-  margin-top: 15px;
+  border: 1px solid #f1f5f9;
 }
 
 table {
@@ -47,7 +79,7 @@ table {
 }
 
 th, td {
-  padding: 15px;
+  padding: 16px;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -55,28 +87,72 @@ th {
   background: #f8f9ff;
   color: #64748b;
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
+td {
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+/* --- BADGE DI STATO --- */
 .status-badge {
   padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: inline-block;
+  text-align: center;
+  min-width: 100px;
 }
 
+/* Stato: In Revisione (Arancione) */
 .status-badge.pending {
-  background: #fffbeb;
-  color: #b45309;
-  border: 1px solid #fde68a;
+  background-color: #fff4e5;
+  color: #ff9800;
+  border: 1px solid #ffe0b2;
 }
 
+/* Stato: Approvata (Verde) */
+.status-badge.approved {
+  background-color: #e8f5e9;
+  color: #2ecc71;
+  border: 1px solid #c8e6c9;
+}
+
+/* Stato: Rifiutata (Rosso) */
+.status-badge.rejected {
+  background-color: #ffebee;
+  color: #e74c3c;
+  border: 1px solid #ffcdd2;
+}
+
+/* --- BOTTONI --- */
 button.primary {
   margin-top: 30px;
   background: #605ce7;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 10px;
   cursor: pointer;
   font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+button.primary:hover {
+  background: #4f4bc4;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .stats-overview {
+    flex-direction: column;
+  }
+  
+  th, td {
+    padding: 12px 8px;
+    font-size: 0.85rem;
+  }
 }
