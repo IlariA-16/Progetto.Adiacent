@@ -56,9 +56,7 @@
       "laundry": false,
       "metratura": 110,
       "piano": "Ultimo piano (Attico)",
-      "description": "Questa splendida proprietà si distingue per la sua facciata chiara impreziosita da eleganti finiture scure e ampie finestre che inondano gli interni di luce naturale.
-       L'ingresso è valorizzato da graziose fioriere sottostanti le finestre e da un vialetto curato, immerso nel verde di un giardino rigoglioso con alberi ad alto fusto.Completano la proprietà 
-       un comodo garage integrato e un sottotetto con finestra a lucernario, ideale per creare una zona studio o una camera aggiuntiva. Una dimora perfetta per chi cerca tranquillità, stile e spazi funzionali in un contesto residenziale di pregio.",
+      "description": "Elegante villa luminosa con finiture di pregio, immersa in un giardino alberato.Include garage e sottotetto abitabile, ideale per chi cerca stile e tranquillità.",
       "lati": 41.8818,
       "long": -87.6231
     },
@@ -123,7 +121,7 @@
       "long": -122.2400
     },
     {
-      "id": 8,
+      "id":8,
       "name": "Seriously Safe Towns",
       "city": "Oakland",
       "state": "CA",

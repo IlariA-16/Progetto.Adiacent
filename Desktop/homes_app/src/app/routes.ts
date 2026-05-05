@@ -7,6 +7,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { AboutComponent } from './about/about.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { DetailsDescriptionComponent } from './details/details-description/details-description.component';
+import { AddHouseComponent } from './add-house/add-house.component';
 
 const routeConfig: Routes = [
   {
@@ -51,6 +52,11 @@ const routeConfig: Routes = [
   component: UserDashboardComponent,
   title: 'La tua Dashboard'
 },
+ {
+    path: 'add',
+    component: AddHouseComponent,
+    title: 'Aggiungi Proprietà'
+  }
 
   
 ];

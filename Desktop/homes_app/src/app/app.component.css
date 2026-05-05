@@ -75,3 +75,20 @@ header img {
 .brand-name a:focus {
   outline: none;
 }
+.btn-add-page {
+  display: inline-block;
+  background-color: #605dc8; /* Il viola dei tuoi bottoni */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-right: 10px; /* Spazio tra i bottoni */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-add-page:hover {
+  background-color: #4a47a3; 
+}

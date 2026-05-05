@@ -1,0 +1,113 @@
+/* Sfondo: Grigio neutro con un leggerissimo riflesso viola */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f3ff 0%, #f3f4f6 100%);
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Card: Elegante con un'ombra morbida che riprende il brand */
+.form-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  border-radius: 20px;
+  /* Ombra leggermente violacea per dare profondità */
+  box-shadow: 0 10px 30px rgba(96, 93, 200, 0.08);
+  border: 1px solid rgba(96, 93, 200, 0.1);
+}
+
+h2 {
+  color: #2d3748;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  /* Un tocco di gradiente discreto sul titolo */
+  background: linear-gradient(to right, #4a47a3, #605dc8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+/* Label: Grigio scuro per leggibilità, icone con opacità */
+label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Input: Puliti, ma con focus viola */
+input[type="text"], 
+input[type="number"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #605dc8; /* Il tuo viola */
+  box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
+}
+
+/* Box Servizi: Più integrato e meno invasivo */
+.checkbox-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background: #fdfcff;
+  border: 1px dashed #dcd7fe;
+  border-radius: 12px;
+  margin: 25px 0;
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #6366f1; /* Viola soft */
+  font-size: 13px;
+}
+
+input[type="checkbox"] {
+  accent-color: #605dc8;
+}
+
+/* Bottone: Il vero tocco di classe "Premium" */
+.primary {
+  width: 100%;
+  padding: 14px;
+  background: #605dc8;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(96, 93, 200, 0.2);
+}
+
+.primary:hover:not(:disabled) {
+  background: #4a47a3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(96, 93, 200, 0.3);
+}
