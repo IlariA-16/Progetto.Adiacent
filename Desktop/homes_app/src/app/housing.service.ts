@@ -5,29 +5,52 @@ import { HousingLocation } from './housing-location';
   providedIn: 'root'
 })
 export class HousingService {
+  // URL base per le chiamate API (se necessario)
   readonly url = 'http://localhost:3000/locations';
 
-  // Inizializza l'array leggendo dal localStorage all'avvio
+  // Carica i preferiti dal localStorage all'avvio
   private favoriteIds: number[] = JSON.parse(localStorage.getItem('favorites') || '[]');
 
   constructor() { }
 
+  /**
+   * Restituisce la lista degli ID preferiti
+   * Usato da FavoritesComponent
+   */
+  getFavorites(): number[] {
+    return this.favoriteIds;
+  }
+
+  /**
+   * Recupera tutte le locazioni dal server (Metodo Legacy)
+   */
   async getAllHousingLocation(): Promise<HousingLocation[]> {
-    const data = await fetch(this.url);
-    return (await data.json()) ?? [];
+    try {
+      const data = await fetch(this.url);
+      return (await data.json()) ?? [];
+    } catch (error) {
+      console.error("Errore nel recupero delle locazioni:", error);
+      return [];
+    }
   }
 
+  /**
+   * Recupera una singola locazione tramite ID (Metodo richiesto dai componenti Details)
+   * Risolve l'errore TS2551
+   */
   async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
-    const data = await fetch(`${this.url}/${id}`);
-    return (await data.json()) ?? undefined;
+    try {
+      const data = await fetch(`${this.url}/${id}`);
+      return (await data.json()) ?? undefined;
+    } catch (error) {
+      console.warn(`Impossibile trovare la locazione con ID ${id} sul server, potrebbe essere un nuovo inserimento locale.`);
+      return undefined;
+    }
   }
 
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log('Application received:', { firstName, lastName, email });
-  }
-
-  // --- GESTIONE PREFERITI ---
-
+  /**
+   * Gestisce l'aggiunta/rimozione di un ID dai preferiti
+   */
   toggleFavorite(id: number) {
     const index = this.favoriteIds.indexOf(id);
     if (index === -1) {
@@ -35,17 +58,21 @@ export class HousingService {
     } else {
       this.favoriteIds.splice(index, 1);
     }
-    // Salva l'array aggiornato nel browser
+    // Sincronizza con il localStorage
     localStorage.setItem('favorites', JSON.stringify(this.favoriteIds));
   }
 
-  getFavoritesCount(): number {
-    return this.favoriteIds.length;
-  }
-
+  /**
+   * Verifica se una locazione è tra i preferiti
+   */
   isFavorite(id: number): boolean {
     return this.favoriteIds.includes(id);
   }
+
+  /**
+   * Logga i dati del modulo di contatto
+   */
+  submitApplication(firstName: string, lastName: string, email: string) {
+    console.log('Candidatura ricevuta:', { firstName, lastName, email });
+  }
 }
-
-

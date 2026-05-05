@@ -4,6 +4,7 @@ import { DetailsMicoComponent } from "./details-mico/details-mico.component";
 import { DetailsComponent } from "./details/details.component";
 import { ThankYouComponent } from "./thank-you/thank-you.component";
 import { FavoritesComponent } from "./favorites/favorites.component";
+import { AddHouseComponent } from "./add-house/add-house.component";
 
 const routeConfig: Routes = [
   {
@@ -35,6 +36,11 @@ const routeConfig: Routes = [
     component: FavoritesComponent,
     title: 'I miei Preferiti'  },
 
+  {
+    path: 'add',
+    component: AddHouseComponent,
+    title: 'Aggiungi una casa'
+  }
  
 
 

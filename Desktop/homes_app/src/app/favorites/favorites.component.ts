@@ -1,69 +1,70 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { HousingLocation } from '../housing-location';
+import { DbService } from '../db.service';
 import { HousingService } from '../housing.service';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule, HousingLocationComponent, RouterModule],
+  imports: [CommonModule, HousingLocationComponent],
   template: `
-    <section class="content">
-      <h2 class="section-heading">I miei Preferiti ⭐</h2>
+    <section>
+      <!-- Barra di ricerca aggiunta ai preferiti -->
+      <form (submit)="filterResults(filter.value); $event.preventDefault()">
+        <input type="text" placeholder="Cerca tra i tuoi preferiti..." #filter (keyup)="filterResults(filter.value)">
+        <button class="primary" type="submit">Cerca</button>
+      </form>
+    </section>
 
-      <section class="search-section">
-        <form (submit)="filterResults(filter.value); $event.preventDefault()">
-          <input type="text" placeholder="Cerca tra i preferiti..." #filter>
-          <button class="primary" type="submit">Cerca</button>
-        </form>
-      </section>
-
-      <div class="results">
-        <app-housing-location
-          *ngFor="let housingLocation of filteredFavoriteList"
-          [housingLocation]="housingLocation"
-          (favChanged)="updateFavoriteList()">
-        </app-housing-location>
-        
-        <p *ngIf="filteredFavoriteList.length === 0" class="empty-message">
-          Nessun risultato trovato nei tuoi preferiti.
-        </p>
-      </div>
+    <h2 class="section-heading">I miei Preferiti</h2>
+    
+    <section class="results">
+      <p *ngIf="filteredFavoriteList.length === 0">Nessun preferito trovato.</p>
+      
+      <app-housing-location 
+        *ngFor="let location of filteredFavoriteList" 
+        [housingLocation]="location"
+        (favChanged)="updateFavorites()">
+      </app-housing-location>
     </section>
   `,
   styleUrls: ['./favorites.component.css']
 })
-export class FavoritesComponent implements OnInit {
-  allLocations: HousingLocation[] = [];
-  favoriteList: HousingLocation[] = [];
-  filteredFavoriteList: HousingLocation[] = [];
+export class FavoritesComponent {
+  allFavoriteList: HousingLocation[] = []; // Lista completa dei preferiti
+  filteredFavoriteList: HousingLocation[] = []; // Lista filtrata per la visualizzazione
   
-  housingService: HousingService = inject(HousingService);
+  private dbService = inject(DbService);
+  private housingService = inject(HousingService);
 
-  async ngOnInit() {
-    this.allLocations = await this.housingService.getAllHousingLocation();
-    this.updateFavoriteList();
+  constructor() {
+    this.updateFavorites();
   }
 
-  updateFavoriteList() {
-    this.favoriteList = this.allLocations.filter(location =>
-      this.housingService.isFavorite(location.id)
-    );
-    this.filteredFavoriteList = [...this.favoriteList];
+  updateFavorites() {
+    this.dbService.locations$.subscribe((allLocations) => {
+      const favIds = this.housingService.getFavorites();
+      // Prendiamo solo i preferiti dal DB
+      this.allFavoriteList = allLocations.filter(loc => favIds.includes(loc.id));
+      this.filteredFavoriteList = this.allFavoriteList;
+    });
   }
 
+  // Logica di ricerca identica alla Home
   filterResults(text: string) {
     if (!text) {
-      this.filteredFavoriteList = this.favoriteList;
+      this.filteredFavoriteList = this.allFavoriteList;
       return;
     }
-    const searchTerm = text.toLowerCase();
-    this.filteredFavoriteList = this.favoriteList.filter(location =>
-      location?.city.toLowerCase().includes(searchTerm) ||
-      location?.name.toLowerCase().includes(searchTerm) ||
-      location?.state.toLowerCase().includes(searchTerm)
+
+    const lowerText = text.toLowerCase();
+    this.filteredFavoriteList = this.allFavoriteList.filter(
+      location => 
+        location?.city.toLowerCase().includes(lowerText) ||
+        location?.name.toLowerCase().includes(lowerText) ||
+        location?.state.toLowerCase().includes(lowerText)
     );
   }
 }

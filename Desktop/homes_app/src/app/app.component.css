@@ -1,26 +1,79 @@
-.btn-fav-page {
-  background-color: var(--primary-color);
-  color: white !important;
-  padding: 10px 22px;
-  border-radius: 12px;
+.brand-logo {
+  cursor: pointer;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05); /* Effetto d'ingrandimento al passaggio */
+}
+
+/* Rimuove eventuali stili predefiniti dal link che avvolge l'immagine */
+.brand-name a {
   text-decoration: none;
-  font-weight: 700;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  transition: background-color 0.2s ease;
+}
+
+/* Layout dell'Header */
+.brand-name {
+  display: flex;
+  justify-content: space-between; /* Logo a sinistra, tasti a destra */
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px; /* Spazio ridotto tra i bottoni */
+}
+
+/* Stile compatto per i bottoni */
+.btn-fav-page, .btn-add-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px; /* Padding ridotto */
+  border-radius: 8px; /* Meno arrotondati per un look più sobrio */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem; /* Testo leggermente più piccolo */
+  transition: all 0.2s ease;
+}
+
+/* Colori più discreti */
+.btn-fav-page {
+  background-color: #f8f9fa; /* Grigio chiarissimo */
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.btn-add-page {
+  background-color: #1273de;
+  color: white;
   border: none;
 }
 
-/* Rimosso l'effetto ::before che creava la seconda stella */
-
+/* Hover: cambiano colore solo leggermente */
 .btn-fav-page:hover {
-  filter: brightness(110%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff9e6;
+  border-color: #ffb100;
+  color: #ffb100;
 }
 
-.btn-fav-page:active {
-  transform: translateY(1px);
+.btn-add-page:hover {
+  background-color: #0d5bb5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Mobile: nasconde il testo e lascia solo l'emoji se lo schermo è piccolo */
+@media (max-width: 600px) {
+  .btn-fav-page span, .btn-add-page span {
+    display: none;
+  }
+  .btn-fav-page, .btn-add-page {
+    padding: 8px;
+  }
 }

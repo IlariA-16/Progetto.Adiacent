@@ -7,4 +7,10 @@ export interface HousingLocation {
     availableUnits: number;
     wifi: boolean;
     laundry: boolean;
+    // ⬇️ AGGIUNGI QUESTI CAMPI MANCANTI ⬇️
+    metratura: number;
+    piano: number | string;
+    description: string;
+    lat: number;
+    long: number;
 }

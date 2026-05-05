@@ -1,0 +1,76 @@
+<section class="add-house-container">
+  <h2 class="section-heading">Aggiungi una nuova proprietà</h2>
+
+  <form [formGroup]="applyForm" (submit)="submitApplication()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="name">Nome della casa *</label>
+        <input id="name" type="text" formControlName="name" placeholder="Esempio: Villa Belvedere">
+        <span class="error" *ngIf="applyForm.get('name')?.invalid && applyForm.get('name')?.touched">
+          Il nome è obbligatorio.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="city">Città *</label>
+        <input id="city" type="text" formControlName="city" placeholder="Esempio: Milano">
+        <span class="error" *ngIf="applyForm.get('city')?.invalid && applyForm.get('city')?.touched">
+          La città è obbligatoria.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="state">Stato / Provincia</label>
+        <input id="state" type="text" formControlName="state">
+      </div>
+
+      <div class="form-group">
+        <label for="photo">URL Immagine</label>
+        <input id="photo" type="text" formControlName="photo" placeholder="https://...">
+      </div>
+
+      <div class="form-group">
+        <label for="availableUnits">Unità disponibili</label>
+        <input id="availableUnits" type="number" formControlName="availableUnits">
+      </div>
+
+      <div class="form-group">
+        <label for="metratura">Metratura (m²)</label>
+        <input id="metratura" type="number" formControlName="metratura">
+      </div>
+
+      <div class="form-group">
+        <label for="piano">Piano</label>
+        <input id="piano" type="text" formControlName="piano" placeholder="Es: Primo, Terra...">
+      </div>
+
+      <div class="form-group">
+        <label for="lat">Latitudine</label>
+        <input id="lat" type="number" step="any" formControlName="lat">
+      </div>
+
+      <div class="form-group">
+        <label for="long">Longitudine</label>
+        <input id="long" type="number" step="any" formControlName="long">
+      </div>
+    </div>
+
+    <div class="form-group full-width">
+      <label for="description">Descrizione</label>
+      <textarea id="description" formControlName="description" rows="3"></textarea>
+    </div>
+
+    <div class="checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="wifi"> WiFi Disponibile
+      </label>
+      <label>
+        <input type="checkbox" formControlName="laundry"> Lavanderia
+      </label>
+    </div>
+
+    <button type="submit" class="primary" [disabled]="applyForm.invalid">
+      Salva Proprietà
+    </button>
+  </form>
+</section>
