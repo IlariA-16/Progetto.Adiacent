@@ -1,33 +1,120 @@
-/* --- LAYOUT GENERALE --- */
-.results {
+/* --- NUOVO LAYOUT A DUE COLONNE --- */
+.main-layout {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  align-items: flex-start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- SIDEBAR (PANNELLO FILTRI) --- */
+.sidebar {
+  width: 320px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 20px;
+}
+
+.search-box h3, .filters-box h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+/* --- STILE SLIDER PREZZO --- */
+.price-range-container {
+  margin: 20px 0;
+}
+
+.price-range-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.price-range-container b {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+/* Personalizzazione barra slider */
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary-color); /* Colore viola coordinato */
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.filter-group {
+  background: #f8f9ff;
+  padding: 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.btn-clear {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 500;
+  padding: 0;
+}
+
+/* --- GRIGLIA RISULTATI --- */
+.results-container {
+  flex: 1;
+}
+
+.results-grid {
   display: grid;
   column-gap: 20px;
   row-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  margin-top: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
-/* --- FORM DI RICERCA --- */
+/* --- STILE FORM E INPUT --- */
 input[type="text"] {
   border: solid 1px var(--primary-color);
-  padding: 10px;
-  border-radius: 8px;
-  margin-right: 4px;
-  display: inline-block;
-  width: 400px;
-  max-width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-button {
-  padding: 10px;
+button.primary {
+  width: 100%;
+  padding: 12px;
   border: solid 1px var(--primary-color);
   background: var(--primary-color);
   color: white;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-/* --- MODALE (OVERLAY E CONTENITORE) --- */
+/* --- MODALE --- */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -46,7 +133,7 @@ button {
   padding: 30px;
   border-radius: 12px;
   width: 90%;
-  max-width: 650px; /* Leggermente più larga per far stare le azioni */
+  max-width: 650px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   animation: modalScale 0.2s ease-out;
 }
@@ -56,13 +143,6 @@ button {
   to { transform: scale(1); opacity: 1; }
 }
 
-.modal-content h3 {
-  color: var(--primary-color);
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
-/* --- TABELLA CANDIDATURE --- */
 .app-table {
   width: 100%;
   border-collapse: collapse;
@@ -83,7 +163,6 @@ button {
   vertical-align: middle;
 }
 
-/* --- PULSANTI DI AZIONE NELLA TABELLA --- */
 .action-cell {
   display: flex;
   gap: 8px;
@@ -102,26 +181,9 @@ button {
   min-width: 35px;
 }
 
-.btn-icon:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.btn-icon:active {
-  transform: translateY(0);
-}
-
-/* Colori stati */
-.approve { background-color: #2ecc71; } /* Verde */
-.reject  { background-color: #e67e22; } /* Arancio */
-.delete  { background-color: #e74c3c; } /* Rosso */
-
-/* --- STATI VUOTI E CHIUSURA --- */
-.empty-state {
-  padding: 30px;
-  text-align: center;
-  color: #888;
-}
+.approve { background-color: #2ecc71; }
+.reject  { background-color: #e67e22; }
+.delete  { background-color: #e74c3c; }
 
 .close-btn {
   margin-top: 15px;
@@ -129,24 +191,39 @@ button {
 }
 
 /* --- RESPONSIVE --- */
-@media (min-width: 500px) and (max-width: 768px) {
-  .results {
-      grid-template-columns: repeat(2, 1fr);
+@media (max-width: 900px) {
+  .main-layout {
+    flex-direction: column;
   }
-  input[type="text"] {
-      width: 70%;
-  }   
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    box-sizing: border-box;
+  }
+}
+.sort-box {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-@media (max-width: 499px) {
-  .results {
-      grid-template-columns: 1fr;
-  }
-  .modal-content {
-      padding: 20px;
-  }
-  .action-cell {
-      flex-direction: column; /* Impila i tasti su schermi piccolissimi */
-      gap: 4px;
-  }
+.sort-box label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-left: 5px;
+}
+
+select#sortSelect {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dcd7fe;
+  background-color: #f0f0ff;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
 }

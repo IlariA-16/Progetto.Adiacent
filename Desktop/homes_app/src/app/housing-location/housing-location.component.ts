@@ -28,6 +28,7 @@ import { HousingService } from '../housing.service';
        <button class="btn-elimina" (click)="eliminaCasa()">
         Elimina
       </button>
+      <div class="price-badge">€{{housingLocation.price}}</div>
 
       <dialog #mapModal class="modal-container">
         <div class="modal-header">

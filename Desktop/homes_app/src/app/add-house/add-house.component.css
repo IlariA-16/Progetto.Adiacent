@@ -54,7 +54,15 @@ input[type="number"] {
   background: #ffffff;
   font-size: 15px;
   transition: all 0.2s ease;
-  box-sizing: border-box; /* Importante per non far uscire l'input dalla card */
+  box-sizing: border-box;
+}
+
+/* STILE SPECIFICO PER IL CAMPO PREZZO */
+input[formControlName="price"] {
+  font-weight: 700;
+  color: #2d3748;
+  background-color: #f9fffb; /* Riflesso verde chiaro */
+  border-color: #d1fae5;
 }
 
 input:focus {
@@ -63,7 +71,13 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
 }
 
-/* Box Servizi: Ho unito le tue due versioni per uno stile tratteggiato elegante */
+/* Focus specifico per il prezzo (diventa verde) */
+input[formControlName="price"]:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Box Servizi: Stile tratteggiato elegante */
 .checkbox-container {
   display: flex;
   justify-content: space-around;

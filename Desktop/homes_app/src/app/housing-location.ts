@@ -12,5 +12,6 @@ export interface HousingLocation {
     description: string;
     lati: number;
     long: number;
+    price: number;
     isFavorite?: boolean; 
 }

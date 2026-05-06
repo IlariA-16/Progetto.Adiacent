@@ -12,21 +12,74 @@ import data from '../../../db.json';
   standalone: true,
   imports: [CommonModule, HousingLocationComponent, RouterModule],
   template: `
-    <section>
-      <form (submit)="$event.preventDefault()">
-        <input type="text" placeholder="Filtra per città" #filter id="city-filter" name="city-filter">
-        <button class="primary" type="button" (click)="filterResults(filter.value)">Cerca</button>
-      </form>
-    </section>
+    <div class="main-layout">
+      <!-- SIDEBAR LATERALE CON FILTRI -->
+      <aside class="sidebar">
+          <form (submit)="$event.preventDefault()">
+            <section class="search-box">
+              <h3>Cerca Alloggio</h3>
+              <input type="text" placeholder="Città, nome o stato..." #filter id="city-filter" name="city-filter">
+              
+              <!-- SLIDER PER IL PREZZO MASSIMO -->
+              <div class="price-range-container">
+                <label for="priceRange">Prezzo Max: <b>€{{maxPrice.value}}</b></label>
+                <input type="range" 
+                       #maxPrice 
+                       id="priceRange" 
+                       min="0" 
+                       max="5000" 
+                       step="100" 
+                       [value]="5000"
+                       (input)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)">
+              </div>
 
-    <section class="results">
-      <!-- AGGIUNTO IL PIPE ASYNC QUI SOTTO -->
-      <div *ngFor="let housingLocation of (filteredLocationList$ | async)" 
-           (click)="openApplicationsModal(housingLocation)"
-           style="cursor: pointer">
-        <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
-      </div>
-    </section>
+              <!-- MENU A TENDINA ORDINAMENTO -->
+              <div class="sort-box">
+                <label for="sortSelect">Ordina per:</label>
+                <select id="sortSelect" #sortOption (change)="sortResults(sortOption.value)">
+                  <option value="none">Seleziona...</option>
+                  <option value="cheap">Più economica</option>
+                  <option value="expensive">Più costosa</option>
+                  <option value="name">Nome (A-Z)</option>
+                </select>
+              </div>
+            </section>
+
+            <section class="filters-box">
+              <h3>Filtra per servizi</h3>
+              <div class="filter-group">
+                <label>
+                  <input type="checkbox" #wifi (change)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)"> 
+                  <span>📶 Wi-Fi incluso</span>
+                </label>
+                <label>
+                  <input type="checkbox" #laundry (change)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)"> 
+                  <span>🧺 Lavanderia</span>
+                </label>
+              </div>
+              
+              <button class="primary" type="button" (click)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)">
+                Cerca
+              </button>
+              
+              <button class="btn-clear" (click)="filter.value=''; maxPrice.value='5000'; wifi.checked=false; laundry.checked=false; applyFilters('', false, false, '0', '5000')">
+                Svuota filtri
+              </button>
+            </section>
+          </form>
+      </aside>
+
+      <!-- SEZIONE RISULTATI (A DESTRA) -->
+      <section class="results-container">
+        <div class="results-grid">
+          <div *ngFor="let housingLocation of (filteredLocationList$ | async)" 
+               (click)="openApplicationsModal(housingLocation)"
+               style="cursor: pointer">
+            <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <!-- Overlay della Modale -->
     <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
@@ -81,7 +134,6 @@ import data from '../../../db.json';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // Trasformiamo le liste in Observable per Dexie
   housingLocationList$: Observable<HousingLocation[]>;
   filteredLocationList$: Observable<HousingLocation[]>;
   
@@ -92,38 +144,54 @@ export class HomeComponent implements OnInit {
   private dbService = inject(DbService);
 
   constructor() {
-    // Inizializziamo i flussi di dati direttamente dal DbService
     this.housingLocationList$ = this.dbService.locations$;
     this.filteredLocationList$ = this.housingLocationList$;
   }
 
   async ngOnInit() {
-    // Popolamento iniziale se il DB è vuoto
     if (data && data.locations) {
       await this.dbService.seedDatabase(data.locations);
     }
   }
 
-  // --- FILTRO REATTIVO ---
-  filterResults(text: string) {
-    if (!text) {
-      this.filteredLocationList$ = this.housingLocationList$;
-      return;
-    }
-    // Usiamo il map di RxJS per filtrare i dati che arrivano da Dexie
+  applyFilters(city: string, hasWifi: boolean, hasLaundry: boolean, minP: string, maxP: string) {
     this.filteredLocationList$ = this.housingLocationList$.pipe(
-      map(locations => locations.filter(
-        loc => loc.city.toLowerCase().includes(text.toLowerCase())
-      ))
+      map(locations => locations.filter(loc => {
+        const matchCity = loc.city.toLowerCase().includes(city.toLowerCase()) || 
+                          loc.name.toLowerCase().includes(city.toLowerCase());
+        
+        const matchWifi = hasWifi ? loc.wifi === true : true;
+        const matchLaundry = hasLaundry ? loc.laundry === true : true;
+
+        const min = Number(minP);
+        const max = Number(maxP);
+        const matchPrice = loc.price >= min && loc.price <= max;
+        
+        return matchCity && matchWifi && matchLaundry && matchPrice;
+      }))
     );
   }
 
-  // --- LOGICA MODALE ---
+  sortResults(option: string) {
+    this.filteredLocationList$ = this.filteredLocationList$.pipe(
+      map(locations => {
+        const sorted = [...locations];
+        if (option === 'cheap') return sorted.sort((a, b) => a.price - b.price);
+        if (option === 'expensive') return sorted.sort((a, b) => b.price - a.price);
+        if (option === 'name') return sorted.sort((a, b) => a.name.localeCompare(b.name));
+        return sorted;
+      })
+    );
+  }
+
+  filterResults(text: string) {
+    this.applyFilters(text, false, false, '0', '5000');
+  }
+
   async openApplicationsModal(location: HousingLocation) {
     if (!location.id) return;
     this.selectedLocation = location;
     try {
-      // Recupera le applicazioni filtrate per l'ID della casa
       this.currentApplications = await this.dbService.table('applications')
         .where('locationId').equals(location.id).toArray();
       this.showModal = true;
@@ -132,15 +200,14 @@ export class HomeComponent implements OnInit {
 
   async updateStatus(id: number, newStatus: string) {
     await this.dbService.table('applications').update(id, { status: newStatus });
-    // Aggiorna la vista locale della tabella nella modale
     const app = this.currentApplications.find(a => a.id === id);
     if (app) app.status = newStatus;
   }
 
   async deleteApplication(id: number) {
     if (confirm('Sei sicuro di voler eliminare questa candidatura?')) {
-      await this.dbService.table('applications').delete(id);
-      this.currentApplications = this.currentApplications.filter(a => a.id !== id);
+        await this.dbService.table('applications').delete(id);
+        this.currentApplications = this.currentApplications.filter(a => a.id !== id);
     }
   }
 

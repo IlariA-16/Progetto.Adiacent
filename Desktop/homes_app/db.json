@@ -13,7 +13,8 @@
       "piano": "3° piano con ascensore",
       "description": "Questo spazioso trilocale a Chicago offre una zona giorno molto luminosa e rifiniture moderne. Ideale per famiglie, si trova in una zona ricca di servizi e parchi pubblici.",
       "lati": 41.8781,
-      "long": -87.6298
+      "long": -87.6298,
+      "price": 1250
     },
     {
       "id": 1,
@@ -28,7 +29,8 @@
       "piano": "Piano terra",
       "description": "Accogliente bilocale situato a pochi passi dalla spiaggia. Nonostante la metratura contenuta, gli spazi sono ottimizzati perfettamente per garantire il massimo comfort in una delle zone più ambite di Santa Monica.",
       "lati": 34.0195,
-      "long": -118.4912
+      "long": -118.4912,
+      "price": 1800
     },
     {
       "id": 2,
@@ -43,7 +45,8 @@
       "piano": "1° piano",
       "description": "Una soluzione abitativa calda e sicura nel cuore di Juneau. Gli interni presentano dettagli in legno tipici della zona e un eccellente isolamento termico per affrontare i climi più rigidi.",
       "lati": 58.3019,
-      "long": -134.4197
+      "long": -134.4197,
+      "price": 950
     },
     {
       "id": 3,
@@ -58,7 +61,8 @@
       "piano": "Ultimo piano (Attico)",
       "description": "Elegante villa luminosa con finiture di pregio, immersa in un giardino alberato.Include garage e sottotetto abitabile, ideale per chi cerca stile e tranquillità.",
       "lati": 41.8818,
-      "long": -87.6231
+      "long": -87.6231,
+      "price": 2100
     },
     {
       "id": 4,
@@ -73,7 +77,8 @@
       "piano": "2° piano",
       "description": "Appartamento tranquillo e ben collegato, situato in un contesto residenziale curato. La soluzione ideale per chi cerca un equilibrio tra vita cittadina e serenità domestica.",
       "lati": 41.5934,
-      "long": -87.3464
+      "long": -87.3464,
+      "price": 750
     },
     {
       "id": 5,
@@ -88,7 +93,8 @@
       "piano": "4° piano con balcone",
       "description": "Moderno appartamento ad Oakland con un ampio balcone vivibile. La struttura è recente e dotata di sistemi di risparmio energetico all'avanguardia e fibra ottica già installata.",
       "lati": 37.8044,
-      "long": -122.2712
+      "long": -122.2712,
+      "price": 1400
     },
     {
       "id": 6,
@@ -103,7 +109,8 @@
       "piano": "Casa indipendente",
       "description": "Villetta indipendente con giardino privato. Perfetta per chi possiede animali domestici o per chi ama il giardinaggio. Zona estremamente sicura e silenziosa.",
       "lati": 37.8100,
-      "long": -122.2500
+      "long": -122.2500,
+      "price": 2500
     },
     {
       "id": 7,
@@ -118,10 +125,11 @@
       "piano": "3° piano",
       "description": "Bilocale ristrutturato di recente con uno stile minimalista ed elegante. Situato vicino alle principali arterie di comunicazione, è ottimo per pendolari.",
       "lati": 37.7900,
-      "long": -122.2400
+      "long": -122.2400,
+      "price": 1100
     },
     {
-      "id":8,
+      "id": 8,
       "name": "Seriously Safe Towns",
       "city": "Oakland",
       "state": "CA",
@@ -133,7 +141,8 @@
       "piano": "Su più livelli (Duplex)",
       "description": "Ampio duplex perfetto per la condivisione o per famiglie numerose. Gli ampi spazi comuni permettono una vivibilità eccellente, pur mantenendo la privacy nelle zone notte separate.",
       "lati": 37.8200,
-      "long": -122.2800
+      "long": -122.2800,
+      "price": 2800
     },
     {
       "id": 9,
@@ -148,7 +157,8 @@
       "piano": "1° piano con parcheggio",
       "description": "Comodo appartamento a Portland con posto auto riservato incluso. La casa è ben isolata acusticamente e offre un'atmosfera rilassante e moderna.",
       "lati": 45.5152,
-      "long": -122.6784
+      "long": -122.6784,
+      "price": 1350
     }
   ]
 }

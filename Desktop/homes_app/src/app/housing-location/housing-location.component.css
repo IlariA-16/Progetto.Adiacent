@@ -3,6 +3,7 @@
   border-radius: 30px;
   padding-bottom: 30px;
   overflow: hidden;
+  position: relative;
 }
 .listing-heading {
   color: var(--primary-color);
@@ -83,27 +84,99 @@ section.listing a::after {
     font-size: 1.8rem;
 }
 .star-btn {
-  background: none;
-  border: none;
+  /* Posizionamento: stessa altezza di .btn-elimina ma a destra */
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+
+  /* Effetto Vetro (Glassmorphism) */
+  background: rgba(255, 255, 255, 0.25); /* Vetro chiaro per far risaltare l'oro */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  
+  /* Forma e Bordi: coerenti con il tasto Elimina */
+  border-radius: 6px; 
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  
+  /* Stile icona */
   color: gold;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  padding: 4px 8px;
   cursor: pointer;
-  padding: 0;
   line-height: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
+  
+  /* Animazione e Ombra */
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.star-btn:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.1);
 }
 .btn-elimina {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #ff4d4d; /* Rosso */
+  /* Posizionamento invariato */
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 10;
+
+  /* --- MODIFICHE EFFETTO VETRO --- */
+  /* Sfondo più trasparente per far risaltare il blur */
+  background: rgba(255, 50, 50, 0.25); 
+  /* Sfocatura aumentata per un effetto vetro più forte */
+  backdrop-filter: blur(15px);        
+  -webkit-backdrop-filter: blur(15px); 
+  
+  /* --- MODIFICA FORMA --- */
+  /* Ridotto per renderlo meno stondato (quasi squadrato) */
+  border-radius: 6px; 
+
+  /* Stile estetico rifinito */
   color: white;
-  border: none;
-  border-radius: 4px;
+  padding: 6px 14px;
+  /* Bordino più visibile per simulare il riflesso sul bordo del vetro */
+  border: 1px solid rgba(255, 255, 255, 0.4); 
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  /* Ombra più soffusa */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
 }
 
 .btn-elimina:hover {
-  background-color: #cc0000; /* Rosso più scuro al passaggio del mouse */
+  /* Al passaggio del mouse il vetro diventa più "pieno" */
+  background: rgba(204, 0, 0, 0.6); 
+  transform: scale(1.05);
+}
+.price-badge {
+  position: absolute;
+  top: 205px;
+  left: 15px;
+  z-index: 10;
+  display: inline-block;
+  white-space: nowrap;
+
+  /* --- VERDE VETRO PIÙ ACCESO --- */
+  background: rgba(0, 230, 118, 0.5); /* Verde fluo/menta più saturo e opaco al 50% */
+  backdrop-filter: blur(12px);        /* Sfocatura leggermente aumentata */
+  -webkit-backdrop-filter: blur(12px);
+  
+  /* Bordino più luminoso per l'effetto vetro */
+  border: 1px solid rgba(255, 255, 255, 0.5); 
+  border-radius: 6px;
+  
+  /* Stile Testo */
+  color: white;
+  padding: 5px 12px;
+  font-weight: 900; /* Testo ancora più marcato */
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3); /* Ombra coordinata col verde */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }

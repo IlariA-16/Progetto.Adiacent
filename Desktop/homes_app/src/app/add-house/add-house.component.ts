@@ -32,7 +32,8 @@ export class AddHouseComponent {
     wifi: new FormControl(false),
     laundry: new FormControl(false),
     lat: new FormControl(0),
-    long: new FormControl(0)
+    long: new FormControl(0),
+    price: new FormControl(0),
   });
 
   // Funzione chiamata al click sul tasto "Salva Proprietà"
@@ -57,8 +58,10 @@ export class AddHouseComponent {
       wifi: !!this.applyForm.value.wifi,
       laundry: !!this.applyForm.value.laundry,
       lati: Number(this.applyForm.value.lat) ?? 0,
-      long: Number(this.applyForm.value.long) ?? 0
+      long: Number(this.applyForm.value.long) ?? 0,
+      price: Number(this.applyForm.value.price ?? 0),
     };
+    
 
     try {
       // Salvataggio nel database locale Dexie
