@@ -1,19 +1,16 @@
 <section class="dashboard">
   <header class="dashboard-header">
     <h1>La tua Dashboard</h1>
-    <!-- Saluto dinamico (Bentornato/a) e nome dell'utente -->
-    <p>{{ saluto }}, <strong>{{ userName }}</strong>! Qui puoi monitorare le tue richieste.</p>
+    <p><strong>{{ (saluto$ | async) || 'Bentornato, Ospite' }}</strong>! Qui puoi monitorare le tue richieste.</p>
   </header>
 
   <div class="stats-overview">
     <div class="stat-box">
-      <!-- Numero reale delle candidature dal DB con pipe async -->
       <span class="number">{{ (applicationsCount$ | async) || 0 }}</span>
       <span class="label">Domande Inviate</span>
     </div>
     
     <div class="stat-box">
-        <!-- Numero reale dei preferiti dal DB con pipe async -->
         <span class="number">{{ (favoritesCount$ | async) || 0 }}</span>
         <span class="label">Alloggi Preferiti</span>
     </div>
@@ -32,7 +29,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Usiamo appliedHouses$ con il pipe async -->
           <tr *ngFor="let app of (appliedHouses$ | async)">
             <td>{{ app.locationName }}</td>
             <td>{{ app.city }}</td>
@@ -49,7 +45,6 @@
             </td>
           </tr>
 
-          <!-- Messaggio se non ci sono candidature (gestito con l'Observable) -->
           <tr *ngIf="(appliedHouses$ | async)?.length === 0">
             <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
               Non hai ancora inviato nessuna candidatura.
