@@ -20,10 +20,11 @@ import { HousingService } from '../housing.service';
       <a [routerLink]="['/details', housingLocation.id]">Dettaglio Ilaria</a>
       <a [routerLink]="['/details-mico', housingLocation.id]">Dettaglio Mico</a>
     
-      <!-- La stella ora chiede direttamente al Service se la casa è tra i preferiti -->
+      <!-- Leggiamo isFavorite direttamente dall'oggetto della casa -->
       <button class="star-btn" (click)="toggleFavorite($event)">
-        {{ housingService.isFavorite(housingLocation.id!) ? '★' : '☆' }}
+        {{ housingLocation.isFavorite ? '★' : '☆' }}
       </button>
+
        <button class="btn-elimina" (click)="eliminaCasa()">
         Elimina
       </button>
@@ -48,24 +49,20 @@ import { HousingService } from '../housing.service';
 export class HousingLocationComponent {
   @Input() housingLocation!: HousingLocation;
 
-  // Iniezione del Service
   housingService = inject(HousingService);
 
-  toggleFavorite(event: Event) {
-    event.stopPropagation(); // Evita che il click si propaghi ad altri elementi
-    
-    // Usiamo il metodo del Service! 
-    // Questo aggiornerà l'array centrale che la Dashboard legge.
-    this.housingService.toggleFavorite(this.housingLocation.id!);
+  // Gestione preferito tramite l'intero oggetto (richiesto dal nuovo Service)
+  async toggleFavorite(event: Event) {
+    event.stopPropagation();
+    await this.housingService.toggleFavorite(this.housingLocation);
   }
+
+  // Gestione eliminazione (Dexie aggiornerà la UI automaticamente)
   async eliminaCasa() {
-  if (confirm("Sei sicuro di voler eliminare questa proprietà?")) {
-    // Chiamiamo il metodo del service
-    await this.housingService.deleteHousingLocation(this.housingLocation.id!);
-    
-    // IMPORTANTE: Poiché siamo in una card singola, dopo l'eliminazione 
-    // dobbiamo ricaricare la pagina per non vedere più la casa nella lista.
-    window.location.reload();
-  }
+    if (this.housingLocation.id !== undefined && confirm("Sei sicuro di voler eliminare questa proprietà?")) {
+      await this.housingService.deleteHousingLocation(this.housingLocation.id);
+      // Non serve più window.location.reload()! 
+      // Grazie agli Observable, la card sparirà da sola.
+    }
   }
 }

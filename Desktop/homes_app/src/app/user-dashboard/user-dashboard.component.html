@@ -7,13 +7,14 @@
 
   <div class="stats-overview">
     <div class="stat-box">
-      <!-- Numero reale delle candidature dal DB -->
-      <span class="number">{{ applicationsCount }}</span>
+      <!-- Numero reale delle candidature dal DB con pipe async -->
+      <span class="number">{{ (applicationsCount$ | async) || 0 }}</span>
       <span class="label">Domande Inviate</span>
     </div>
     
     <div class="stat-box">
-        <span class="number">{{ favoritesCount }}</span>
+        <!-- Numero reale dei preferiti dal DB con pipe async -->
+        <span class="number">{{ (favoritesCount$ | async) || 0 }}</span>
         <span class="label">Alloggi Preferiti</span>
     </div>
   </div>
@@ -31,13 +32,12 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Usiamo app.locationName e app.city che abbiamo preparato nel .ts -->
-          <tr *ngFor="let app of appliedHouses">
+          <!-- Usiamo appliedHouses$ con il pipe async -->
+          <tr *ngFor="let app of (appliedHouses$ | async)">
             <td>{{ app.locationName }}</td>
             <td>{{ app.city }}</td>
             <td>{{ app.date }}</td>
             <td>
-              <!-- Classe dinamica per il colore dello stato -->
               <span class="status-badge" 
                     [ngClass]="{
                       'approved': app.status === 'Approvata',
@@ -49,8 +49,8 @@
             </td>
           </tr>
 
-          <!-- Messaggio se non ci sono candidature -->
-          <tr *ngIf="appliedHouses.length === 0">
+          <!-- Messaggio se non ci sono candidature (gestito con l'Observable) -->
+          <tr *ngIf="(appliedHouses$ | async)?.length === 0">
             <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
               Non hai ancora inviato nessuna candidatura.
             </td>
