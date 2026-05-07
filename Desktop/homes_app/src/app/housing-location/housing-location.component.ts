@@ -19,17 +19,23 @@ import { HousingService } from '../housing.service';
 
       <a [routerLink]="['/details', housingLocation.id]">Dettaglio Ilaria</a>
       <a [routerLink]="['/details-mico', housingLocation.id]">Dettaglio Mico</a>
-    
-      <!-- Leggiamo isFavorite direttamente dall'oggetto della casa -->
-      <button class="star-btn" (click)="toggleFavorite($event)">
-        {{ housingLocation.isFavorite ? '★' : '☆' }}
-      </button>
 
-       <button class="btn-elimina" (click)="eliminaCasa()">
-        Elimina
-      </button>
-      <div class="price-badge">€{{housingLocation.price}}</div>
+      <div class="top-actions">
 
+        <!-- ⭐ Preferiti -->
+        <button class="star-btn" (click)="toggleFavorite($event)">
+          {{ housingLocation.isFavorite ? '★' : '☆' }}
+        </button>
+
+        <!-- 🗑 Elimina -->
+        <button class="btn-elimina" (click)="eliminaCasa()">
+          Elimina
+        </button>
+
+        <div class="price-badge">€{{housingLocation.price}}</div>
+      </div>
+
+      <!-- MODALE MAPPA -->
       <dialog #mapModal class="modal-container">
         <div class="modal-header">
           <h3>Posizione di {{housingLocation.name}}</h3>
@@ -37,12 +43,15 @@ import { HousingService } from '../housing.service';
         </div>
         <div class="modal-body">
           <p>Vuoi visualizzare la mappa per {{housingLocation.city}}?</p>
-          <a [href]="'https://www.google.com/maps/search/?api=1&query=' + housingLocation.name + ' ' + housingLocation.city" 
-             target="_blank" class="btn-maps">
-             Apri in Google Maps
+          <a 
+            [href]="'https://www.google.com/maps/search/?api=1&query=' + housingLocation.name + ' ' + housingLocation.city" 
+            target="_blank" 
+            class="btn-maps">
+            Apri in Google Maps
           </a>
         </div>
       </dialog>
+
     </section>
   `,
   styleUrls: ['./housing-location.component.css']
@@ -52,18 +61,14 @@ export class HousingLocationComponent {
 
   housingService = inject(HousingService);
 
-  // Gestione preferito tramite l'intero oggetto (richiesto dal nuovo Service)
   async toggleFavorite(event: Event) {
     event.stopPropagation();
     await this.housingService.toggleFavorite(this.housingLocation);
   }
 
-  // Gestione eliminazione (Dexie aggiornerà la UI automaticamente)
   async eliminaCasa() {
     if (this.housingLocation.id !== undefined && confirm("Sei sicuro di voler eliminare questa proprietà?")) {
       await this.housingService.deleteHousingLocation(this.housingLocation.id);
-      // Non serve più window.location.reload()! 
-      // Grazie agli Observable, la card sparirà da sola.
     }
   }
 }

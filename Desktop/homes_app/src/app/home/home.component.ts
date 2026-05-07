@@ -22,15 +22,24 @@ import data from '../../../db.json';
               
               <!-- SLIDER PER IL PREZZO MASSIMO -->
               <div class="price-range-container">
-                <label for="priceRange">Prezzo Max: <b>€{{maxPrice.value}}</b></label>
+                <label for="priceRange">Prezzo Max: <b>€{{maxPriceValue}}</b></label>
                 <input type="range" 
-                       #maxPrice 
-                       id="priceRange" 
-                       min="0" 
-                       max="5000" 
-                       step="100" 
-                       [value]="5000"
-                       (input)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)">
+                #maxPrice
+                id="priceRange" 
+                min="0" 
+                max="5000" 
+                step="100" 
+                [value]="maxPriceValue"
+                (input)="
+                maxPriceValue = +maxPrice.value;
+                applyFilters(
+                  filter.value,
+                  wifi.checked,
+                  laundry.checked,
+                  '0',
+                  maxPrice.value
+                )
+                ">
               </div>
 
               <!-- MENU A TENDINA ORDINAMENTO -->
@@ -62,7 +71,14 @@ import data from '../../../db.json';
                 Cerca
               </button>
               
-              <button class="btn-clear" (click)="filter.value=''; maxPrice.value='5000'; wifi.checked=false; laundry.checked=false; applyFilters('', false, false, '0', '5000')">
+              <button class="btn-clear"(click)="
+              filter.value='';
+              maxPrice.value='5000';
+              maxPriceValue=5000;
+              wifi.checked=false;
+              laundry.checked=false;
+              applyFilters('', false, false, '0', '5000')
+              ">
                 Svuota filtri
               </button>
             </section>
@@ -141,6 +157,8 @@ export class HomeComponent implements OnInit {
   selectedLocation: HousingLocation | null = null;
   currentApplications: any[] = [];
 
+  maxPriceValue = 5000;
+
   private dbService = inject(DbService);
 
   constructor() {
@@ -150,7 +168,12 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     if (data && data.locations) {
-      await this.dbService.seedDatabase(data.locations);
+      await this.dbService.seedDatabase(
+        data.locations.map((location: any) => ({
+          ...location,
+          photos: location.photos ?? []
+        }))
+      );
     }
   }
 

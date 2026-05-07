@@ -41,7 +41,7 @@ export class DbService extends Dexie {
   async seedDatabase(data: HousingLocation[]): Promise<void> {
     const count = await this.locations.count();
     if (count === 0) {
-      await this.locations.bulkAdd(data);
+      await this.locations.bulkPut(data);
     }
   }
 

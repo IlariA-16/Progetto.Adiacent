@@ -31,7 +31,7 @@ export class AddHouseComponent {
     description: new FormControl(''),
     wifi: new FormControl(false),
     laundry: new FormControl(false),
-    lat: new FormControl(0),
+    lati: new FormControl(0),
     long: new FormControl(0),
     price: new FormControl(0),
   });
@@ -57,7 +57,7 @@ export class AddHouseComponent {
       description: this.applyForm.value.description ?? '',
       wifi: !!this.applyForm.value.wifi,
       laundry: !!this.applyForm.value.laundry,
-      lati: Number(this.applyForm.value.lat) ?? 0,
+      lati: Number(this.applyForm.value.lati) ?? 0,
       long: Number(this.applyForm.value.long) ?? 0,
       price: Number(this.applyForm.value.price ?? 0),
     };
@@ -73,7 +73,7 @@ export class AddHouseComponent {
       this.applyForm.reset({ 
         availableUnits: 1, 
         metratura: 0, 
-        lat: 0, 
+        lati: 0, 
         long: 0, 
         state: 'Italia',
         wifi: false,
