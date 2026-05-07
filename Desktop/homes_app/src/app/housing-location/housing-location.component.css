@@ -1,3 +1,4 @@
+/* --- STILE CARD ESISTENTE --- */
 .listing {
   background: var(--accent-color);
   border-radius: 30px;
@@ -24,7 +25,6 @@
   vertical-align: middle;
   margin-right: 5px;
 }
-
 section.listing a {
   padding-left: 20px;
   text-decoration: none;
@@ -35,71 +35,18 @@ section.listing a::after {
   content: "\203A";
   margin-left: 5px;
 }
-/* Stile base della modale nativa */
-.modal-container {
-  border: none;
-  border-radius: 8px;
-  padding: 0;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
 
-/* Sfondo oscurato (backdrop) */
-.modal-container::backdrop {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-}
-
-.modal-body {
-  padding: 1.5rem;
-  text-align: center;
-}
-
-.btn-maps {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color:#e0e7ff;
-  font-weight: bold;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid #5d5dff;
-}
-.btn-maps:hover {
-  background-color: #c7d2fe; /* Si scurisce leggermente al passaggio del mouse */
-}
-.modal-header button {
-    font-weight: bold;
-    color: #ff4d4d; /* La rende rossa per far capire che chiude */
-    font-size: 1.8rem;
-}
+/* --- TASTI SPECIALI (ELIMINA, STAR, PRICE) --- */
 .star-btn {
-  /* Posizionamento: stessa altezza di .btn-elimina ma a destra */
   position: absolute;
   top: 15px;
   right: 15px;
   z-index: 10;
-
-  /* Effetto Vetro (Glassmorphism) */
-  background: rgba(255, 255, 255, 0.25); /* Vetro chiaro per far risaltare l'oro */
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  
-  /* Forma e Bordi: coerenti con il tasto Elimina */
   border-radius: 6px; 
   border: 1px solid rgba(255, 255, 255, 0.4);
-  
-  /* Stile icona */
   color: gold;
   font-size: 1.4rem;
   padding: 4px 8px;
@@ -108,53 +55,38 @@ section.listing a::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  /* Animazione e Ombra */
   transition: all 0.3s ease;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
-
 .star-btn:hover {
   background: rgba(255, 255, 255, 0.45);
   transform: scale(1.1);
 }
+
 .btn-elimina {
-  /* Posizionamento invariato */
   position: absolute;
   top: 15px;
   left: 15px;
   z-index: 10;
-
-  /* --- MODIFICHE EFFETTO VETRO --- */
-  /* Sfondo più trasparente per far risaltare il blur */
   background: rgba(255, 50, 50, 0.25); 
-  /* Sfocatura aumentata per un effetto vetro più forte */
   backdrop-filter: blur(15px);        
   -webkit-backdrop-filter: blur(15px); 
-  
-  /* --- MODIFICA FORMA --- */
-  /* Ridotto per renderlo meno stondato (quasi squadrato) */
   border-radius: 6px; 
-
-  /* Stile estetico rifinito */
   color: white;
   padding: 6px 14px;
-  /* Bordino più visibile per simulare il riflesso sul bordo del vetro */
   border: 1px solid rgba(255, 255, 255, 0.4); 
   cursor: pointer;
   font-weight: bold;
   font-size: 0.8rem;
   text-transform: uppercase;
   transition: all 0.3s ease;
-  /* Ombra più soffusa */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
 }
-
 .btn-elimina:hover {
-  /* Al passaggio del mouse il vetro diventa più "pieno" */
   background: rgba(204, 0, 0, 0.6); 
   transform: scale(1.05);
 }
+
 .price-badge {
   position: absolute;
   top: 205px;
@@ -162,21 +94,92 @@ section.listing a::after {
   z-index: 10;
   display: inline-block;
   white-space: nowrap;
-
-  /* --- VERDE VETRO PIÙ ACCESO --- */
-  background: rgba(0, 230, 118, 0.5); /* Verde fluo/menta più saturo e opaco al 50% */
-  backdrop-filter: blur(12px);        /* Sfocatura leggermente aumentata */
+  background: rgba(0, 230, 118, 0.5); 
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  
-  /* Bordino più luminoso per l'effetto vetro */
   border: 1px solid rgba(255, 255, 255, 0.5); 
   border-radius: 6px;
-  
-  /* Stile Testo */
   color: white;
   padding: 5px 12px;
-  font-weight: 900; /* Testo ancora più marcato */
+  font-weight: 900;
   font-size: 0.9rem;
-  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3); /* Ombra coordinata col verde */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
+}
+
+/* --- NUOVA MODALE GOOGLE MAPS --- */
+.modal-container {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 0;
+  width: 90%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.85); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-container::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.modal-title {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.close-modal {
+  background: transparent;
+  border: none;
+  font-weight: bold;
+  color: #ff4d4d;
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.close-modal:hover {
+  transform: scale(1.2);
+}
+
+.modal-body {
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.modal-body p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.btn-maps {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: var(--primary-color); 
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-maps:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.1);
 }
