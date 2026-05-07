@@ -1,0 +1,112 @@
+<section class="dashboard">
+  <header class="dashboard-header">
+    <h1>La tua Dashboard</h1>
+    <p>{{ saluto }}, <strong>{{ userName }}</strong>! Qui puoi monitorare le tue richieste.</p>
+  </header>
+ 
+  <div class="stats-overview">
+    <div class="stat-box">
+      <span class="number">{{ applicationsCount }}</span>
+      <span class="label">Domande Inviate</span>
+    </div>
+   
+    <div class="stat-box">
+        <span class="number">{{ favoritesCount }}</span>
+        <span class="label">Alloggi Preferiti</span>
+    </div>
+  </div>
+ 
+  <section class="applications-section">
+    <h2>Stato delle Candidature</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Alloggio</th>
+            <th>Località</th>
+            <th>Data Invio</th>
+            <th>Stato</th>
+            <th>Azioni</th> <!-- Nuova colonna -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of appliedHouses" (click)="openGestione(app)" style="cursor: pointer;">
+            <td>{{ app.locationName }}</td>
+            <td>{{ app.city }}</td>
+            <td>{{ app.date }}</td>
+            <td>
+              <span class="status-badge"
+                    [ngClass]="{
+                      'approved': app.status === 'Approvata',
+                      'rejected': app.status === 'Rifiutata',
+                      'pending': app.status !== 'Approvata' && app.status !== 'Rifiutata'
+                    }">
+                {{ app.status }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <!-- Bottone Rifiuta (Arancione) -->
+              <button class="btn-action orange" (click)="rifiutaCandidatura(app.id); $event.stopPropagation()">
+                ✖
+              </button>
+              <!-- Bottone Elimina (Rosso) -->
+              <button class="btn-action red" (click)="eliminaCandidatura(app.id); $event.stopPropagation()">
+                🗑️
+              </button>
+            </td>
+          </tr>
+ 
+          <tr *ngIf="appliedHouses.length === 0">
+            <td colspan="5" style="text-align: center; padding: 20px; color: #667085;">
+              Non hai ancora inviato nessuna candidatura.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+ 
+  <button class="primary" routerLink="/">Cerca nuovi alloggi</button>
+</section>
+
+<!-- MODALE DI GESTIONE CON TABELLA CANDIDATI -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Gestione Candidature: {{ selectedApp?.locationName }}</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <table class="modal-table">
+        <thead>
+          <tr>
+            <th>Candidato</th>
+            <th>Data</th>
+            <th>Stato</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of candidatiPerCasa">
+            <td>{{ c.firstName }} {{ c.lastName }}</td>
+            <td>{{ c.date }}</td>
+            <td>
+              <span [style.color]="getStatusColor(c.status)" style="font-weight: bold;">
+                {{ c.status }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="btn-action orange" (click)="rifiutaCandidatura(c.id)">✖</button>
+              <button class="btn-action red" (click)="eliminaCandidatura(c.id)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-close-final" (click)="closeModal()">Chiudi</button>
+    </div>
+  </div>
+</div>

@@ -6,9 +6,20 @@
       "city": "Chicago",
       "state": "IL",
       "photo": "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+      "photos": [
+        "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=600",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=600"
+      ],
       "availableUnits": 4,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "price": 750,
+      "metratura": 65,
+      "piano": 2,
+      "description": "Bellissimo appartamento spazioso nel cuore di Chicago.",
+      "lat": 41.8781,
+      "long": -87.6298
     },
     {
       "id": 1,
@@ -16,9 +27,20 @@
       "city": "Santa Monica",
       "state": "CA",
       "photo": "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+      "photos": [
+        "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=600",
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600"
+      ],
       "availableUnits": 0,
       "wifi": false,
-      "laundry": true
+      "laundry": true,
+      "price": 1200,
+      "metratura": 45,
+      "piano": "Terra",
+      "description": "Accogliente sistemazione a pochi passi dall'oceano.",
+      "lat": 34.0195,
+      "long": -118.4912
     },
     {
       "id": 2,
@@ -26,9 +48,19 @@
       "city": "Juneau",
       "state": "AK",
       "photo": "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+      "photos": [
+        "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+        "https://images.unsplash.com/photo-1444201983204-c43cbd584d93?q=80&w=600"
+      ],
       "availableUnits": 1,
       "wifi": false,
-      "laundry": false
+      "laundry": false,
+      "price": 550,
+      "metratura": 30,
+      "piano": 1,
+      "description": "Ambiente caldo e riparato perfetto per il clima dell'Alaska.",
+      "lat": 58.3019,
+      "long": -134.4197
     },
     {
       "id": 3,
@@ -36,9 +68,19 @@
       "city": "Chicago",
       "state": "IL",
       "photo": "/assets/ian-macdonald-W8z6aiwfi1E-unsplash.jpg",
+      "photos": [
+        "/assets/ian-macdonald-W8z6aiwfi1E-unsplash.jpg",
+        "https://images.unsplash.com/photo-1536376074432-c6258d1448a9?q=80&w=600"
+      ],
       "availableUnits": 1,
       "wifi": true,
-      "laundry": false
+      "laundry": false,
+      "price": 850,
+      "metratura": 55,
+      "piano": 4,
+      "description": "Moderno loft con vista panoramica sulla città.",
+      "lat": 41.8818,
+      "long": -87.6231
     },
     {
       "id": 4,
@@ -46,9 +88,19 @@
       "city": "Gary",
       "state": "IN",
       "photo": "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+      "photos": [
+        "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=600"
+      ],
       "availableUnits": 1,
       "wifi": true,
-      "laundry": false
+      "laundry": false,
+      "price": 400,
+      "metratura": 70,
+      "piano": 2,
+      "description": "Soluzione economica ideale per piccole famiglie.",
+      "lat": 41.5934,
+      "long": -87.3464
     },
     {
       "id": 5,
@@ -56,9 +108,19 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+      "photos": [
+        "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+        "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=600"
+      ],
       "availableUnits": 2,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "price": 1100,
+      "metratura": 50,
+      "piano": 3,
+      "description": "Appartamento luminoso in zona residenziale tranquilla.",
+      "lat": 37.8044,
+      "long": -122.2712
     },
     {
       "id": 6,
@@ -66,9 +128,19 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+      "photos": [
+        "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+        "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?q=80&w=600"
+      ],
       "availableUnits": 5,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "price": 950,
+      "metratura": 80,
+      "piano": "Rialzato",
+      "description": "Massima sicurezza e ampi spazi comuni.",
+      "lat": 37.8044,
+      "long": -122.2712
     },
     {
       "id": 7,
@@ -76,9 +148,19 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+      "photos": [
+        "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+        "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=600"
+      ],
       "availableUnits": 2,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "price": 1050,
+      "metratura": 60,
+      "piano": 1,
+      "description": "Ottima posizione vicina ai principali mezzi di trasporto.",
+      "lat": 37.8044,
+      "long": -122.2712
     },
     {
       "id": 8,
@@ -86,9 +168,19 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+      "photos": [
+        "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+        "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=600"
+      ],
       "availableUnits": 10,
       "wifi": false,
-      "laundry": false
+      "laundry": false,
+      "price": 600,
+      "metratura": 90,
+      "piano": 5,
+      "description": "Stanze ampie e luminose in complesso moderno.",
+      "lat": 37.8044,
+      "long": -122.2712
     },
     {
       "id": 9,
@@ -96,9 +188,19 @@
       "city": "Portland",
       "state": "OR",
       "photo": "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+      "photos": [
+        "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+        "https://images.unsplash.com/photo-1502672023488-70e25813efdf?q=80&w=600"
+      ],
       "availableUnits": 6,
       "wifi": true,
-      "laundry": true
+      "laundry": true,
+      "price": 1300,
+      "metratura": 100,
+      "piano": 3,
+      "description": "Esclusivo attico con finiture di pregio a Portland.",
+      "lat": 45.5152,
+      "long": -122.6784
     }
   ]
 }

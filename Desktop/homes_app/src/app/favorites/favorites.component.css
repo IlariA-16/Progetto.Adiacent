@@ -1,73 +1,142 @@
-.content {
-  padding: 20px;
+/* --- LAYOUT GENERALE (SIDEBAR + CONTENT) --- */
+.home-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr; /* Sidebar fissa, resto ai risultati */
+  gap: 40px;
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 20px;
+  align-items: start;
 }
 
-/* Barra di ricerca */
-.search-section {
+/* --- SIDEBAR --- */
+.sidebar {
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  position: relative; /* Resta fissa in alto */
+}
+
+.sidebar-section {
   margin-bottom: 30px;
 }
 
-form {
+.sidebar-section h3 {
+  color: #1e293b;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  font-weight: 700;
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-input[type="text"] {
-  border: solid 1px var(--primary-color);
-  padding: 12px;
-  border-radius: 8px;
-  flex: 1;
-  max-width: 400px;
+/* Valori dinamici accanto ai titoli (es. 2500€) */
+.sidebar-section h3 span {
+  color: #605ce7;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
-button.primary {
-  padding: 10px 25px;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 8px;
+/* Barra di ricerca */
+.search-box input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-box input:focus {
+  border-color: #605ce7;
+}
+
+/* --- SLIDERS (Prezzo e Metratura) --- */
+.price-slider-container {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 16px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 5px;
+  outline: none;
+  margin: 10px 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #605ce7;
+  border-radius: 50%;
   cursor: pointer;
-  font-weight: bold;
+  border: 2px solid white;
 }
 
-/* GRIGLIA: Uguale alla Home per dimensioni */
-.results {
+/* --- GRUPPI DI BOTTONI (Piano e Unità) --- */
+.unit-filter-group {
+  display: flex;
+  gap: 8px;
+  background: #f8fafc;
+  padding: 8px;
+  border-radius: 14px;
+}
+
+.unit-filter-group button {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 10px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.unit-filter-group button.active {
+  background: #605ce7;
+  color: white;
+  border-color: #605ce7;
+  box-shadow: 0 4px 10px rgba(96, 92, 231, 0.2);
+}
+
+/* --- RISULTATI (DESTRA) --- */
+.results-header h2 {
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 25px;
+}
+
+.results-grid {
   display: grid;
-  /* minmax(400px, 1fr) garantisce che la card sia larga e cresca con lo schermo */
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-  gap: 30px;
-  justify-items: start; /* Allinea a sinistra */
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 25px;
 }
 
-/* Forziamo il componente a occupare tutto lo spazio della sua cella */
-app-housing-location {
-  width: 100%;
-  max-width: 100%;
+.no-results-msg {
+  text-align: center;
+  padding: 50px;
+  color: #94a3b8;
+  font-weight: 500;
 }
 
-/* Se usi l'incapsulamento standard di Angular, questo serve per 
-   evitare che la card resti piccola dentro il tag del componente */
-::ng-deep .listing {
-  width: 100% !important;
-  max-width: none !important;
-}
-
-.empty-message {
-  grid-column: 1 / -1;
-  color: #666;
-  margin-top: 20px;
-}
-
-/* Responsive per schermi piccoli */
-@media (max-width: 500px) {
-  .results {
-    grid-template-columns: 1fr;
+/* --- RESPONSIVE --- */
+@media (max-width: 950px) {
+  .home-layout {
+    grid-template-columns: 1fr; /* Sidebar sopra ai risultati su mobile */
   }
-  form {
-    flex-direction: column;
-  }
-  input[type="text"] {
-    max-width: 100%;
+  .sidebar {
+    margin-bottom: 30px;
   }
 }

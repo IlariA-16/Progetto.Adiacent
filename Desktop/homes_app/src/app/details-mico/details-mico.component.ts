@@ -12,8 +12,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
   template: `
     <article class="details-container">
       <div class="hero-section">
-        <img class="listing-photo" [src]="housingLocation?.photo" 
+        <button type="button" class="carousel-btn prev" (click)="prevPhoto()" *ngIf="getPhotos().length > 1">❮</button>
+        
+        <img class="listing-photo" [src]="getPhotos()[currentIndex]" 
           alt="Foto di {{housingLocation?.name}}">
+        
+        <button type="button" class="carousel-btn next" (click)="nextPhoto()" *ngIf="getPhotos().length > 1">❯</button>
+        
         <div class="photo-overlay"></div>
       </div>
       
@@ -52,6 +57,21 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
               </div>
             </div>
           </div>
+
+          <section class="faq-section">
+            <h3 class="section-heading">Domande Frequenti</h3>
+            <div class="faq-container">
+              <div *ngFor="let faq of faqs; let i = index" class="faq-item">
+                <button type="button" class="faq-question" (click)="toggleFaq(i)">
+                  {{ faq.q }}
+                  <span class="faq-icon">{{ openedFaq === i ? '−' : '+' }}</span>
+                </button>
+                <div class="faq-answer" [class.open]="openedFaq === i">
+                  <p>{{ faq.a }}</p>
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
 
         <section class="apply-section">
@@ -92,6 +112,17 @@ export class DetailsMicoComponent {
   housingService = inject(HousingService);
   housingLocation: HousingLocation | undefined;
 
+  // AGGIUNTO: Indice per il carosello
+  currentIndex: number = 0;
+
+  // Variabili per le FAQ
+  openedFaq: number | null = null;
+  faqs = [
+    { q: "Sono ammessi animali domestici?", a: "Sì, accettiamo animali di piccola taglia previa comunicazione." },
+    { q: "Le bollette sono incluse nel prezzo?", a: "Il canone include acqua e condominio; luce e gas sono a parte." },
+    { q: "C'è un deposito cauzionale?", a: "Sì, è richiesta una cauzione pari a due mensilità." }
+  ];
+
   applyForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
@@ -105,13 +136,35 @@ export class DetailsMicoComponent {
     });
   }
 
+  // AGGIUNTO: Funzione helper per ottenere le foto in sicurezza
+  getPhotos(): string[] {
+    if (this.housingLocation?.photos && this.housingLocation.photos.length > 0) {
+      return this.housingLocation.photos;
+    }
+    return this.housingLocation?.photo ? [this.housingLocation.photo] : [];
+  }
+
+  // AGGIUNTO: Metodi di navigazione carosello
+  nextPhoto() {
+    this.currentIndex = (this.currentIndex + 1) % this.getPhotos().length;
+  }
+
+  prevPhoto() {
+    this.currentIndex = (this.currentIndex - 1 + this.getPhotos().length) % this.getPhotos().length;
+  }
+
+  toggleFaq(index: number) {
+    this.openedFaq = this.openedFaq === index ? null : index;
+  }
+
   onSubmit() {
-    if (this.applyForm.valid) {
-      this.housingService.submitApplication(
-        this.applyForm.value.firstName ?? '',
-        this.applyForm.value.lastName ?? '',
-        this.applyForm.value.email ?? ''
-      );
+    const fName = this.applyForm.value.firstName ?? '';
+    const lName = this.applyForm.value.lastName ?? '';
+    const email = this.applyForm.value.email ?? '';
+    const idCasa = this.housingLocation?.id;
+
+    if (this.applyForm.valid && idCasa !== undefined) {
+      this.housingService.submitApplication(fName, lName, email, idCasa);
       this.router.navigate(['/thank-you']);
     } else {
       alert('Per favore, compila tutti i campi correttamente.');

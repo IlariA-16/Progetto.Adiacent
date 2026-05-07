@@ -1,40 +1,244 @@
-.results {
+/* --- LAYOUT GENERALE --- */
+.home-layout {
   display: grid;
-  column-gap: 20px;
-  row-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  margin-top: 50px;
+  grid-template-columns: 320px 1fr; /* Sidebar a sinistra, risultati a destra */
+  gap: 40px;
+  max-width: 1400px;
+  margin: 30px auto;
+  padding: 0 20px;
+  align-items: start;
 }
 
-input[type="text"] {
-  border: solid 1px var(--primary-color);
-  padding: 10px;
-  border-radius: 8px;
-  margin-right: 4px;
-  display: inline-block;
-  width: 400px;
-  max-width: 100%;
+/* --- SIDEBAR (Barra laterale filtri) --- */
+.sidebar {
+  background: white;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  position: relative; /* Non segue lo scorrimento */
 }
 
-button {
-  padding: 10px;
-  border: solid 1px var(--primary-color);
-  background: var(--primary-color);
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.sidebar-section h3 {
+  color: #1e293b;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Valore numerico accanto al titolo (es. 2500€ o 100m²) */
+.sidebar-section h3 span {
+  color: #605ce7;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* Box di ricerca */
+.search-box input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.search-box input:focus {
+  border-color: #605ce7;
+}
+
+/* --- SLIDERS (Prezzo e Metratura) --- */
+.price-slider-container {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 16px;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 5px;
+  outline: none;
+  margin: 10px 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #605ce7;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- GRUPPI DI BOTTONI (Unità e Piano) --- */
+.unit-filter-group {
+  display: flex;
+  gap: 8px;
+  background: #f8fafc;
+  padding: 8px;
+  border-radius: 14px;
+}
+
+.unit-filter-group button {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  background: white;
+  padding: 10px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.unit-filter-group button:hover {
+  border-color: #605ce7;
+  color: #605ce7;
+}
+
+.unit-filter-group button.active {
+  background: #605ce7;
   color: white;
+  border-color: #605ce7;
+  box-shadow: 0 4px 10px rgba(96, 92, 231, 0.2);
+}
+
+/* --- CASELLA SERVIZI (Checkbox) --- */
+.filter-box {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-option input { display: none; }
+
+.custom-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #cbd5e1;
+  border-radius: 6px;
+  margin-right: 12px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.filter-option input:checked + .custom-checkbox {
+  background-color: #605ce7;
+  border-color: #605ce7;
+}
+
+.custom-checkbox::after {
+  content: "✓";
+  color: white;
+  font-size: 14px;
+  display: none;
+}
+
+.filter-option input:checked + .custom-checkbox::after { display: block; }
+
+.btn-reset {
+  background: none;
+  border: none;
+  color: #605ce7;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  margin-top: 5px;
+  text-decoration: underline;
+}
+
+/* --- RISULTATI --- */
+.results-header h2 {
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 25px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 25px;
+}
+
+/* --- MODALE --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 650px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.actions-cell { display: flex; gap: 8px; }
+
+.btn-action {
+  border: none;
+  border-radius: 6px;
+  width: 32px; height: 32px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-action.orange { background: #f39c12; }
+.btn-action.red { background: #e74c3c; }
+.btn-action.green { background: #2ecc71; }
+
+.btn-close-final {
+  background: #605ce7;
+  color: white;
+  border: none;
+  padding: 10px 25px;
   border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  float: right;
 }
 
-@media (min-width: 500px) and (max-width: 768px) {
-  .results {
-      grid-template-columns: repeat(2, 1fr);
-  }
-  input[type="text"] {
-      width: 70%;
-  }   
-}
-
-@media (max-width: 499px) {
-  .results {
-      grid-template-columns: 1fr;
-  }    
+/* --- RESPONSIVE --- */
+@media (max-width: 950px) {
+  .home-layout { grid-template-columns: 1fr; }
+  .sidebar { margin-bottom: 30px; }
 }

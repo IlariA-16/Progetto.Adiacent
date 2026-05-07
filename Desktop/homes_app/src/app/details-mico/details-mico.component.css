@@ -170,3 +170,144 @@
         grid-template-columns: 1fr;
     }
 }
+
+.faq-section {
+  margin-top: 40px;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border: 1px solid #e0d9ff;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #605ce7; /* Il tuo viola */
+  cursor: pointer;
+  text-align: left;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, padding 0.3s;
+  background: #fcfbff;
+  color: #64748b;
+}
+
+.faq-answer.open {
+  max-height: 200px;
+  padding: 15px 20px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.faq-icon {
+  font-size: 1.4rem;
+}
+
+/* Container principale dell'immagine */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 450px; /* Altezza fissa per il carosello */
+  background-color: #f0f0f0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile dell'immagine */
+.listing-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mantiene le proporzioni senza schiacciare l'immagine */
+  display: block;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Pulsanti di navigazione (frecce) */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Sfondo semi-trasparente */
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s, scale 0.2s;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  scale: 1.1;
+}
+
+/* Posizionamento delle frecce */
+.prev {
+  left: 15px;
+}
+
+.next {
+  right: 15px;
+}
+
+/* Overlay per il contatore e sfumature */
+.photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.4));
+  pointer-events: none; /* Permette di cliccare attraverso l'overlay */
+}
+
+/* Contatore foto (es. 1 / 3) */
+.photo-counter {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  z-index: 11;
+}
+
+/* Responsive: riduciamo l'altezza su schermi piccoli */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 300px;
+  }
+  
+  .carousel-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+}

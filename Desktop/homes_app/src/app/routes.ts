@@ -5,6 +5,8 @@ import { DetailsComponent } from "./details/details.component";
 import { ThankYouComponent } from "./thank-you/thank-you.component";
 import { FavoritesComponent } from "./favorites/favorites.component";
 import { AddHouseComponent } from "./add-house/add-house.component";
+import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { AboutComponent } from "./about/about.component";
 
 const routeConfig: Routes = [
   {
@@ -40,7 +42,21 @@ const routeConfig: Routes = [
     path: 'add',
     component: AddHouseComponent,
     title: 'Aggiungi una casa'
-  }
+  },
+
+  {
+    path: 'dashboard',
+    component: UserDashboardComponent,
+    title: 'Dashboard Utente'
+
+  },
+  
+  {
+    path: 'about',
+    component: AboutComponent,
+    title: 'Chi Siamo'
+
+  },
  
 
 

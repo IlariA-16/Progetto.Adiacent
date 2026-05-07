@@ -15,14 +15,25 @@ import { HousingLocation } from './housing-location';
         </a>
         
         <div class="nav-links">
-          <a [routerLink]="['/favorites']" class="btn-fav-page">
+          <!-- Tutti i bottoni ora condividono lo stesso stile grafico -->
+          <a [routerLink]="['/dashboard']" class="nav-button">
+            <span>📊</span> <span>La mia Dashboard</span>
+          </a>
+
+          <a [routerLink]="['/favorites']" class="nav-button">
             <span>⭐</span> <span>I miei Preferiti</span>
           </a>
-          <a [routerLink]="['/add']" class="btn-add-page">
+          
+          <a [routerLink]="['/add']" class="nav-button">
             <span>➕</span> <span>Aggiungi Casa</span>
+          </a>
+          
+          <a [routerLink]="['/about']" class="nav-button">
+            <span>ℹ️</span> <span>Chi Siamo</span>
           </a>
         </div>
       </header>
+
       <section class="content">
         <router-outlet></router-outlet>
       </section>
@@ -38,29 +49,15 @@ export class AppComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     try {
-      console.log('Tentativo di connessione al server dati...');
-
-      // Carichiamo i dati dal json-server (porta 3000)
-      // Dato che db.json è nella root, usiamo l'endpoint del server
       const response = await fetch('http://localhost:3000/locations');
-      
-      if (!response.ok) {
-        throw new Error(`Server non raggiungibile. Status: ${response.status}`);
-      }
-
+      if (!response.ok) throw new Error(`Server status: ${response.status}`);
       const data: HousingLocation[] = await response.json();
 
       if (data && data.length > 0) {
-        // Popoliamo il database Dexie solo se è vuoto (logica gestita nel Service)
         await this.dbService.seedDatabase(data);
-        console.log('✅ Dexie inizializzato con successo con i dati dal server!');
-      } else {
-        console.warn('⚠️ Il server ha risposto, ma l\'elenco delle case è vuoto.');
       }
-
     } catch (error) {
-      console.error('❌ Errore durante l\'inizializzazione di Dexie:', error);
-      console.log('Suggerimento: Assicurati di aver avviato il server con: npx json-server --watch db.json');
+      console.error('Errore inizializzazione Dexie:', error);
     }
   }
 }

@@ -4,13 +4,14 @@ export interface HousingLocation {
     city: string;
     state: string;
     photo: string;
+    photos?: string[]; 
     availableUnits: number;
     wifi: boolean;
     laundry: boolean;
-    // ⬇️ AGGIUNGI QUESTI CAMPI MANCANTI ⬇️
     metratura: number;
     piano: number | string;
     description: string;
     lat: number;
     long: number;
+    price: number; 
 }

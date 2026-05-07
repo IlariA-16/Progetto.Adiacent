@@ -1,81 +1,182 @@
+* Layout Principale */
+article {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+ 
+.photo-side {
+  flex: 1;
+}
+ 
+.listing-info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* Immagine */
 .listing-photo {
+  width: 100%;
   height: 600px;
-  width: 50%;
   object-fit: cover;
   border-radius: 30px;
-  float: right;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-
+ 
+/* Testi e Intestazioni */
 .listing-heading {
-  font-size: 48pt;
+  font-size: 40pt;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  color: var(--primary-color);
 }
-
-.listing-location::before {
-  content: url('/assets/location-pin.svg') / '';
-}
-
+ 
 .listing-location {
-  font-size: 24pt;
-  margin-bottom: 15px;
-}
-
-.listing-features > .section-heading {
+  font-size: 20pt;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
   color: var(--secondary-color);
-  font-size: 24pt;
-  margin-bottom: 15px;
 }
-
+ 
+.listing-location::before {
+  content: url('/assets/location-pin.svg');
+  margin-right: 10px;
+}
+ 
+/* Sezione Caratteristiche (Grigio) */
 .listing-features {
+  padding: 25px;
+  background-color: #f1f3f5;
+  border-radius: 20px;
   margin-bottom: 20px;
 }
-
+ 
+.listing-features ul {
+  list-style: none;
+  padding: 0;
+}
+ 
 .listing-features li {
   font-size: 14pt;
+  margin-bottom: 12px;
+  color: #333;
 }
-
-li {
-  list-style-type: none;
+ 
+/* Sezione Form (Fai domanda ora) */
+.listing-apply {
+  padding-top: 20px;
 }
-
-.listing-apply .section-heading {
-  font-size: 18pt;
-  margin-bottom: 15px;
-}
-
-label, input {
-  display: block;
-}
+ 
 label {
+  display: block;
   color: var(--secondary-color);
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 12pt;
+  font-size: 10pt;
+  margin-top: 20px;
 }
+ 
 input {
+  display: block;
+  width: 100%;
+  max-width: 400px;
   font-size: 16pt;
-  margin-bottom: 15px;
-  padding: 10px;
-  width: 400px;
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  border-bottom: solid .3px;
+  padding: 10px 0;
+  border: none;
+  border-bottom: solid 2px var(--primary-color);
+  outline: none;
+  background: transparent;
 }
+ 
+input:focus {
+  border-bottom: solid 2px var(--secondary-color);
+}
+ 
+/* Validazione e Errori */
+.error-msg {
+  color: #d9534f;
+  font-size: 10pt;
+  font-weight: bold;
+  margin-top: 5px;
+  display: block;
+}
+ 
+input.ng-invalid.ng-touched {
+  border-bottom: 2px solid #d9534f;
+}
+ 
+/* --- SEZIONE PULSANTI MODIFICATA --- */
+.primary {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+  background-color: #6b5cd7; /* VIOLA */
+  color: white !important;   /* TESTO BIANCO */
+  padding: 12px 35px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16pt;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+ 
+.primary:hover:not(:disabled) {
+  background-color: #5a4cb3; /* Viola più scuro al passaggio del mouse */
+}
+ 
+button.primary:disabled {
+  background-color: #cccccc !important; /* GRIGIO se mancano i dati */
+  color: #666666 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+/* ---------------------------------- */
+ 
+/* Sezione FAQ */
+.faq-section {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 15px;
+}
+ 
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-weight: bold;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+ 
+.faq-answer {
+  padding: 0 0 12px 0;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+ 
+/* Responsive */
 @media (max-width: 1024px) {
+  article {
+    flex-direction: column;
+  }
+ 
   .listing-photo {
-    width: 100%;
     height: 400px;
   }
+ 
+  input {
+    max-width: 100%;
+  }
 }
-.error-text {
-  color: #d9534f;
-  font-size: 0.8rem;
-  margin: 0 0 10px 0;
-}
-
-/* Opzionale: colora il bordo dell'input di rosso se è sbagliato */
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
+ 
+ 

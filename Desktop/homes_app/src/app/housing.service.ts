@@ -1,12 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HousingLocation } from './housing-location';
+import { DbService } from './db.service'; // ✅ Importiamo il DbService
 
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
-  // URL base per le chiamate API (se necessario)
+  // URL base per le chiamate API
   readonly url = 'http://localhost:3000/locations';
+
+  // ✅ Iniezione del database
+  private dbService = inject(DbService);
 
   // Carica i preferiti dal localStorage all'avvio
   private favoriteIds: number[] = JSON.parse(localStorage.getItem('favorites') || '[]');
@@ -15,14 +19,20 @@ export class HousingService {
 
   /**
    * Restituisce la lista degli ID preferiti
-   * Usato da FavoritesComponent
    */
   getFavorites(): number[] {
     return this.favoriteIds;
   }
 
   /**
-   * Recupera tutte le locazioni dal server (Metodo Legacy)
+   * Restituisce il numero totale dei preferiti
+   */
+  getFavoritesCount(): number {
+    return this.favoriteIds.length;
+  }
+
+  /**
+   * Recupera tutte le locazioni dal server
    */
   async getAllHousingLocation(): Promise<HousingLocation[]> {
     try {
@@ -35,15 +45,14 @@ export class HousingService {
   }
 
   /**
-   * Recupera una singola locazione tramite ID (Metodo richiesto dai componenti Details)
-   * Risolve l'errore TS2551
+   * Recupera una singola locazione tramite ID
    */
   async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
     try {
       const data = await fetch(`${this.url}/${id}`);
       return (await data.json()) ?? undefined;
     } catch (error) {
-      console.warn(`Impossibile trovare la locazione con ID ${id} sul server, potrebbe essere un nuovo inserimento locale.`);
+      console.warn(`Impossibile trovare la locazione con ID ${id} sul server.`);
       return undefined;
     }
   }
@@ -58,7 +67,6 @@ export class HousingService {
     } else {
       this.favoriteIds.splice(index, 1);
     }
-    // Sincronizza con il localStorage
     localStorage.setItem('favorites', JSON.stringify(this.favoriteIds));
   }
 
@@ -70,9 +78,23 @@ export class HousingService {
   }
 
   /**
-   * Logga i dati del modulo di contatto
+   * ✅ METODO AGGIORNATO: Salva la candidatura su Dexie
    */
-  submitApplication(firstName: string, lastName: string, email: string) {
-    console.log('Candidatura ricevuta:', { firstName, lastName, email });
+  submitApplication(firstName: string, lastName: string, email: string, locationId: number) {
+    const nuovaCandidatura = {
+      locationId: locationId,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      status: 'In Revisione', // Stato predefinito
+      date: new Date().toLocaleDateString('it-IT') // Data odierna
+    };
+
+    // Salvataggio effettivo nel database
+    this.dbService.addApplication(nuovaCandidatura).then(() => {
+      console.log('Candidatura salvata con successo nel database!');
+    }).catch(err => {
+      console.error('Errore durante il salvataggio della candidatura:', err);
+    });
   }
 }

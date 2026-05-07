@@ -1,79 +1,84 @@
+/* --- HEADER FISSO E STABILE --- */
+.brand-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: white;
+  border-bottom: 1px solid #f1f5f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  height: 80px; 
+  box-sizing: border-box;
+}
+
 .brand-logo {
+  height: 45px;
   cursor: pointer;
-  display: block;
   transition: transform 0.2s ease;
 }
 
 .brand-logo:hover {
-  transform: scale(1.05); /* Effetto d'ingrandimento al passaggio */
+  transform: scale(1.05);
 }
 
-/* Rimuove eventuali stili predefiniti dal link che avvolge l'immagine */
-.brand-name a {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-}
-
-/* Layout dell'Header */
-.brand-name {
-  display: flex;
-  justify-content: space-between; /* Logo a sinistra, tasti a destra */
-  align-items: center;
-  padding: 1rem 5%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #eee;
-}
-
+/* --- CONTENITORE NAVIGAZIONE --- */
 .nav-links {
   display: flex;
-  gap: 12px; /* Spazio ridotto tra i bottoni */
-}
-
-/* Stile compatto per i bottoni */
-.btn-fav-page, .btn-add-page {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px; /* Padding ridotto */
-  border-radius: 8px; /* Meno arrotondati per un look più sobrio */
+  gap: 12px; 
+}
+
+/* --- STILE UNIFORME PER TUTTI I BOTTONI --- */
+.nav-button {
   text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem; /* Testo leggermente più piccolo */
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease-in-out;
+  
+  /* Stile Soft Grigio/Azzurro */
+  color: #64748b;
+  background-color: #f8fafc;
+  border: 1px solid #edf2f7;
+  
+  /* ✅ BLOCCO DIMENSIONI: evita che i bottoni si spostino al click */
+  white-space: nowrap;
+  min-width: 160px; 
+  box-sizing: border-box;
 }
 
-/* Colori più discreti */
-.btn-fav-page {
-  background-color: #f8f9fa; /* Grigio chiarissimo */
-  color: #555;
-  border: 1px solid #ddd;
+/* --- EFFETTO HOVER --- */
+.nav-button:hover {
+  background-color: #ffffff;
+  border-color: #605ce7; /* Il viola compare solo qui per feedback */
+  color: #605ce7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(96, 92, 231, 0.1);
 }
 
-.btn-add-page {
-  background-color: #1273de;
-  color: white;
-  border: none;
-}
-
-/* Hover: cambiano colore solo leggermente */
-.btn-fav-page:hover {
-  background-color: #fff9e6;
-  border-color: #ffb100;
-  color: #ffb100;
-}
-
-.btn-add-page:hover {
-  background-color: #0d5bb5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Mobile: nasconde il testo e lascia solo l'emoji se lo schermo è piccolo */
-@media (max-width: 600px) {
-  .btn-fav-page span, .btn-add-page span {
-    display: none;
+/* --- RESPONSIVE --- */
+@media (max-width: 950px) {
+  .brand-name {
+    height: auto;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
   }
-  .btn-fav-page, .btn-add-page {
-    padding: 8px;
+  
+  .nav-button {
+    min-width: 140px;
+    font-size: 0.85rem;
+    padding: 8px 12px;
   }
+}
+
+/* --- CONTENUTO --- */
+.content {
+  padding: 20px;
 }
