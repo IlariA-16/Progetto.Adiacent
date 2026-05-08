@@ -1,0 +1,172 @@
+/* --- CONTENITORE PRINCIPALE --- */
+.profile-container {
+  max-width: 420px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  border: 1px solid #f0f0f0;
+}
+
+h2 {
+  text-align: center;
+  color: #1a1a1a;
+  font-weight: 800;
+  margin-bottom: 35px;
+  letter-spacing: -0.5px;
+  font-size: 1.6rem;
+}
+
+/* --- GRUPPI DI INPUT E LABEL --- */
+.form-group {
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #edf2f7;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #2d3748;
+  background-color: #f8fafc;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus {
+  outline: none;
+  border-color: #605dc8; /* Viola principale */
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
+}
+
+/* --- GESTIONE PASSWORD (MOSTRA/NASCONDI) --- */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Padding a destra per non scrivere sopra il tasto Mostra */
+.password-wrapper input {
+  padding-right: 85px; 
+}
+
+.toggle-text {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #605dc8;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  user-select: none; /* Impedisce la selezione blu del testo */
+  transition: all 0.2s ease;
+}
+
+.toggle-text:hover {
+  background: #f0f0ff;
+  color: #4a47a3;
+}
+
+/* --- MESSAGGI DI ERRORE --- */
+.error-message {
+  font-size: 12px;
+  margin-top: 8px;
+  color: #e53e3e;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+/* --- BOTTONI --- */
+button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Bottone Salva */
+button[type="submit"] {
+  background: linear-gradient(135deg, #605dc8 0%, #4a47a3 100%);
+  color: white;
+  margin-top: 15px;
+  box-shadow: 0 4px 15px rgba(96, 93, 200, 0.2);
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(96, 93, 200, 0.3);
+}
+
+button:disabled {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Bottone Logout */
+.btn-logout {
+  background-color: transparent;
+  color: #a0aec0;
+  margin-top: 15px;
+  font-size: 14px;
+  border: 1px solid #edf2f7;
+}
+
+.btn-logout:hover {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  border-color: #fed7d7;
+}
+
+hr {
+  margin: 30px 0;
+  border: 0;
+  border-top: 1px solid #f0f4f8;
+}
+
+/* --- NOTIFICA TOAST (SUCCESSO) --- */
+.toast-success {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #2d3748;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  font-size: 14px;
+  z-index: 10000;
+  animation: slideUp 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

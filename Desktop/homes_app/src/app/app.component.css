@@ -100,3 +100,38 @@ header img {
   border-radius: 8px;
   font-weight: bold;
 }
+/* STILE PER I NUOVI PULSANTI (PROFILO E ACCEDI) */
+.btn-user-profile, 
+.btn-login {
+  background-color: var(--primary-color); /* Usa lo stesso colore degli altri */
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px; /* Stessi angoli degli altri */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+/* Colore specifico per distinguere il tasto Accedi (opzionale, lo rende verde) */
+.btn-login {
+  background-color: #28a745; 
+}
+
+/* EFFETTO HOVER UNIFICATO */
+.btn-user-profile:hover, 
+.btn-login:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px);
+}
+
+/* Se preferisci che il tasto Profilo sia viola come 'Aggiungi Casa' */
+.btn-user-profile {
+  background-color: #605dc8;
+}
+

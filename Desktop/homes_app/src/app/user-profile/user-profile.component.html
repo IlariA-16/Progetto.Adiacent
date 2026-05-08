@@ -1,0 +1,99 @@
+<div class="profile-container">
+  <h2>Il Mio Profilo</h2>
+
+  <form [formGroup]="profiloForm" (ngSubmit)="salvaProfilo()">
+    
+    <!-- Nome -->
+    <div class="form-group">
+      <label for="nome">NOME:</label>
+      <input id="nome" type="text" formControlName="nome" placeholder="Inserisci il tuo nome">
+      <div *ngIf="profiloForm.get('nome')?.invalid && profiloForm.get('nome')?.touched" class="error-message">
+        Il nome è obbligatorio.
+      </div>
+    </div>
+
+    <!-- Cognome -->
+    <div class="form-group">
+      <label for="cognome">COGNOME:</label>
+      <input id="cognome" type="text" formControlName="cognome" placeholder="Inserisci il tuo cognome">
+      <div *ngIf="profiloForm.get('cognome')?.invalid && profiloForm.get('cognome')?.touched" class="error-message">
+        Il cognome è obbligatorio.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">EMAIL:</label>
+      <input id="email" type="email" formControlName="email" placeholder="esempio@testo.it">
+      
+      <div *ngIf="profiloForm.get('email')?.touched">
+        <div *ngIf="profiloForm.get('email')?.errors?.['required']" class="error-message">
+          L'email è obbligatoria.
+        </div>
+        <div *ngIf="profiloForm.get('email')?.errors?.['pattern']" class="error-message">
+          L'email deve essere valida (es. .it o .com)
+        </div>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+      <label for="password">PASSWORD:</label>
+      <div class="password-wrapper">
+        <input id="password" 
+               [type]="mostraPassword ? 'text' : 'password'" 
+               formControlName="password" 
+               placeholder="Nuova password">
+        
+        <span class="toggle-text" (click)="mostraPassword = !mostraPassword">
+          {{ mostraPassword ? 'Nascondi' : 'Mostra' }}
+        </span>
+      </div>
+
+      <div *ngIf="profiloForm.get('password')?.touched">
+        <div *ngIf="profiloForm.get('password')?.errors?.['required']" class="error-message">
+          La password è obbligatoria.
+        </div>
+        <div *ngIf="profiloForm.get('password')?.errors?.['minlength']" class="error-message">
+          Minimo 6 caratteri.
+        </div>
+        <div *ngIf="profiloForm.get('password')?.errors?.['pattern']" class="error-message">
+          Inserisci almeno un numero e un simbolo.
+        </div>
+      </div>
+    </div>
+
+    <!-- Conferma Password -->
+    <div class="form-group">
+      <label for="confermaPassword">CONFERMA PASSWORD:</label>
+      <div class="password-wrapper">
+        <input id="confermaPassword" 
+               [type]="mostraConfermaPassword ? 'text' : 'password'" 
+               formControlName="confermaPassword" 
+               placeholder="Ripeti la password">
+        
+        <span class="toggle-text" (click)="mostraConfermaPassword = !mostraConfermaPassword">
+          {{ mostraConfermaPassword ? 'Nascondi' : 'Mostra' }}
+        </span>
+      </div>
+      
+      <!-- Errore Cross-Field (confronto password) -->
+      <div *ngIf="profiloForm.errors?.['passwordsNotMatching'] && profiloForm.get('confermaPassword')?.touched" class="error-message">
+        ⚠️ Le password non corrispondono!
+      </div>
+    </div>
+
+    <!-- Il tasto si attiva solo se il form è valido -->
+    <button type="submit" [disabled]="profiloForm.invalid" class="btn-save">
+      Salva nel Database
+    </button>
+  </form>
+
+  <hr>
+  <button (click)="logout()" class="btn-logout">Esci (Logout)</button>
+</div>
+
+<!-- Messaggio di successo -->
+<div *ngIf="mostraConferma" class="toast-success">
+  ✅ Profilo salvato con successo!
+</div>
