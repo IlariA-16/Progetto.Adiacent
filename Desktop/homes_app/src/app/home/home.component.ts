@@ -20,7 +20,6 @@ import data from '../../../db.json';
               <h3>Cerca Alloggio</h3>
               <input type="text" placeholder="Città, nome o stato..." #filter id="city-filter" name="city-filter">
               
-              <!-- SLIDER PER IL PREZZO MASSIMO -->
               <div class="price-range-container">
                 <label for="priceRange">Prezzo Max: <b>€{{maxPriceValue}}</b></label>
                 <input type="range" 
@@ -32,17 +31,10 @@ import data from '../../../db.json';
                 [value]="maxPriceValue"
                 (input)="
                 maxPriceValue = +maxPrice.value;
-                applyFilters(
-                  filter.value,
-                  wifi.checked,
-                  laundry.checked,
-                  '0',
-                  maxPrice.value
-                )
+                applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)
                 ">
               </div>
 
-              <!-- MENU A TENDINA ORDINAMENTO -->
               <div class="sort-box">
                 <label for="sortSelect">Ordina per:</label>
                 <select id="sortSelect" #sortOption (change)="sortResults(sortOption.value)">
@@ -71,7 +63,7 @@ import data from '../../../db.json';
                 Cerca
               </button>
               
-              <button class="btn-clear"(click)="
+              <button class="btn-clear" (click)="
               filter.value='';
               maxPrice.value='5000';
               maxPriceValue=5000;
@@ -85,19 +77,22 @@ import data from '../../../db.json';
           </form>
       </aside>
 
-      <!-- SEZIONE RISULTATI (A DESTRA) -->
+      <!-- SEZIONE RISULTATI -->
       <section class="results-container">
         <div class="results-grid">
-          <div *ngFor="let housingLocation of (filteredLocationList$ | async)" 
-               (click)="openApplicationsModal(housingLocation)"
-               style="cursor: pointer">
-            <app-housing-location [housingLocation]="housingLocation"></app-housing-location>
+          <!-- RIMOSSO IL CLICK DA QUI -->
+          <div *ngFor="let housingLocation of (filteredLocationList$ | async)">
+            <!-- IL CLICK ORA È GESTITO DENTRO IL COMPONENTE TRAMITE OUTPUT -->
+            <app-housing-location 
+              [housingLocation]="housingLocation"
+              (apriCandidatureRichiesto)="openApplicationsModal($event)">
+            </app-housing-location>
           </div>
         </div>
       </section>
     </div>
 
-    <!-- Overlay della Modale -->
+    <!-- Modale Candidature -->
     <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <h3>Gestione Candidature: {{ selectedLocation?.name }}</h3>
@@ -123,14 +118,12 @@ import data from '../../../db.json';
                 <td class="action-cell">
                   <button *ngIf="app.status !== 'Approvata'" 
                           (click)="updateStatus(app.id, 'Approvata')" 
-                          class="btn-icon approve" title="Approva">✔</button>
-                  
+                          class="btn-icon approve">✔</button>
                   <button *ngIf="app.status !== 'Rifiutata'" 
                           (click)="updateStatus(app.id, 'Rifiutata')" 
-                          class="btn-icon reject" title="Rifiuta">✖</button>
-                  
+                          class="btn-icon reject">✖</button>
                   <button (click)="deleteApplication(app.id)" 
-                          class="btn-icon delete" title="Elimina">🗑</button>
+                          class="btn-icon delete">🗑</button>
                 </td>
               </tr>
             </tbody>
@@ -156,7 +149,6 @@ export class HomeComponent implements OnInit {
   showModal = false;
   selectedLocation: HousingLocation | null = null;
   currentApplications: any[] = [];
-
   maxPriceValue = 5000;
 
   private dbService = inject(DbService);
@@ -177,19 +169,45 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  // Metodo per chiudere la modale
+  closeModal() {
+    this.showModal = false;
+    this.selectedLocation = null;
+  }
+
+   async openApplicationsModal(location: HousingLocation) {
+  
+    if (location.id === undefined || location.id === null) return;
+    
+    this.selectedLocation = location;
+    this.showModal = true;
+    
+    // Recupero candidature dal DB
+    try {
+      this.currentApplications = await this.dbService.table('applications')
+        .where('locationId').equals(location.id).toArray();
+    } catch (error) {
+      console.error("Errore nel recupero candidature:", error);
+      this.currentApplications = [];
+    }
+  }
+
+  // Gestione colori stati
+  getStatusColor(status: string): string {
+    if (status === 'Approvata') return 'green';
+    if (status === 'Rifiutata') return 'red';
+    return 'orange';
+  }
+
+  // --- Altri metodi (applyFilters, sortResults, ecc.) rimangono invariati ---
   applyFilters(city: string, hasWifi: boolean, hasLaundry: boolean, minP: string, maxP: string) {
     this.filteredLocationList$ = this.housingLocationList$.pipe(
       map(locations => locations.filter(loc => {
         const matchCity = loc.city.toLowerCase().includes(city.toLowerCase()) || 
                           loc.name.toLowerCase().includes(city.toLowerCase());
-        
         const matchWifi = hasWifi ? loc.wifi === true : true;
         const matchLaundry = hasLaundry ? loc.laundry === true : true;
-
-        const min = Number(minP);
-        const max = Number(maxP);
-        const matchPrice = loc.price >= min && loc.price <= max;
-        
+        const matchPrice = loc.price >= Number(minP) && loc.price <= Number(maxP);
         return matchCity && matchWifi && matchLaundry && matchPrice;
       }))
     );
@@ -207,43 +225,15 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  filterResults(text: string) {
-    this.applyFilters(text, false, false, '0', '5000');
-  }
-
-  async openApplicationsModal(location: HousingLocation) {
-    if (!location.id) return;
-    this.selectedLocation = location;
-    try {
-      this.currentApplications = await this.dbService.table('applications')
-        .where('locationId').equals(location.id).toArray();
-      this.showModal = true;
-    } catch (error) { console.error(error); }
-  }
-
-  async updateStatus(id: number, newStatus: string) {
-    await this.dbService.table('applications').update(id, { status: newStatus });
-    const app = this.currentApplications.find(a => a.id === id);
-    if (app) app.status = newStatus;
+  async updateStatus(id: number, status: string) {
+    await this.dbService.table('applications').update(id, { status });
+    if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
   }
 
   async deleteApplication(id: number) {
-    if (confirm('Sei sicuro di voler eliminare questa candidatura?')) {
-        await this.dbService.table('applications').delete(id);
-        this.currentApplications = this.currentApplications.filter(a => a.id !== id);
+    if (confirm("Eliminare questa candidatura?")) {
+      await this.dbService.table('applications').delete(id);
+      if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
     }
-  }
-
-  getStatusColor(status: string): string {
-    switch (status) {
-      case 'Approvata': return '#2ecc71';
-      case 'Rifiutata': return '#e74c3c';
-      default: return '#ff9800';
-    }
-  }
-
-  closeModal() {
-    this.showModal = false;
-    this.selectedLocation = null;
   }
 }

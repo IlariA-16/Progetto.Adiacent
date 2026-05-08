@@ -6,114 +6,133 @@
   overflow: hidden;
   position: relative;
 }
+
 .listing-heading {
   color: var(--primary-color);
   padding: 10px 20px 0 20px;
 }
+
 .listing-photo {
   height: 250px;
   width: 100%;
   object-fit: cover;
   border-radius: 30px 30px 0 0;
 }
+
 .listing-location {
   padding: 0 20px;
 }
+
 .listing-location::before {
   content: url("/assets/location-pin.svg") / "";
-  display:inline-block;
+  display: inline-block;
   vertical-align: middle;
   margin-right: 5px;
 }
+
 section.listing a {
   padding-left: 20px;
   text-decoration: none;
   color: var(--primary-color);
-  font-weight:bold;
+  font-weight: bold;
 }
+
 section.listing a::after {
   content: "\203A";
   margin-left: 5px;
 }
 
-/* --- TASTI SPECIALI (ELIMINA, STAR, PRICE) --- */
+/* --- TASTI SPECIALI GLASSMORPHISM (ELIMINA, STAR, PHOTO, PRICE) --- */
+.star-btn, .btn-elimina, .btn-foto, .price-badge {
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+/* ⭐ Bottone Stella */
 .star-btn {
   position: absolute;
   top: 15px;
   right: 15px;
-  z-index: 10;
   background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
   border-radius: 6px; 
-  border: 1px solid rgba(255, 255, 255, 0.4);
   color: gold;
   font-size: 1.4rem;
   padding: 4px 8px;
   cursor: pointer;
-  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  line-height: 1;
 }
-.star-btn:hover {
+
+/* 📷 Bottone Foto (Sistemato sotto la stella) */
+.btn-foto {
+  position: absolute;
+  top: 15px;    /* Stessa altezza della stella */
+  right: 60px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 6px; 
+  color: white;
+  font-size: 1.2rem;
+  padding: 4px 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Hover corretti per entrambi */
+.star-btn:hover, .btn-foto:hover {
   background: rgba(255, 255, 255, 0.45);
   transform: scale(1.1);
 }
 
+/* 🗑 Bottone Elimina */
 .btn-elimina {
   position: absolute;
   top: 15px;
   left: 15px;
-  z-index: 10;
   background: rgba(255, 50, 50, 0.25); 
-  backdrop-filter: blur(15px);        
-  -webkit-backdrop-filter: blur(15px); 
   border-radius: 6px; 
   color: white;
   padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.4); 
   cursor: pointer;
   font-weight: bold;
   font-size: 0.8rem;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
 }
+
 .btn-elimina:hover {
   background: rgba(204, 0, 0, 0.6); 
   transform: scale(1.05);
 }
 
+/* 🏷️ Badge Prezzo */
 .price-badge {
   position: absolute;
   top: 205px;
   left: 15px;
-  z-index: 10;
-  display: inline-block;
-  white-space: nowrap;
   background: rgba(0, 230, 118, 0.5); 
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5); 
   border-radius: 6px;
   color: white;
   padding: 5px 12px;
   font-weight: 900;
   font-size: 0.9rem;
-  box-shadow: 0 4px 15px rgba(0, 230, 118, 0.3);
 }
 
-/* --- NUOVA MODALE GOOGLE MAPS --- */
+/* --- MODALI (MAPPA E FOTO) --- */
 .modal-container {
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 0;
   width: 90%;
-  max-width: 400px;
-  background: rgba(255, 255, 255, 0.85); 
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.9); 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -121,7 +140,7 @@ section.listing a::after {
 }
 
 .modal-container::backdrop {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
 }
 
@@ -146,9 +165,8 @@ section.listing a::after {
   border: none;
   font-weight: bold;
   color: #ff4d4d;
-  font-size: 2rem;
+  font-size: 1.8rem;
   cursor: pointer;
-  line-height: 1;
   transition: transform 0.2s ease;
 }
 
@@ -156,30 +174,113 @@ section.listing a::after {
   transform: scale(1.2);
 }
 
-.modal-body {
-  padding: 2rem 1.5rem;
+/* --- SLIDER FOTO INTERNO ALLA MODALE --- */
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: 350px;
+  background: #f0f0f0;
+}
+
+.slider-img {
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+  display: block;
+}
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.slider-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.slider-nav.prev { left: 15px; }
+.slider-nav.next { right: 15px; }
+
+.counter {
   text-align: center;
-}
-
-.modal-body p {
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-
-.btn-maps {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: var(--primary-color); 
-  color: white !important;
-  text-decoration: none !important;
+  padding: 15px;
   font-weight: bold;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: var(--primary-color);
+  margin: 0;
+}
+/* Contenitore dei link di dettaglio e bottone */
+.details-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: #f8f9fa; /* Un leggero sfondo per separare l'area */
+  border-radius: 8px;
 }
 
-.btn-maps:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  filter: brightness(1.1);
+/* Stile per i link Dettaglio */
+.details-area a {
+  color: #1e88e5;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
+
+.details-area a:hover {
+  text-decoration: underline;
+}
+
+/* --- NUOVO BOTTONE CANDIDATURE --- */
+.btn-candidature {
+  Background-color: #5c5cd6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-candidature:hover {
+  background-color:  #4a4abf;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-candidature:active {
+  transform: translateY(0);
+}
+
+/* Aggiustamento per la sezione azioni in alto */
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+

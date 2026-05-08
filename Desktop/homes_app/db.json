@@ -2,10 +2,16 @@
   "locations": [
     {
       "id": 0,
-      "name": "Acme Fresh Start Housing",
+      "name": "Acme Fresh Start Housings",
       "city": "Chicago",
       "state": "IL",
       "photo": "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+      "photos":[
+        "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+        "/assets/bagno.jpg",
+        "/assets/salotto.webp",
+        "/assets/camera1.jpg"
+      ],
       "availableUnits": 4,
       "wifi": true,
       "laundry": true,
@@ -22,6 +28,14 @@
       "city": "Santa Monica",
       "state": "CA",
       "photo": "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+      "photos":[
+        "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+        "/assets/bagno2.webp",
+        "/assets/camera2.webp",
+        "/assets/salotto2.jpg"
+       
+        
+      ],
       "availableUnits": 0,
       "wifi": false,
       "laundry": true,
@@ -38,6 +52,12 @@
       "city": "Juneau",
       "state": "AK",
       "photo": "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+      "photos":[
+        "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+        "/assets/bagno3.webp",
+        "/assets/camera3.jpg",
+        "assets/cucinasoggiorno3.webp"
+      ],
       "availableUnits": 1,
       "wifi": false,
       "laundry": false,
@@ -54,6 +74,12 @@
       "city": "Chicago",
       "state": "IL",
       "photo": "/assets/ian-macdonald-W8z6aifi1E-unsplash.jpg",
+      "photos":[
+        "/assets/ian-macdonald-W8z6aifi1E-unsplash.jpg",
+        "/assets/bagno4.jpg",
+        "/assets/camera4.jpg",
+        "assets/cucinasoggiorno4.jpg"
+      ],
       "availableUnits": 1,
       "wifi": true,
       "laundry": false,
@@ -70,6 +96,12 @@
       "city": "Gary",
       "state": "IN",
       "photo": "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+      "photos":[
+        "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+        "/assets/bagno5.jpg",
+        "/assets/camera5.jpg",
+        "assets/cucinasoggiorno5.webp"
+      ],
       "availableUnits": 1,
       "wifi": true,
       "laundry": false,
@@ -86,6 +118,12 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+      "photos":[
+        "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+        "/assets/bagno6.jpg",
+        "/assets/camera6.webp",
+        "assets/cucinasoggiorno6.webp"
+      ],
       "availableUnits": 2,
       "wifi": true,
       "laundry": true,
@@ -102,6 +140,12 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+      "photos":[
+        "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+        "/assets/bagno7.webp",
+        "/assets/camera7.jpg",
+        "assets/cucinasoggiorno7.jpg"
+      ],
       "availableUnits": 5,
       "wifi": true,
       "laundry": true,
@@ -118,6 +162,12 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+      "photos":[
+        "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+        "/assets/bagno8.jpg",
+        "/assets/camera88.jpg",
+        "assets/cucinasoggiorno8.jpg"
+      ],
       "availableUnits": 2,
       "wifi": true,
       "laundry": true,
@@ -134,6 +184,12 @@
       "city": "Oakland",
       "state": "CA",
       "photo": "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+      "photos":[
+        "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+        "/assets/bagno9.jpg",
+        "/assets/camera9.png",
+        "assets/cucinasoggiorno9.jpg"
+      ],
       "availableUnits": 10,
       "wifi": false,
       "laundry": false,
@@ -150,6 +206,12 @@
       "city": "Portland",
       "state": "OR",
       "photo": "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+       "photos":[
+        "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+        "/assets/bagno10.webp",
+        "/assets/camera10.webp",
+        "assets/cucinasoggiorno10.jpg"
+      ],
       "availableUnits": 6,
       "wifi": true,
       "laundry": true,
