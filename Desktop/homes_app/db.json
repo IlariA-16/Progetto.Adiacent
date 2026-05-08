@@ -20,7 +20,7 @@
       "description": "Questo spazioso trilocale a Chicago offre una zona giorno molto luminosa e rifiniture moderne. Ideale per famiglie, si trova in una zona ricca di servizi e parchi pubblici.",
       "lati": 41.8781,
       "long": -87.6298,
-      "price": 1250
+      "price": 1800
     },
     {
       "id": 1,
@@ -44,7 +44,7 @@
       "description": "Accogliente bilocale situato a pochi passi dalla spiaggia. Nonostante la metratura contenuta, gli spazi sono ottimizzati perfettamente per garantire il massimo comfort in una delle zone più ambite di Santa Monica.",
       "lati": 34.0195,
       "long": -118.4912,
-      "price": 1800
+      "price": 1200
     },
     {
       "id": 2,
@@ -132,7 +132,7 @@
       "description": "Moderno appartamento ad Oakland con un ampio balcone vivibile. La struttura è recente e dotata di sistemi di risparmio energetico all'avanguardia e fibra ottica già installata.",
       "lati": 37.8044,
       "long": -122.2712,
-      "price": 1400
+      "price": 3000
     },
     {
       "id": 6,
@@ -154,7 +154,7 @@
       "description": "Villetta indipendente con giardino privato. Perfetta per chi possiede animali domestici o per chi ama il giardinaggio. Zona estremamente sicura e silenziosa.",
       "lati": 37.8100,
       "long": -122.2500,
-      "price": 2500
+      "price": 1100
     },
     {
       "id": 7,
@@ -176,7 +176,7 @@
       "description": "Bilocale ristrutturato di recente con uno stile minimalista ed elegante. Situato vicino alle principali arterie di comunicazione, è ottimo per pendolari.",
       "lati": 37.7900,
       "long": -122.2400,
-      "price": 1100
+      "price": 2500
     },
     {
       "id": 8,
@@ -198,7 +198,7 @@
       "description": "Ampio duplex perfetto per la condivisione o per famiglie numerose. Gli ampi spazi comuni permettono una vivibilità eccellente, pur mantenendo la privacy nelle zone notte separate.",
       "lati": 37.8200,
       "long": -122.2800,
-      "price": 2800
+      "price":1350
     },
     {
       "id": 9,
@@ -220,7 +220,7 @@
       "description": "Comodo appartamento a Portland con posto auto riservato incluso. La casa è ben isolata acusticamente e offre un'atmosfera rilassante e moderna.",
       "lati": 45.5152,
       "long": -122.6784,
-      "price": 1350
+      "price":2800 
     }
   ]
 }
