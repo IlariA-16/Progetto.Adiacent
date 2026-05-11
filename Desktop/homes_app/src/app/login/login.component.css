@@ -17,8 +17,6 @@
   text-align: center;
 }
 
-h2 { color: #333; margin-bottom: 10px; }
-
 .form-group {
   text-align: left;
   margin-bottom: 20px;
@@ -34,24 +32,39 @@ label {
 
 input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 20px;       /* Più padding laterale per la forma tonda */
+  border: 2px solid #605dc8; /* Bordo violino più visibile */
+  border-radius: 50px;       /* Stondatura massima a pillola */
   background-color: #fdfdfd;
+  outline: none;             /* Toglie il bordo di default al click */
+  box-sizing: border-box;    /* Evita che l'input esca dai margini */
+  transition: 0.3s;
 }
-
+input:focus {
+  box-shadow: 0 0 8px rgba(96, 93, 200, 0.2);
+  background-color: white;
+}
 .password-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 70px; /* Lascia spazio per la scritta MOSTRA/NASCONDI */
 }
 
 .toggle-password {
   position: absolute;
-  right: 15px;
-  top: 12px;
+  right: 20px; /* Spostato leggermente più a sinistra per la curva tonda */
+  top: 50%;
+  transform: translateY(-50%); /* Centra perfettamente la scritta verticalmente */
   font-size: 0.7rem;
   font-weight: bold;
   color: #605dc8;
   cursor: pointer;
+  background: white; /* Copre leggermente l'input sotto se serve */
+  padding: 2px 5px;
 }
 
 .btn-submit {
@@ -81,3 +94,35 @@ input {
   text-decoration: none;
   font-weight: bold;
 }
+h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #5e5adb; /* Il viola del tuo bottone */
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  transition: all 0.4s;
+  cursor: default;
+}
+
+h2:hover {
+  color: #5e5adb;
+  -webkit-text-stroke: 1.5px transparent;
+  transform: scale(1.05);
+}
+p {
+  background: rgba(94, 90, 219, 0.05); /* Un tocco del tuo viola quasi invisibile */
+  padding: 10px 20px;
+  border-radius: 50px; /* Forma a pillola */
+  color: #5e5adb;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin: 15px 0 25px 0;
+  border: 1px dashed #5e5adb; /* Bordo tratteggiato che richiama l'outline */
+}
+
+
+
+

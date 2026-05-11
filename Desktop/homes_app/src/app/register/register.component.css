@@ -17,7 +17,38 @@
   text-align: center;
 }
 
-h2 { color: #333; margin-bottom: 10px; }
+/* Titolo con effetto Outline */
+h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #605dc8;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  transition: all 0.4s;
+  cursor: default;
+  margin-bottom: 10px;
+}
+
+h2:hover {
+  color: #605dc8;
+  -webkit-text-stroke: 1.5px transparent;
+  transform: scale(1.05);
+}
+
+/* Sottotitolo tratteggiato */
+p {
+  background: rgba(94, 90, 219, 0.05);
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #605dc8;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin: 15px 0 25px 0;
+  border: 1px dashed #605dc8;
+}
 
 .form-group {
   text-align: left;
@@ -30,24 +61,37 @@ label {
   font-size: 0.8rem;
   margin-bottom: 5px;
   color: #666;
+  margin-left: 15px; /* Allineato all'inizio della stondatura */
 }
 
+/* INPUT AGGIORNATI: Stondati e Violino */
 input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border: 2px solid #605dc8; /* Bordo violino */
+  border-radius: 50px;       /* Forma a pillola */
   background-color: #fdfdfd;
+  outline: none;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 8px rgba(96, 93, 200, 0.2);
+  background-color: white;
 }
 
 .password-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .toggle-password {
   position: absolute;
-  right: 15px;
-  top: 12px;
+  right: 20px; /* Più spazio per la curva */
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 0.7rem;
   font-weight: bold;
   color: #605dc8;
@@ -58,9 +102,9 @@ input {
   width: 100%;
   background-color: #605dc8;
   color: white;
-  padding: 12px;
+  padding: 14px;
   border: none;
-  border-radius: 50px; /* Stile a pillola come l'header */
+  border-radius: 50px;
   font-weight: bold;
   cursor: pointer;
   margin-top: 10px;
@@ -71,9 +115,14 @@ input {
   filter: brightness(90%);
 }
 
+/* Link in fondo tratteggiato */
 .login-link {
   margin-top: 20px;
   font-size: 0.9rem;
+  border: 1px dashed #605dc8;
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: inline-block;
 }
 
 .login-link a {

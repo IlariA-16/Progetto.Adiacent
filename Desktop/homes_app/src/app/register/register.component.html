@@ -3,26 +3,28 @@
     <h2>Crea il tuo Account</h2>
     <p>Compila i campi sottostanti per registrarti a Homes</p>
 
-    <form>
+    <!-- Aggiunto (ngSubmit) per gestire l'invio del form -->
+    <form (ngSubmit)="registrati()">
       <div class="form-group">
         <label>NOME:</label>
-        <input type="text" placeholder="Inserisci il tuo nome">
+        <input type="text" name="nome" [(ngModel)]="userData.nome" placeholder="Inserisci il tuo nome" required>
       </div>
 
       <div class="form-group">
         <label>COGNOME:</label>
-        <input type="text" placeholder="Inserisci il tuo cognome">
+        <input type="text" name="cognome" [(ngModel)]="userData.cognome" placeholder="Inserisci il tuo cognome" required>
       </div>
 
       <div class="form-group">
         <label>EMAIL:</label>
-        <input type="email" placeholder="esempio@testo.it">
+        <input type="email" name="email" [(ngModel)]="userData.email" placeholder="esempio@testo.it" required>
       </div>
 
       <div class="form-group">
         <label>PASSWORD:</label>
         <div class="password-wrapper">
-          <input [type]="passwordVisible ? 'text' : 'password'" placeholder="Nuova password">
+          <!-- Collegato ngModel e il tipo dinamico -->
+          <input [type]="passwordVisible ? 'text' : 'password'" name="password" [(ngModel)]="userData.password" placeholder="Nuova password" required>
           <span class="toggle-password" (click)="togglePasswordVisibility()">
             {{ passwordVisible ? 'NASCONDI' : 'MOSTRA' }}
           </span>
@@ -32,7 +34,7 @@
       <div class="form-group">
         <label>CONFERMA PASSWORD:</label>
         <div class="password-wrapper">
-          <input [type]="confirmPasswordVisible ? 'text' : 'password'" placeholder="Conferma la tua password">
+          <input [type]="confirmPasswordVisible ? 'text' : 'password'" name="confermaPassword" [(ngModel)]="userData.confermaPassword" placeholder="Conferma la tua password" required>
           <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
             {{ confirmPasswordVisible ? 'NASCONDI' : 'MOSTRA' }}
           </span>
