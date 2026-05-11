@@ -20,11 +20,9 @@ export class UserProfileComponent implements OnInit {
   passwordVisible = false; 
   confermaPasswordVisible = false; 
   
-  // Variabile per gestire l'immagine profilo (Base64 o URL)
   fotoProfiloUrl: string | null = null;
 
   profiloForm = new FormGroup({
-    // --- DATI ANAGRAFICI ---
     nome: new FormControl('', Validators.required),
     cognome: new FormControl('', Validators.required),
     dataNascita: new FormControl(''),
@@ -37,8 +35,6 @@ export class UserProfileComponent implements OnInit {
     provincia: new FormControl(''),
     stato: new FormControl('Italia'),
     telefono: new FormControl('', Validators.pattern("^[0-9+ ]*$")),
-
-    // --- DATI ACCOUNT ---
     email: new FormControl('', [
       Validators.required, 
       Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") 
@@ -65,20 +61,15 @@ export class UserProfileComponent implements OnInit {
     const datiSalvati = await this.db.getUserProfile();
     if (datiSalvati) {
       this.profiloForm.patchValue(datiSalvati);
-      // Caricamento foto dal DB
       if (datiSalvati.foto) {
         this.fotoProfiloUrl = datiSalvati.foto;
       }
     }
   }
 
-  /**
-   * GESTIONE SELEZIONE E SALVATAGGIO AUTOMATICO FOTO
-   */
   async onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      // Controllo dimensione file (max 2MB per performance IndexedDB)
       if (file.size > 2 * 1024 * 1024) {
         this.mostraErrore("L'immagine è troppo grande! Scegline una inferiore a 2MB.");
         return;
@@ -87,95 +78,95 @@ export class UserProfileComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = async (e: any) => {
         const base64Image = e.target.result;
-        
-        // 1. Aggiorna anteprima locale
         this.fotoProfiloUrl = base64Image;
-
-        // 2. SALVATAGGIO AUTOMATICO nel DB (grazie allo spread nel DbService non perdiamo altri dati)
         try {
           await this.db.saveUserProfile({ foto: base64Image });
-          this.notificaSuccesso('Immagine profilo salvata correttamente!');
+          this.notificaSuccesso('Immagine profilo salvata!');
         } catch (error) {
-          console.error("Errore salvataggio automatico foto:", error);
-          this.mostraErrore("Impossibile salvare l'immagine nel database.");
+          this.mostraErrore("Impossibile salvare l'immagine.");
         }
       };
       reader.readAsDataURL(file);
     }
   }
 
-  // AZIONE 1: Salva la parte Anagrafica (nome, cognome, etc.)
+  /**
+   * NUOVO: Rimuove la foto dal database e dall'anteprima
+   */
+  async rimuoviFoto() {
+    const result = await Swal.fire({
+      title: 'Eliminare la foto?',
+      text: "Tornerai a visualizzare le tue iniziali.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#605dc8',
+      cancelButtonColor: '#aaa',
+      confirmButtonText: 'Sì, elimina',
+      cancelButtonText: 'Annulla'
+    });
+
+    if (result.isConfirmed) {
+      try {
+        this.fotoProfiloUrl = null;
+        // Aggiorniamo il DB settando foto a null
+        await this.db.saveUserProfile({ foto: null });
+        this.notificaSuccesso('Foto rimossa correttamente!');
+      } catch (error) {
+        this.mostraErrore("Errore durante la rimozione.");
+      }
+    }
+  }
+
   async salvaProfilo() {
     if (this.profiloForm.get('nome')?.valid && this.profiloForm.get('cognome')?.valid) {
       const formValue = this.profiloForm.value;
-      
-      const datiAnagrafici = { 
-        ...formValue,
-        foto: this.fotoProfiloUrl 
-      };
-
+      const datiAnagrafici = { ...formValue, foto: this.fotoProfiloUrl };
       delete (datiAnagrafici as any).password;
       delete (datiAnagrafici as any).confermaPassword;
 
       try {
         await this.db.saveUserProfile(datiAnagrafici);
-        this.notificaSuccesso('Profilo aggiornato con successo!');
+        this.notificaSuccesso('Profilo aggiornato!');
       } catch (error) {
-        console.error("Errore profilo:", error);
-        this.mostraErrore("Errore nel salvataggio dell'anagrafica.");
+        this.mostraErrore("Errore nel salvataggio.");
       }
     }
   }
 
-  // AZIONE 2: Salva Email e/o Nuova Password
   async salvaAccount() {
     const { email, password } = this.profiloForm.value;
     const datiDaSalvare: any = { email };
-
-    if (password && password.trim() !== '') {
-      datiDaSalvare.password = password;
-    }
+    if (password && password.trim() !== '') datiDaSalvare.password = password;
 
     if (this.profiloForm.get('email')?.valid && !this.profiloForm.hasError('passwordsNotMatching')) {
       try {
         await this.db.saveUserProfile(datiDaSalvare);
         this.profiloForm.patchValue({ password: '', confermaPassword: '' });
-        this.notificaSuccesso('Dati di accesso aggiornati!');
+        this.notificaSuccesso('Dati account aggiornati!');
       } catch (error) {
-        console.error("Errore account:", error);
-        this.mostraErrore("Errore durante l'aggiornamento dell'account.");
+        this.mostraErrore("Errore aggiornamento account.");
       }
     }
   }
 
   private notificaSuccesso(messaggio: string) {
-    this.mostraConferma = true;
-    setTimeout(() => { this.mostraConferma = false; }, 3000);
-    
     Swal.fire({
       toast: true,
       position: 'top-end',
       icon: 'success',
       title: messaggio,
       showConfirmButton: false,
-      timer: 3000,
+      timer: 2500,
       timerProgressBar: true
     });
   }
 
   private mostraErrore(messaggio: string) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Attenzione',
-      text: messaggio,
-      confirmButtonColor: '#605dc8'
-    });
+    Swal.fire({ icon: 'error', title: 'Oops...', text: messaggio, confirmButtonColor: '#605dc8' });
   }
 
   logout() {
     localStorage.removeItem('statoLogin');
-    this.router.navigate(['/login']).then(() => {
-      window.location.reload();
-    });
+    this.router.navigate(['/login']).then(() => { window.location.reload(); });
   }
 }

@@ -5,7 +5,7 @@
     <aside class="profile-sidebar">
       <div class="user-card-header">
         
-        <!-- SEZIONE AVATAR CON MODIFICA -->
+        <!-- SEZIONE AVATAR CON MODIFICA ED ELIMINAZIONE -->
         <div class="avatar-container">
           <div class="avatar-content" (click)="fileInput.click()">
             <!-- Mostra la foto se caricata, altrimenti le iniziali dinamiche -->
@@ -24,6 +24,15 @@
           <!-- Pulsante icona per il caricamento -->
           <button type="button" class="btn-edit-photo" (click)="fileInput.click()" title="Cambia foto">
             📷
+          </button>
+
+          <!-- NUOVO: Pulsante per eliminare la foto (appare solo se la foto esiste) -->
+          <button *ngIf="fotoProfiloUrl" 
+                  type="button" 
+                  class="btn-delete-photo" 
+                  (click)="rimuoviFoto()" 
+                  title="Elimina foto">
+            🗑️
           </button>
         </div>
 
