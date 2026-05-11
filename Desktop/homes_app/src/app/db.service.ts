@@ -52,11 +52,13 @@ export class DbService extends Dexie {
 
   // --- FUNZIONI DI SICUREZZA ---
   private encrypt(text: string): string {
+    if (!text) return '';
     return CryptoJS.AES.encrypt(text, this.SECRET_KEY).toString();
   }
 
   private decrypt(cipherText: string): string {
     try {
+      if (!cipherText) return '';
       const bytes = CryptoJS.AES.decrypt(cipherText, this.SECRET_KEY);
       return bytes.toString(CryptoJS.enc.Utf8);
     } catch (e) {
@@ -65,13 +67,20 @@ export class DbService extends Dexie {
   }
 
   // --- METODI PER IL PROFILO UTENTE ---
-  async saveUserProfile(user: UserProfile) {
-    const secureUser: UserProfile = {
-      ...user,
+  
+  async saveUserProfile(user: any) {
+    // Recuperiamo l'utente attuale per non sovrascrivere la password se non viene inviata
+    const existingUser = await this.userProfile.get(1);
+
+    const secureUser: any = {
+      nome: user.nome,
+      cognome: user.cognome,
       email: this.encrypt(user.email),
-      password: this.encrypt(user.password)
+      // Se user.password esiste la criptiamo, altrimenti teniamo quella già nel DB
+      password: user.password ? this.encrypt(user.password) : existingUser?.password
     };
-    // Salviamo sempre l'utente con ID 1 per semplicità
+
+    // Salviamo sempre all'ID 1 per gestire un profilo unico locale
     return await this.userProfile.put(secureUser, 1); 
   }
 
@@ -80,8 +89,10 @@ export class DbService extends Dexie {
     if (user) {
       return {
         ...user,
+        nome: user.nome || '',
+        cognome: user.cognome || '',
         email: this.decrypt(user.email),
-        password: '' // Non restituiamo la password per sicurezza
+        password: '' // Non restituiamo la password decriptata per sicurezza
       };
     }
     return undefined;
@@ -89,18 +100,16 @@ export class DbService extends Dexie {
 
   // --- METODO LOGIN ---
   async login(emailInserita: string, passwordInserita: string): Promise<boolean> {
-    // Recuperiamo l'unico profilo salvato nel database locale
     const user = await this.userProfile.get(1);
     
     if (!user) {
-      console.warn("Nessun profilo utente trovato nel database.");
+      console.warn("Nessun profilo trovato. Registrati prima.");
       return false;
     }
 
     const emailDecriptata = this.decrypt(user.email);
     const passwordDecriptata = this.decrypt(user.password);
 
-    // Confronto dei dati inseriti con quelli decriptati dal DB
     if (emailInserita === emailDecriptata && passwordInserita === passwordDecriptata) {
       localStorage.setItem('statoLogin', 'true');
       return true;

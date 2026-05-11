@@ -1,4 +1,3 @@
-// app.component.ts 
 import { Component, OnInit, inject } from '@angular/core'; 
 import { RouterModule, Router } from '@angular/router'; 
 import { CommonModule } from '@angular/common'; 

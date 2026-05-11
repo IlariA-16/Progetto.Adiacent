@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router'; // Aggiunto RouterModule
+import { Router, RouterModule } from '@angular/router';
 import { DbService } from '../db.service'; 
 
 @Component({
@@ -16,40 +16,40 @@ export class UserProfileComponent implements OnInit {
   private router = inject(Router);
 
   mostraConferma = false;
-  // Variabili per la visibilità delle password
   passwordVisible = false; 
   confermaPasswordVisible = false; 
 
+  // Ho rimosso Validators.required dalle password per permettere modifiche parziali
   profiloForm = new FormGroup({
     nome: new FormControl('', Validators.required),
     cognome: new FormControl('', Validators.required),
     email: new FormControl('', [
       Validators.required, 
-      Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.(it|com)$")
+      Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") // Pattern email più flessibile
     ]),
     password: new FormControl('', [
-      Validators.required, 
       Validators.minLength(6),
       Validators.pattern("^(?=.*[0-9])(?=.*[!@#$%^&*]).*$")
     ]),
-    confermaPassword: new FormControl('', Validators.required)
+    confermaPassword: new FormControl('')
   }, { validators: this.passwordMatchValidator });
 
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const conferma = control.get('confermaPassword');
-    return password && conferma && password.value !== conferma.value 
+    // La validazione scatta solo se l'utente inizia a scrivere una password
+    return password && conferma && password.value !== conferma.value && password.value !== ''
       ? { passwordsNotMatching: true } 
       : null;
   }
 
-  // Funzioni per mostrare/nascondere password
   togglePassword() { this.passwordVisible = !this.passwordVisible; }
   toggleConfirmPassword() { this.confermaPasswordVisible = !this.confermaPasswordVisible; }
 
   async ngOnInit() {
     const datiSalvati = await this.db.getUserProfile();
     if (datiSalvati) {
+      // patchValue popola i campi esistenti e ignora quelli mancanti
       this.profiloForm.patchValue({
         nome: datiSalvati.nome,
         cognome: datiSalvati.cognome,
@@ -61,15 +61,29 @@ export class UserProfileComponent implements OnInit {
   async salvaProfilo() {
     if (this.profiloForm.valid) {
       try {
-        const { confermaPassword, ...datiDaSalvare } = this.profiloForm.value;
-        await this.db.saveUserProfile(datiDaSalvare as any);
-        this.mostraConferma = true;
+        const formValues = { ...this.profiloForm.value };
         
+        // Prepariamo l'oggetto da inviare eliminando i campi inutili
+        const datiDaSalvare: any = {
+          nome: formValues.nome,
+          cognome: formValues.cognome,
+          email: formValues.email
+        };
+
+        // Aggiungiamo la password solo se l'utente ne ha scritta una nuova
+        if (formValues.password && formValues.password.trim() !== '') {
+          datiDaSalvare.password = formValues.password;
+        }
+
+        await this.db.saveUserProfile(datiDaSalvare);
+        
+        this.mostraConferma = true;
+        // Resettiamo solo i campi password dopo il salvataggio
         this.profiloForm.patchValue({ password: '', confermaPassword: '' });
 
         setTimeout(() => { this.mostraConferma = false; }, 3000);
       } catch (error) {
-        console.error("Errore:", error);
+        console.error("Errore durante il salvataggio:", error);
       }
     }
   }
@@ -77,7 +91,7 @@ export class UserProfileComponent implements OnInit {
   logout() {
     localStorage.removeItem('statoLogin');
     this.router.navigate(['/login']).then(() => {
-      window.location.reload(); // Forza l'aggiornamento dell'header
+      window.location.reload();
     });
   }
 }

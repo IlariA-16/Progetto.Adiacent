@@ -5,6 +5,7 @@
     <aside class="profile-sidebar">
       <div class="user-card-header">
         <div class="avatar-initials">
+          <!-- Mostra le iniziali dinamiche o 'U' come fallback -->
           {{ profiloForm.get('nome')?.value?.charAt(0) || 'U' }}{{ profiloForm.get('cognome')?.value?.charAt(0) || '' }}
         </div>
         <h3>{{ profiloForm.get('nome')?.value || 'Utente' }}</h3>
@@ -35,7 +36,7 @@
           <div class="form-group">
             <label>NOME</label>
             <input type="text" formControlName="nome" placeholder="Nome">
-            <div *ngIf="profiloForm.get('nome')?.invalid && profiloForm.get('nome')?.touched" class="error-message">
+            <div *ngIf="profiloForm.get('nome')?.invalid && (profiloForm.get('nome')?.dirty || profiloForm.get('nome')?.touched)" class="error-message">
               Il nome è obbligatorio.
             </div>
           </div>
@@ -43,7 +44,7 @@
           <div class="form-group">
             <label>COGNOME</label>
             <input type="text" formControlName="cognome" placeholder="Cognome">
-            <div *ngIf="profiloForm.get('cognome')?.invalid && profiloForm.get('cognome')?.touched" class="error-message">
+            <div *ngIf="profiloForm.get('cognome')?.invalid && (profiloForm.get('cognome')?.dirty || profiloForm.get('cognome')?.touched)" class="error-message">
               Il cognome è obbligatorio.
             </div>
           </div>
@@ -52,8 +53,8 @@
         <div class="form-group">
           <label>EMAIL</label>
           <input type="email" formControlName="email" placeholder="esempio@testo.it">
-          <div *ngIf="profiloForm.get('email')?.touched && profiloForm.get('email')?.invalid" class="error-message">
-            Email non valida (usa .it o .com).
+          <div *ngIf="profiloForm.get('email')?.invalid && (profiloForm.get('email')?.dirty || profiloForm.get('email')?.touched)" class="error-message">
+            Inserisci un'email valida.
           </div>
         </div>
 
@@ -61,12 +62,16 @@
 
         <div class="form-row">
           <div class="form-group">
-            <label>NUOVA PASSWORD</label>
+            <label>NUOVA PASSWORD (opzionale)</label>
             <div class="password-wrapper">
               <input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" placeholder="******">
               <span class="toggle-password" (click)="togglePassword()">
                 {{ passwordVisible ? 'Nascondi' : 'Mostra' }}
               </span>
+            </div>
+            <!-- Errore mostrato solo se l'utente scrive una password non valida -->
+            <div *ngIf="profiloForm.get('password')?.invalid && profiloForm.get('password')?.dirty" class="error-message">
+              Minimo 6 caratteri, un numero e un simbolo.
             </div>
           </div>
 
@@ -81,7 +86,8 @@
           </div>
         </div>
         
-        <div *ngIf="profiloForm.errors?.['passwordsNotMatching'] && profiloForm.get('confermaPassword')?.touched" class="error-message">
+        <!-- Errore mismatch password -->
+        <div *ngIf="profiloForm.hasError('passwordsNotMatching') && profiloForm.get('confermaPassword')?.dirty" class="error-message">
           ⚠️ Le password non corrispondono!
         </div>
 
