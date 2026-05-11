@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router'; 
 import { FormsModule } from '@angular/forms'; 
 import { DbService } from '../db.service';
-import Swal from 'sweetalert2'; // <--- Nuovo import per i messaggi Toast
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-register',
@@ -38,22 +38,38 @@ export class RegisterComponent {
   }
 
   async registrati() {
-    // Controllo password non corrispondenti
-    if (this.userData.password !== this.userData.confermaPassword) {
+    const { nome, cognome, email, password, confermaPassword } = this.userData;
+
+    // 1. Controllo campi vuoti
+    if (!nome.trim() || !cognome.trim() || !email.trim() || !password || !confermaPassword) {
+      this.mostraMessaggio('Tutti i campi sono obbligatori!', 'warning');
+      return;
+    }
+
+    // 2. Validazione Formato Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      this.mostraMessaggio('Inserisci un indirizzo email valido.', 'error');
+      return;
+    }
+
+    // 3. Validazione Password (min 8 caratteri, almeno una lettera e un numero)
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!passwordRegex.test(password)) {
+      this.mostraMessaggio('La password deve contenere almeno 8 caratteri, inclusa una lettera e un numero.', 'error');
+      return;
+    }
+
+    // 4. Controllo corrispondenza password
+    if (password !== confermaPassword) {
       this.mostraMessaggio('Le password non corrispondono!', 'error');
       return;
     }
 
-    // Controllo campi vuoti
-    if (!this.userData.email || !this.userData.password) {
-      this.mostraMessaggio('Per favore, compila tutti i campi.', 'warning');
-      return;
-    }
-
+    // Se i controlli sono passati, procedo al salvataggio
     try {
       await this.dbService.saveUserProfile(this.userData);
       
-      // Messaggio di successo stile Toast
       const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -74,12 +90,12 @@ export class RegisterComponent {
     }
   }
 
-  // Funzione di supporto per messaggi veloci
+  // Funzione di supporto per i messaggi SweetAlert2
   private mostraMessaggio(testo: string, icona: 'success' | 'error' | 'warning') {
     Swal.fire({
       text: testo,
       icon: icona,
-      confirmButtonColor: '#5e5adb', // Colore viola come il tuo bottone
+      confirmButtonColor: '#5e5adb',
     });
   }
 }

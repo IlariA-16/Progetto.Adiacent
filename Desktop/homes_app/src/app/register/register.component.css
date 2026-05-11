@@ -61,15 +61,15 @@ label {
   font-size: 0.8rem;
   margin-bottom: 5px;
   color: #666;
-  margin-left: 15px; /* Allineato all'inizio della stondatura */
+  margin-left: 15px;
 }
 
-/* INPUT AGGIORNATI: Stondati e Violino */
+/* INPUT AGGIORNATI */
 input {
   width: 100%;
   padding: 12px 20px;
-  border: 2px solid #605dc8; /* Bordo violino */
-  border-radius: 50px;       /* Forma a pillola */
+  border: 2px solid #605dc8;
+  border-radius: 50px;
   background-color: #fdfdfd;
   outline: none;
   box-sizing: border-box;
@@ -81,6 +81,22 @@ input:focus {
   background-color: white;
 }
 
+/* STATI DI VALIDAZIONE */
+/* Se l'utente tocca il campo e sbaglia, il bordo diventa rosso */
+input.ng-invalid.ng-touched {
+  border-color: #ff4d4d !important;
+}
+
+/* Messaggio di errore sotto l'input */
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 15px;
+  display: block;
+}
+
 .password-wrapper {
   position: relative;
   display: flex;
@@ -89,7 +105,7 @@ input:focus {
 
 .toggle-password {
   position: absolute;
-  right: 20px; /* Più spazio per la curva */
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.7rem;
@@ -111,11 +127,16 @@ input:focus {
   transition: 0.3s;
 }
 
-.btn-submit:hover {
+.btn-submit:hover:not(:disabled) {
   filter: brightness(90%);
 }
 
-/* Link in fondo tratteggiato */
+/* Stile per bottone disabilitato */
+.btn-submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .login-link {
   margin-top: 20px;
   font-size: 0.9rem;

@@ -19,13 +19,12 @@ export class UserProfileComponent implements OnInit {
   passwordVisible = false; 
   confermaPasswordVisible = false; 
 
-  // Ho rimosso Validators.required dalle password per permettere modifiche parziali
   profiloForm = new FormGroup({
     nome: new FormControl('', Validators.required),
     cognome: new FormControl('', Validators.required),
     email: new FormControl('', [
       Validators.required, 
-      Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") // Pattern email più flessibile
+      Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$") 
     ]),
     password: new FormControl('', [
       Validators.minLength(6),
@@ -37,6 +36,7 @@ export class UserProfileComponent implements OnInit {
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const conferma = control.get('confermaPassword');
+    
     // La validazione scatta solo se l'utente inizia a scrivere una password
     return password && conferma && password.value !== conferma.value && password.value !== ''
       ? { passwordsNotMatching: true } 
