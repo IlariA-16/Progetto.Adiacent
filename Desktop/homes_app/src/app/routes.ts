@@ -10,6 +10,8 @@ import { DetailsDescriptionComponent } from './details/details-description/detai
 import { AddHouseComponent } from './add-house/add-house.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { authGuard } from "./auth.guard";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from './register/register.component';
 
 const routeConfig: Routes = [
   {
@@ -68,7 +70,17 @@ const routeConfig: Routes = [
     path: 'home',
     redirectTo: '',
     pathMatch: 'full'
-  }
+  },
+   {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Accedi'
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    title: 'Registrati'
+  },
   
   
 ];

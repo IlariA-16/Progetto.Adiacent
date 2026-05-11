@@ -1,28 +1,96 @@
-/* --- CONTENITORE PRINCIPALE --- */
-.profile-container {
-  max-width: 420px;
-  margin: 60px auto;
-  padding: 40px;
-  background-color: #ffffff;
+/* --- LAYOUT GENERALE --- */
+.profile-page-wrapper {
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 80px);
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* --- SIDEBAR --- */
+.profile-sidebar {
+  background: white;
   border-radius: 20px;
+  padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  border: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
 }
 
-h2 {
-  text-align: center;
-  color: #1a1a1a;
-  font-weight: 800;
-  margin-bottom: 35px;
-  letter-spacing: -0.5px;
-  font-size: 1.6rem;
+.avatar-initials {
+  width: 70px;
+  height: 70px;
+  background: #605dc8;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 15px;
 }
 
-/* --- GRUPPI DI INPUT E LABEL --- */
-.form-group {
-  margin-bottom: 24px;
+.user-card-header h3 { margin: 0; color: #1a1a1a; text-align: center; font-size: 1.2rem; }
+
+.status-badge { 
+  background: #e8f5e9; 
+  color: #2e7d32; 
+  font-size: 0.7rem; 
+  padding: 4px 12px; 
+  border-radius: 50px; 
+  font-weight: bold;
+  margin: 8px auto;
+  width: fit-content;
 }
+
+.profile-nav-links { margin: 30px 0; display: flex; flex-direction: column; gap: 8px; }
+
+.nav-link {
+  padding: 12px 15px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 600;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.nav-link.active { background: #f0f0ff; color: #605dc8; }
+
+.btn-logout-sidebar {
+  background: #fff0f0;
+  color: #d32f2f;
+  border: none;
+  padding: 12px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* --- CONTENUTO PRINCIPALE --- */
+.profile-main-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.content-header h2 { margin: 0; color: #1a1a1a; font-weight: 800; }
+.content-header p { color: #888; font-size: 0.9rem; margin-bottom: 30px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 24px; text-align: left; }
 
 label {
   display: block;
@@ -31,43 +99,32 @@ label {
   font-weight: 700;
   color: #666;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 input {
   width: 100%;
   padding: 14px 16px;
   border: 2px solid #edf2f7;
-  border-radius: 12px;
+  border-radius: 50px;
   box-sizing: border-box;
   font-size: 15px;
-  color: #2d3748;
   background-color: #f8fafc;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s;
 }
 
 input:focus {
   outline: none;
-  border-color: #605dc8; /* Viola principale */
+  border-color: #605dc8;
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
 }
 
-/* --- GESTIONE PASSWORD (MOSTRA/NASCONDI) --- */
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+.password-wrapper { position: relative; }
+.password-wrapper input { padding-right: 85px; }
 
-/* Padding a destra per non scrivere sopra il tasto Mostra */
-.password-wrapper input {
-  padding-right: 85px; 
-}
-
-.toggle-text {
+.toggle-password {
   position: absolute;
-  right: 12px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 0.65rem;
@@ -75,83 +132,27 @@ input:focus {
   color: #605dc8;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  background: white;
-  padding: 6px 10px;
-  border-radius: 8px;
-  user-select: none; /* Impedisce la selezione blu del testo */
-  transition: all 0.2s ease;
 }
 
-.toggle-text:hover {
-  background: #f0f0ff;
-  color: #4a47a3;
-}
+.section-divider { border: 0; border-top: 1px solid #f0f4f8; margin: 20px 0; }
+.error-message { color: #e53e3e; font-size: 12px; margin-top: 8px; font-weight: 500; }
 
-/* --- MESSAGGI DI ERRORE --- */
-.error-message {
-  font-size: 12px;
-  margin-top: 8px;
-  color: #e53e3e;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-}
-
-/* --- BOTTONI --- */
-button {
+/* --- BOTTONE SALVA --- */
+.btn-save {
+  background: linear-gradient(135deg, #605dc8 0%, #4a47a3 100%);
+  color: white;
   width: 100%;
   padding: 15px;
   border: none;
-  border-radius: 12px;
-  font-size: 15px;
+  border-radius: 50px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Bottone Salva */
-button[type="submit"] {
-  background: linear-gradient(135deg, #605dc8 0%, #4a47a3 100%);
-  color: white;
-  margin-top: 15px;
   box-shadow: 0 4px 15px rgba(96, 93, 200, 0.2);
 }
 
-button[type="submit"]:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(96, 93, 200, 0.3);
-}
+.btn-save:disabled { background: #e2e8f0 !important; cursor: not-allowed; box-shadow: none; }
 
-button:disabled {
-  background-color: #e2e8f0;
-  color: #94a3b8;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* Bottone Logout */
-.btn-logout {
-  background-color: transparent;
-  color: #a0aec0;
-  margin-top: 15px;
-  font-size: 14px;
-  border: 1px solid #edf2f7;
-}
-
-.btn-logout:hover {
-  background-color: #fff5f5;
-  color: #e53e3e;
-  border-color: #fed7d7;
-}
-
-hr {
-  margin: 30px 0;
-  border: 0;
-  border-top: 1px solid #f0f4f8;
-}
-
-/* --- NOTIFICA TOAST (SUCCESSO) --- */
+/* --- TOAST --- */
 .toast-success {
   position: fixed;
   bottom: 30px;
@@ -159,14 +160,9 @@ hr {
   background: #2d3748;
   color: #fff;
   padding: 16px 24px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  font-size: 14px;
+  border-radius: 50px;
   z-index: 10000;
-  animation: slideUp 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  animation: slideUp 0.5s ease;
 }
 
-@keyframes slideUp {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
+@keyframes slideUp { from { transform: translateY(100px); } to { transform: translateY(0); } }

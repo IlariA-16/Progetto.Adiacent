@@ -10,7 +10,7 @@ export interface UserProfile {
   nome: string;
   cognome: string;
   email: string;
-  password: string
+  password: string;
 }
 
 @Injectable({
@@ -60,7 +60,7 @@ export class DbService extends Dexie {
       const bytes = CryptoJS.AES.decrypt(cipherText, this.SECRET_KEY);
       return bytes.toString(CryptoJS.enc.Utf8);
     } catch (e) {
-      return ''; // Ritorna stringa vuota se la decriptazione fallisce
+      return ''; 
     }
   }
 
@@ -71,6 +71,7 @@ export class DbService extends Dexie {
       email: this.encrypt(user.email),
       password: this.encrypt(user.password)
     };
+    // Salviamo sempre l'utente con ID 1 per semplicità
     return await this.userProfile.put(secureUser, 1); 
   }
 
@@ -80,28 +81,35 @@ export class DbService extends Dexie {
       return {
         ...user,
         email: this.decrypt(user.email),
-        password: '' // Non mostriamo la password nel form per sicurezza
+        password: '' // Non restituiamo la password per sicurezza
       };
     }
     return undefined;
   }
 
-  // --- NUOVO METODO LOGIN ---
+  // --- METODO LOGIN ---
   async login(emailInserita: string, passwordInserita: string): Promise<boolean> {
+    // Recuperiamo l'unico profilo salvato nel database locale
     const user = await this.userProfile.get(1);
-    if (!user) return false;
+    
+    if (!user) {
+      console.warn("Nessun profilo utente trovato nel database.");
+      return false;
+    }
 
     const emailDecriptata = this.decrypt(user.email);
     const passwordDecriptata = this.decrypt(user.password);
 
+    // Confronto dei dati inseriti con quelli decriptati dal DB
     if (emailInserita === emailDecriptata && passwordInserita === passwordDecriptata) {
       localStorage.setItem('statoLogin', 'true');
       return true;
     }
+    
     return false;
   }
 
-  // --- METODI ALTRI (LOCATIONS / APPLICATIONS) ---
+  // --- ALTRI METODI ---
   async seedDatabase(data: HousingLocation[]): Promise<void> {
     const count = await this.locations.count();
     if (count === 0) await this.locations.bulkPut(data);
@@ -114,14 +122,6 @@ export class DbService extends Dexie {
 
   async deleteLocation(id: number): Promise<void> {
     await this.locations.delete(id);
-  }
-
-  async clearDatabase(): Promise<void> {
-    await this.locations.clear();
-  }
-
-  async getApplicationsByLocation(locationId: number) {
-    return await this.applications.where('locationId').equals(locationId).toArray();
   }
 
   async updateAboutSection(id: string, title: string, body: string) {

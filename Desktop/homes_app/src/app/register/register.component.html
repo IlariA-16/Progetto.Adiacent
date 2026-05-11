@@ -1,0 +1,47 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Crea il tuo Account</h2>
+    <p>Compila i campi sottostanti per registrarti a Homes</p>
+
+    <form>
+      <div class="form-group">
+        <label>NOME:</label>
+        <input type="text" placeholder="Inserisci il tuo nome">
+      </div>
+
+      <div class="form-group">
+        <label>COGNOME:</label>
+        <input type="text" placeholder="Inserisci il tuo cognome">
+      </div>
+
+      <div class="form-group">
+        <label>EMAIL:</label>
+        <input type="email" placeholder="esempio@testo.it">
+      </div>
+
+      <div class="form-group">
+        <label>PASSWORD:</label>
+        <div class="password-wrapper">
+          <input [type]="passwordVisible ? 'text' : 'password'" placeholder="Nuova password">
+          <span class="toggle-password" (click)="togglePasswordVisibility()">
+            {{ passwordVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>CONFERMA PASSWORD:</label>
+        <div class="password-wrapper">
+          <input [type]="confirmPasswordVisible ? 'text' : 'password'" placeholder="Conferma la tua password">
+          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+            {{ confirmPasswordVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Registrati ora</button>
+    </form>
+    
+    <p class="login-link">Hai già un account? <a [routerLink]="['/login']">Accedi</a></p>
+  </div>
+</div>

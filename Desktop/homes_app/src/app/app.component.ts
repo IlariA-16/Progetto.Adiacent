@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core'; // Aggiunto inject
-import { RouterModule, Router } from '@angular/router'; // Aggiunto Router
-import { CommonModule } from '@angular/common'; // Aggiunto CommonModule per ngIf
+// app.component.ts 
+import { Component, OnInit, inject } from '@angular/core'; 
+import { RouterModule, Router } from '@angular/router'; 
+import { CommonModule } from '@angular/common'; 
 import { HomeComponent } from './home/home.component';
 import { DbService } from './db.service';
 import { HousingLocation } from './housing-location'; 
@@ -22,12 +23,16 @@ import housingData from '../../db.json';
           <a [routerLink]="['/favorites']" class="btn-fav-page">⭐ I miei Preferiti</a>
           <a [routerLink]="['/about']" class="btn-about-page">ℹ️ Chi Siamo</a>
           
-          <!-- NUOVO TASTO DINAMICO -->
-          <a *ngIf="isLogged(); else loginBtn" [routerLink]="['/user-profile']" class="btn-user-profile">
+          <!-- Se loggato mostra Profilo, altrimenti i due tasti di autenticazione -->
+          <a *ngIf="isLogged(); else authButtons" [routerLink]="['/user-profile']" class="btn-user-profile">
             👤 Il mio Profilo
           </a>
-          <ng-template #loginBtn>
-            <a (click)="login()" class="btn-login">🔑 Accedi</a>
+
+          <ng-template #authButtons>
+            <div class="auth-group">
+              <a [routerLink]="['/login']" class="btn-accedi">Accedi</a>
+              <a [routerLink]="['/register']" class="btn-iscriviti">Iscriviti ora</a>
+            </div>
           </ng-template>
         </div>
       </header>
@@ -38,24 +43,17 @@ import housingData from '../../db.json';
     </main>
   `,
   styleUrls: ['./app.component.css'],
-  // Aggiunto CommonModule qui per far funzionare *ngIf
   imports: [HomeComponent, RouterModule, CommonModule]
 })
 export class AppComponent implements OnInit {
   title = 'homes';
-  private router = inject(Router); // Iniettiamo il router per il login
+  private router = inject(Router);
 
   constructor(private dbService: DbService) {}
 
-  // Controlla se l'utente è loggato
+  // Controlla se l'utente è loggato tramite localStorage
   isLogged(): boolean {
     return localStorage.getItem('statoLogin') !== null;
-  }
-
-  // Funzione per il tasto "Accedi"
-  login() {
-    localStorage.setItem('statoLogin', 'true');
-    this.router.navigate(['/user-profile']);
   }
 
   async ngOnInit(): Promise<void> {
