@@ -1,0 +1,189 @@
+/* CONTAINER PRINCIPALE */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 80px);
+}
+
+.register-card {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* TITOLO CON EFFETTO OUTLINE */
+h2 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #605dc8;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  transition: all 0.4s;
+  cursor: default;
+  margin-bottom: 10px;
+}
+
+h2:hover {
+  color: #605dc8;
+  -webkit-text-stroke: 1.5px transparent;
+  transform: scale(1.05);
+}
+
+/* SOTTOTITOLO TRATTEGGIATO */
+p {
+  background: rgba(94, 90, 219, 0.05);
+  padding: 10px 20px;
+  border-radius: 50px;
+  color: #605dc8;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: inline-block;
+  margin: 15px 0 25px 0;
+  border: 1px dashed #605dc8;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: #666;
+  margin-left: 15px;
+}
+
+/* INPUT BASE */
+input {
+  width: 100%;
+  padding: 12px 20px;
+  border: 2px solid #605dc8;
+  border-radius: 50px;
+  background-color: #fdfdfd;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  box-shadow: 0 0 8px rgba(96, 93, 200, 0.2);
+  background-color: white;
+}
+
+/* GESTIONE ERRORI E VALIDAZIONE */
+
+/* Classe per input standard non validi */
+input.ng-invalid.ng-touched, 
+input.is-invalid {
+  border-color: #ff4d4d !important;
+}
+
+/* Gestione specifica per i campi Password (dentro il wrapper) */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Se il wrapper ha la classe d'errore, colora l'input interno */
+.password-wrapper.is-invalid-box input {
+  border-color: #ff4d4d !important;
+}
+
+.password-wrapper.is-invalid-box .toggle-password {
+  color: #ff4d4d;
+}
+
+/* MESSAGGIO DI ERRORE SOTTO GLI INPUT */
+.error-text {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-left: 15px;
+  display: block;
+  animation: fadeInError 0.3s ease-in-out;
+}
+
+@keyframes fadeInError {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* TOGGLE MOSTRA/NASCONDI */
+.toggle-password {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #605dc8;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
+}
+
+/* BOTTONE REGISTRATI */
+.btn-submit {
+  width: 100%;
+  background-color: #605dc8;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  filter: brightness(90%);
+  transform: translateY(-2px);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* STILE BOTTONE DISABILITATO */
+.btn-submit:disabled {
+  background-color: #d1d1d1;
+  color: #888;
+  cursor: not-allowed;
+  border: 1px solid #ccc;
+}
+
+/* LINK ACCEDI IN BASSO */
+.login-link {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  border: 1px dashed #605dc8;
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+.login-link a {
+  color: #605dc8;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

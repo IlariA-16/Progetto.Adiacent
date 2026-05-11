@@ -1,14 +1,23 @@
 :host {
   --content-padding: 20px;
 }
+
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 80px;
   padding: 0 var(--content-padding);
-  box-shadow: 0px 5px 25px var(--shadow-color);
+  box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.1);
   background-color: white;
 }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .content {
   padding: var(--content-padding);
 }
@@ -17,3 +26,65 @@ header img {
   height: 40px;
   vertical-align: middle;
 }
+
+/* --- STILE UNIFICATO PER TUTTI I BOTTONI (TUTTI A PILLOLA) --- */
+.btn-dashboard-page, 
+.btn-fav-page, 
+.btn-about-page,
+.btn-add-page,
+.btn-user-profile,
+.btn-accedi, 
+.btn-iscriviti {
+  background-color: #605dc8 !important; /* Viola uniforme */
+  color: white !important;             /* Testo bianco uniforme */
+  padding: 10px 22px;
+  border-radius: 50px !important;    /* TUTTI con forma a pillola */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  border: 2px solid #605dc8 !important;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* EFFETTO HOVER PER TUTTI */
+.btn-dashboard-page:hover,
+.btn-fav-page:hover, 
+.btn-about-page:hover,
+.btn-add-page:hover,
+.btn-user-profile:hover,
+.btn-accedi:hover,
+.btn-iscriviti:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(96, 93, 200, 0.3);
+}
+
+/* STILE LOGO */
+.brand-name a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Contenitore per i tasti di autenticazione */
+.auth-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+

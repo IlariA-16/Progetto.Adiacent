@@ -2,6 +2,17 @@ import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { DetailsMicoComponent } from "./details-mico/details-mico.component";
 import { DetailsComponent } from "./details/details.component";
+import { ThankYouComponent } from "./thank-you/thank-you.component";
+import { FavoritesComponent } from './favorites/favorites.component';
+import { AboutComponent } from './about/about.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { DetailsDescriptionComponent } from './details/details-description/details-description.component';
+import { AddHouseComponent } from './add-house/add-house.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { authGuard } from "./auth.guard";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from './register/register.component';
+
 const routeConfig: Routes = [
   {
     path: '',
@@ -18,10 +29,60 @@ const routeConfig: Routes = [
   {
     path: 'details/:id',
     component: DetailsComponent,
-    title:'Details '
-  }
-
+    title: 'Dettagli Casa'
+  },
+  {
+  path: 'details/:id/description',
+  component: DetailsDescriptionComponent,
+  title: 'Descrizione Completa'
+  },
+  {
+  path: 'thank-you',
+  component: ThankYouComponent,
+  title: 'Grazie per averci contattato'
+  },
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
+    title: 'I miei Preferiti'
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    title: 'Chi siamo'
+  },
+  {
+  path: 'dashboard',
+  component: UserDashboardComponent,
+  title: 'La tua Dashboard'
+},
+ {
+    path: 'add',
+    component: AddHouseComponent,
+    title: 'Aggiungi Proprietà'
+  },
+  { path: 'user-profile',
+    component: UserProfileComponent,
+    title: 'Profilo Utente',
+    canActivate: [authGuard] 
+  },
+  {
+    path: 'home',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+   {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Accedi'
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    title: 'Registrati'
+  },
+  
   
 ];
 
-export default routeConfig;
+export default routeConfig

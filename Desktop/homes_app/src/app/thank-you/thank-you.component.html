@@ -1,0 +1,50 @@
+<main class="thank-you-page">
+  <section class="thank-you-card">
+    
+    <!-- 1. Testata con Feedback Visivo -->
+    <header class="card-header">
+      <div class="success-icon-wrapper">
+        <span class="check-icon">✓</span>
+      </div>
+      <h1>Grazie, {{ userName }}!</h1>
+      <p class="main-subtitle">La tua richiesta è stata presa in carico con successo.</p>
+    </header>
+
+    <hr class="divider">
+
+    <!-- 2. Cosa succede ora? (Dà sicurezza all'utente) -->
+    <article class="next-steps">
+      <h2>Cosa succederà adesso?</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-number">1</span>
+          <p><strong>Riceverai una conferma:</strong> Ti abbiamo appena inviato un'email con il riepilogo della tua richiesta.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">2</span>
+          <p><strong>Analisi della richiesta:</strong> Un nostro esperto immobiliare valuterà le tue preferenze nelle prossime 2 ore.</p>
+        </div>
+        <div class="step">
+          <span class="step-number">3</span>
+          <p><strong>Contatto diretto:</strong> Verrai ricontattato telefonicamente o via email per fissare un appuntamento o ricevere maggiori dettagli.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Contenuto extra per "riempire" e dare valore -->
+    <div class="support-info">
+      <h3>Hai bisogno di assistenza immediata?</h3>
+      <p>Se hai dimenticato di aggiungere un dettaglio importante o hai domande urgenti, il nostro team è a tua disposizione.</p>
+      <p class="contact-hours">Siamo attivi dal lunedì al venerdì, dalle 9:00 alle 18:00.</p>
+    </div>
+
+    <!-- 4. Azioni Finali (CTA) -->
+    <footer class="card-footer">
+      <div class="button-group">
+        <a routerLink="/" class="btn-primary">Torna alla lista delle case</a>   
+      </div>
+    </footer>
+
+  </section>
+</main>
+

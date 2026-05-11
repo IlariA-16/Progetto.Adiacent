@@ -1,0 +1,46 @@
+<!-- Usiamo aboutData$ dal componente per rendere la pagina dinamica -->
+<section class="about-container" *ngIf="aboutData$ | async as data">
+  <h2>Chi Siamo</h2>
+  
+  <!-- Sezione Missione -->
+  <article class="mission">
+    <h3>{{ data.missione?.title || 'Oltre le mura: la nostra missione è la vostra serenità' }}</h3>
+    <p>
+      {{ data.missione?.body || 'In un mercato veloce e spesso impersonale come quello immobiliare, abbiamo scelto con convinzione di mettere al centro l’ascolto attivo e l’empatia. Sappiamo bene che cercare casa non significa semplicemente sfogliare una lista di annunci o visitare immobili; significa proiettare i propri sogni, i propri sacrifici e il proprio futuro in uno spazio che dovrà accogliervi per anni. La nostra missione è proteggere questa visione, trasformando una ricerca spesso stressante in un percorso lineare, sicuro e, soprattutto, sereno.' }}
+    </p>
+  </article>
+
+  <!-- Sezione Filosofia e Valori -->
+  <article class="values">
+    <h3>{{ data.filosofia?.title || "La nostra filosofia: il cliente prima dell'immobile" }}</h3>
+    <p>
+      {{ data.filosofia?.body || 'Per noi, la serietà non è un semplice slogan, ma un impegno quotidiano che si traduce in una trasparenza totale verso chi si affida a noi. Non ci interessa concludere una vendita "a qualunque costo" o proporre una casa a chiunque; il nostro obiettivo è trovare la soluzione che si incastri perfettamente con le vostre esigenze reali, garantendovi una consulenza onesta che metta in luce pregi e difetti di ogni opportunità, eliminando ogni fonte di incertezza o stress.' }}
+    </p>
+    
+    <ul>
+      <!-- Ciclo sui valori salvati nel DB -->
+      <li *ngFor="let valore of data.valori">
+        <strong>{{ valore.title }}:</strong> {{ valore.body }}
+      </li>
+      
+      <!-- Fallback statico se il DB è vuoto o in caricamento -->
+      <ng-container *ngIf="data.valori?.length === 0">
+        <li>
+          <strong>Etica e Trasparenza:</strong> Ogni immobile nel nostro portafoglio viene sottoposto a verifiche tecnico-legali rigorose prima ancora di essere proposto, per garantirvi un acquisto privo di sgradevoli sorprese burocratiche.
+        </li>
+        <li>
+          <strong>Sartorialità:</strong> Non crediamo nelle soluzioni standard. Analizziamo a fondo il vostro stile di vita, le vostre abitudini e le prospettive future per cucirvi addosso una ricerca mirata che rispetti il vostro tempo e le vostre priorità.
+        </li>
+        <li>
+          <strong>Presenza costante:</strong> Il nostro lavoro non finisce con la firma del preliminare. Restiamo al vostro fianco con dedizione costante durante tutta la fase burocratica, accompagnandovi fino al momento del rogito e restando un punto di riferimento anche dopo la consegna delle chiavi.
+        </li>
+      </ng-container>
+    </ul>
+  </article>
+
+  <article class="closing">
+    <p>
+      Il nostro traguardo più grande non è una provvigione, ma il vostro sorriso sincero il giorno in cui, finalmente, girate la chiave nella serratura della vostra nuova casa. Siamo qui per dimostrarvi, giorno dopo giorno, che trovare casa può e deve essere un’esperienza emozionante, sicura e profondamente umana.
+    </p>
+  </article>
+</section>
