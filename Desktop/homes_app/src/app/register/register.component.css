@@ -1,3 +1,4 @@
+/* CONTAINER PRINCIPALE */
 .register-container {
   display: flex;
   justify-content: center;
@@ -17,7 +18,7 @@
   text-align: center;
 }
 
-/* Titolo con effetto Outline */
+/* TITOLO CON EFFETTO OUTLINE */
 h2 {
   font-size: 3rem;
   font-weight: 900;
@@ -37,7 +38,7 @@ h2:hover {
   transform: scale(1.05);
 }
 
-/* Sottotitolo tratteggiato */
+/* SOTTOTITOLO TRATTEGGIATO */
 p {
   background: rgba(94, 90, 219, 0.05);
   padding: 10px 20px;
@@ -64,7 +65,7 @@ label {
   margin-left: 15px;
 }
 
-/* INPUT AGGIORNATI */
+/* INPUT BASE */
 input {
   width: 100%;
   padding: 12px 20px;
@@ -73,7 +74,7 @@ input {
   background-color: #fdfdfd;
   outline: none;
   box-sizing: border-box;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 input:focus {
@@ -81,13 +82,32 @@ input:focus {
   background-color: white;
 }
 
-/* STATI DI VALIDAZIONE */
-/* Se l'utente tocca il campo e sbaglia, il bordo diventa rosso */
-input.ng-invalid.ng-touched {
+/* GESTIONE ERRORI E VALIDAZIONE */
+
+/* Classe per input standard non validi */
+input.ng-invalid.ng-touched, 
+input.is-invalid {
   border-color: #ff4d4d !important;
 }
 
-/* Messaggio di errore sotto l'input */
+/* Gestione specifica per i campi Password (dentro il wrapper) */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Se il wrapper ha la classe d'errore, colora l'input interno */
+.password-wrapper.is-invalid-box input {
+  border-color: #ff4d4d !important;
+}
+
+.password-wrapper.is-invalid-box .toggle-password {
+  color: #ff4d4d;
+}
+
+/* MESSAGGIO DI ERRORE SOTTO GLI INPUT */
 .error-text {
   color: #ff4d4d;
   font-size: 0.75rem;
@@ -95,14 +115,15 @@ input.ng-invalid.ng-touched {
   margin-top: 5px;
   margin-left: 15px;
   display: block;
+  animation: fadeInError 0.3s ease-in-out;
 }
 
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
+@keyframes fadeInError {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* TOGGLE MOSTRA/NASCONDI */
 .toggle-password {
   position: absolute;
   right: 20px;
@@ -112,8 +133,11 @@ input.ng-invalid.ng-touched {
   font-weight: bold;
   color: #605dc8;
   cursor: pointer;
+  user-select: none;
+  transition: color 0.3s;
 }
 
+/* BOTTONE REGISTRATI */
 .btn-submit {
   width: 100%;
   background-color: #605dc8;
@@ -129,14 +153,22 @@ input.ng-invalid.ng-touched {
 
 .btn-submit:hover:not(:disabled) {
   filter: brightness(90%);
+  transform: translateY(-2px);
 }
 
-/* Stile per bottone disabilitato */
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* STILE BOTTONE DISABILITATO */
 .btn-submit:disabled {
-  background-color: #ccc;
+  background-color: #d1d1d1;
+  color: #888;
   cursor: not-allowed;
+  border: 1px solid #ccc;
 }
 
+/* LINK ACCEDI IN BASSO */
 .login-link {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -150,4 +182,8 @@ input.ng-invalid.ng-touched {
   color: #605dc8;
   text-decoration: none;
   font-weight: bold;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }

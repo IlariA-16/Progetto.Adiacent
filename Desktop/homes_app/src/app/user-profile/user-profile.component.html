@@ -4,10 +4,32 @@
     <!-- COLONNA SINISTRA: Sidebar -->
     <aside class="profile-sidebar">
       <div class="user-card-header">
-        <div class="avatar-initials">
-          <!-- Mostra le iniziali dinamiche o 'U' come fallback -->
-          {{ profiloForm.get('nome')?.value?.charAt(0) || 'U' }}{{ profiloForm.get('cognome')?.value?.charAt(0) || '' }}
+        
+        <!-- SEZIONE AVATAR CON MODIFICA -->
+        <div class="avatar-container">
+          <div class="avatar-content" (click)="fileInput.click()">
+            <!-- Mostra la foto se caricata, altrimenti le iniziali dinamiche -->
+            <img *ngIf="fotoProfiloUrl" [src]="fotoProfiloUrl" class="avatar-img" alt="Foto Profilo">
+            
+            <div *ngIf="!fotoProfiloUrl" class="avatar-initials">
+              {{ profiloForm.get('nome')?.value?.charAt(0) || 'U' }}{{ profiloForm.get('cognome')?.value?.charAt(0) || '' }}
+            </div>
+
+            <!-- Overlay al passaggio del mouse -->
+            <div class="avatar-overlay">
+              <span>Modifica</span>
+            </div>
+          </div>
+
+          <!-- Pulsante icona per il caricamento -->
+          <button type="button" class="btn-edit-photo" (click)="fileInput.click()" title="Cambia foto">
+            📷
+          </button>
         </div>
+
+        <!-- Input file nascosto -->
+        <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+
         <h3>{{ profiloForm.get('nome')?.value || 'Utente' }}</h3>
         <p class="status-badge">Account Attivo</p>
       </div>
@@ -17,91 +39,135 @@
         <a [routerLink]="['/dashboard']" class="nav-link">🚀 Dashboard</a>
         <a [routerLink]="['/favorites']" class="nav-link">⭐ Preferiti</a>
       </nav>
-
-      <button type="button" (click)="logout()" class="btn-logout-sidebar">
-        Esci dall'Account
-      </button>
+      <button type="button" (click)="logout()" class="btn-logout-sidebar">Esci dall'Account</button>
     </aside>
 
-    <!-- COLONNA DESTRA: Il Form -->
+    <!-- COLONNA DESTRA: Contenuto -->
     <main class="profile-main-content">
+      
+      <!-- SEZIONE 1: DATI ANAGRAFICI -->
       <div class="content-header">
         <h2>Modifica il tuo Profilo</h2>
-        <p>Tieni aggiornati i tuoi dati per un'esperienza migliore.</p>
+        <p>Gestisci le tue informazioni personali complete.</p>
       </div>
 
       <form [formGroup]="profiloForm" (ngSubmit)="salvaProfilo()">
-        
         <div class="form-row">
           <div class="form-group">
             <label>NOME</label>
             <input type="text" formControlName="nome" placeholder="Nome">
-            <div *ngIf="profiloForm.get('nome')?.invalid && (profiloForm.get('nome')?.dirty || profiloForm.get('nome')?.touched)" class="error-message">
-              Il nome è obbligatorio.
-            </div>
           </div>
-
           <div class="form-group">
             <label>COGNOME</label>
             <input type="text" formControlName="cognome" placeholder="Cognome">
-            <div *ngIf="profiloForm.get('cognome')?.invalid && (profiloForm.get('cognome')?.dirty || profiloForm.get('cognome')?.touched)" class="error-message">
-              Il cognome è obbligatorio.
-            </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label>EMAIL</label>
-          <input type="email" formControlName="email" placeholder="esempio@testo.it">
-          <div *ngIf="profiloForm.get('email')?.invalid && (profiloForm.get('email')?.dirty || profiloForm.get('email')?.touched)" class="error-message">
-            Inserisci un'email valida.
-          </div>
-        </div>
-
-        <hr class="section-divider">
 
         <div class="form-row">
           <div class="form-group">
-            <label>NUOVA PASSWORD (opzionale)</label>
+            <label>DATA DI NASCITA</label>
+            <input type="date" formControlName="dataNascita">
+          </div>
+          <div class="form-group">
+            <label>LUOGO DI NASCITA</label>
+            <input type="text" formControlName="luogoNascita" placeholder="Comune di nascita">
+          </div>
+          <div class="form-group">
+            <label>GENERE</label>
+            <select formControlName="genere" class="custom-select">
+              <option value="">Seleziona</option>
+              <option value="Maschio">Maschio</option>
+              <option value="Femmina">Femmina</option>
+              <option value="Altro">Altro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" style="flex: 3;">
+            <label>INDIRIZZO DI RESIDENZA</label>
+            <input type="text" formControlName="indirizzo" placeholder="Via / Piazza">
+          </div>
+          <div class="form-group" style="flex: 1;">
+            <label>N. CIVICO</label>
+            <input type="text" formControlName="civico" placeholder="12/A">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>CAP</label>
+            <input type="text" formControlName="cap" placeholder="00100">
+          </div>
+          <div class="form-group">
+            <label>CITTÀ</label>
+            <input type="text" formControlName="citta" placeholder="Città">
+          </div>
+          <div class="form-group">
+            <label>PROVINCIA</label>
+            <input type="text" formControlName="provincia" placeholder="PR">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>STATO</label>
+            <input type="text" formControlName="stato" placeholder="Italia">
+          </div>
+          <div class="form-group">
+            <label>NUMERO DI TELEFONO</label>
+            <input type="tel" formControlName="telefono" placeholder="+39 000 0000000">
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button type="submit" [disabled]="profiloForm.get('nome')?.invalid || profiloForm.get('cognome')?.invalid" class="btn-save">
+            Aggiorna Anagrafica
+          </button>
+        </div>
+      </form>
+
+      <hr class="section-divider">
+
+      <!-- SEZIONE 2: SICUREZZA E ACCESSO -->
+      <div class="content-header">
+        <h2 class="security-title">Sicurezza e Accesso</h2>
+      </div>
+
+      <form [formGroup]="profiloForm" (ngSubmit)="salvaAccount()">
+        <div class="form-group">
+          <label>EMAIL DI ACCESSO</label>
+          <input type="email" formControlName="email" placeholder="esempio@testo.it">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>NUOVA PASSWORD</label>
             <div class="password-wrapper">
-              <input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" placeholder="******">
+              <input [type]="passwordVisible ? 'text' : 'password'" formControlName="password" placeholder="Inserisci nuova password">
               <span class="toggle-password" (click)="togglePassword()">
                 {{ passwordVisible ? 'Nascondi' : 'Mostra' }}
               </span>
-            </div>
-            <!-- Errore mostrato solo se l'utente scrive una password non valida -->
-            <div *ngIf="profiloForm.get('password')?.invalid && profiloForm.get('password')?.dirty" class="error-message">
-              Minimo 6 caratteri, un numero e un simbolo.
             </div>
           </div>
 
           <div class="form-group">
             <label>CONFERMA PASSWORD</label>
             <div class="password-wrapper">
-              <input [type]="confermaPasswordVisible ? 'text' : 'password'" formControlName="confermaPassword" placeholder="******">
+              <input [type]="confermaPasswordVisible ? 'text' : 'password'" formControlName="confermaPassword" placeholder="Conferma nuova password">
               <span class="toggle-password" (click)="toggleConfirmPassword()">
                 {{ confermaPasswordVisible ? 'Nascondi' : 'Mostra' }}
               </span>
             </div>
           </div>
         </div>
-        
-        <!-- Errore mismatch password -->
-        <div *ngIf="profiloForm.hasError('passwordsNotMatching') && profiloForm.get('confermaPassword')?.dirty" class="error-message">
-          ⚠️ Le password non corrispondono!
-        </div>
 
         <div class="form-footer">
-          <button type="submit" [disabled]="profiloForm.invalid" class="btn-save">
-            Salva modifiche
+          <button type="submit" class="btn-save btn-security">
+            Salva Impostazioni Account
           </button>
         </div>
       </form>
     </main>
-
   </div>
-</div>
-
-<div *ngIf="mostraConferma" class="toast-success">
-  ✅ Profilo aggiornato correttamente!
 </div>

@@ -38,10 +38,14 @@ export class RegisterComponent {
   }
 
   async registrati() {
-    const { nome, cognome, email, password, confermaPassword } = this.userData;
+    // Usiamo il trim per evitare errori dovuti a spazi vuoti accidentali
+    const nome = this.userData.nome.trim();
+    const cognome = this.userData.cognome.trim();
+    const email = this.userData.email.trim();
+    const { password, confermaPassword } = this.userData;
 
     // 1. Controllo campi vuoti
-    if (!nome.trim() || !cognome.trim() || !email.trim() || !password || !confermaPassword) {
+    if (!nome || !cognome || !email || !password || !confermaPassword) {
       this.mostraMessaggio('Tutti i campi sono obbligatori!', 'warning');
       return;
     }
@@ -53,10 +57,15 @@ export class RegisterComponent {
       return;
     }
 
-    // 3. Validazione Password (min 8 caratteri, almeno una lettera e un numero)
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    // 3. Validazione Password AGGIORNATA
+    // Almeno 8 caratteri, una lettera, un numero E un carattere speciale
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
     if (!passwordRegex.test(password)) {
-      this.mostraMessaggio('La password deve contenere almeno 8 caratteri, inclusa una lettera e un numero.', 'error');
+      this.mostraMessaggio(
+        'La password deve contenere almeno 8 caratteri, un numero e un carattere speciale (es. @, !, #).', 
+        'error'
+      );
       return;
     }
 
@@ -66,9 +75,9 @@ export class RegisterComponent {
       return;
     }
 
-    // Se i controlli sono passati, procedo al salvataggio
     try {
-      await this.dbService.saveUserProfile(this.userData);
+      // Passiamo i dati puliti al servizio
+      await this.dbService.saveUserProfile({ ...this.userData, nome, cognome, email });
       
       const Toast = Swal.mixin({
         toast: true,
@@ -90,7 +99,6 @@ export class RegisterComponent {
     }
   }
 
-  // Funzione di supporto per i messaggi SweetAlert2
   private mostraMessaggio(testo: string, icona: 'success' | 'error' | 'warning') {
     Swal.fire({
       text: testo,

@@ -11,6 +11,7 @@ export interface UserProfile {
   cognome: string;
   email: string;
   password: string;
+  foto?: string | null; // Aggiunto per gestire l'immagine profilo
 }
 
 @Injectable({
@@ -69,18 +70,27 @@ export class DbService extends Dexie {
   // --- METODI PER IL PROFILO UTENTE ---
   
   async saveUserProfile(user: any) {
-    // Recuperiamo l'utente attuale per non sovrascrivere la password se non viene inviata
+    // Recuperiamo l'utente attuale per non perdere i dati non inviati (es. foto o password)
     const existingUser = await this.userProfile.get(1);
 
     const secureUser: any = {
-      nome: user.nome,
-      cognome: user.cognome,
-      email: this.encrypt(user.email),
-      // Se user.password esiste la criptiamo, altrimenti teniamo quella già nel DB
-      password: user.password ? this.encrypt(user.password) : existingUser?.password
+      // Manteniamo i valori esistenti come base
+      ...existingUser,
+      
+      // Aggiorniamo solo se i nuovi dati sono definiti
+      nome: user.nome !== undefined ? user.nome : existingUser?.nome,
+      cognome: user.cognome !== undefined ? user.cognome : existingUser?.cognome,
+      foto: user.foto !== undefined ? user.foto : existingUser?.foto,
+      
+      // Email e Password richiedono la criptazione se fornite
+      email: user.email ? this.encrypt(user.email) : existingUser?.email,
     };
 
-    // Salviamo sempre all'ID 1 per gestire un profilo unico locale
+    if (user.password && user.password.trim() !== '') {
+      secureUser.password = this.encrypt(user.password);
+    }
+
+    // Salviamo all'ID 1 (profilo locale unico)
     return await this.userProfile.put(secureUser, 1); 
   }
 
@@ -92,6 +102,7 @@ export class DbService extends Dexie {
         nome: user.nome || '',
         cognome: user.cognome || '',
         email: this.decrypt(user.email),
+        foto: user.foto || null,
         password: '' // Non restituiamo la password decriptata per sicurezza
       };
     }

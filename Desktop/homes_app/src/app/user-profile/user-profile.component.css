@@ -89,8 +89,20 @@
 .content-header h2 { margin: 0; color: #1a1a1a; font-weight: 800; }
 .content-header p { color: #888; font-size: 0.9rem; margin-bottom: 30px; }
 
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.form-group { margin-bottom: 24px; text-align: left; }
+/* AGGIORNATO: Gestione flessibile delle righe */
+.form-row { 
+  display: flex; 
+  gap: 20px; 
+  flex-wrap: wrap; 
+  margin-bottom: 5px;
+}
+
+.form-group { 
+  flex: 1; 
+  min-width: 180px; /* Impedisce ai campi di diventare troppo piccoli */
+  margin-bottom: 24px; 
+  text-align: left; 
+}
 
 label {
   display: block;
@@ -101,7 +113,8 @@ label {
   text-transform: uppercase;
 }
 
-input {
+/* AGGIORNATO: Input e Select coerenti */
+input, .custom-select {
   width: 100%;
   padding: 14px 16px;
   border: 2px solid #edf2f7;
@@ -110,13 +123,24 @@ input {
   font-size: 15px;
   background-color: #f8fafc;
   transition: all 0.2s;
+  color: #333;
 }
 
-input:focus {
+input:focus, .custom-select:focus {
   outline: none;
   border-color: #605dc8;
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(96, 93, 200, 0.1);
+}
+
+/* Stile specifico per il selettore Genere */
+.custom-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://w3.org' viewBox='0 0 24 24' fill='none' stroke='%23605dc8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 15px;
+  cursor: pointer;
 }
 
 .password-wrapper { position: relative; }
@@ -134,10 +158,10 @@ input:focus {
   text-transform: uppercase;
 }
 
-.section-divider { border: 0; border-top: 1px solid #f0f4f8; margin: 20px 0; }
+.section-divider { border: 0; border-top: 1px solid #f0f4f8; margin: 30px 0; }
 .error-message { color: #e53e3e; font-size: 12px; margin-top: 8px; font-weight: 500; }
 
-/* --- BOTTONE SALVA --- */
+/* --- BOTTONI SALVA --- */
 .btn-save {
   background: linear-gradient(135deg, #605dc8 0%, #4a47a3 100%);
   color: white;
@@ -148,11 +172,17 @@ input:focus {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(96, 93, 200, 0.2);
+  transition: transform 0.2s, filter 0.2s;
 }
 
-.btn-save:disabled { background: #e2e8f0 !important; cursor: not-allowed; box-shadow: none; }
+.btn-save:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
 
-/* --- TOAST --- */
+.btn-save:disabled { background: #e2e8f0 !important; cursor: not-allowed; box-shadow: none; color: #a0aec0; }
+
+/* --- TOAST E RESPONSIVE --- */
 .toast-success {
   position: fixed;
   bottom: 30px;
@@ -165,4 +195,116 @@ input:focus {
   animation: slideUp 0.5s ease;
 }
 
+@media (max-width: 900px) {
+  .profile-layout { grid-template-columns: 1fr; }
+  .profile-sidebar { order: 2; }
+  .profile-main-content { order: 1; }
+}
+
 @keyframes slideUp { from { transform: translateY(100px); } to { transform: translateY(0); } }
+/* Header della Sidebar: Centra tutto il contenuto */
+.user-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra l'avatar e il nome */
+  padding: 30px 10px;
+  text-align: center;
+}
+
+/* Contenitore principale dell'Avatar */
+.avatar-container {
+  position: relative; /* Indispensabile per posizionare il tasto 'Modifica' */
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+/* Cerchio Avatar (Immagine o Iniziali) */
+.avatar-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #6c5ce7; /* Viola del tema */
+  border: 3px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-initials {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+/* Overlay "Modifica" al passaggio del mouse */
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-content:hover .avatar-overlay {
+  opacity: 1;
+}
+
+/* Pulsante icona Fotocamera (agganciato in basso a destra) */
+.btn-edit-photo {
+  position: absolute;
+  bottom: 0px; /* Incollato al bordo inferiore */
+  right: 0px;  /* Incollato al bordo destro */
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+.btn-edit-photo:hover {
+  transform: scale(1.1);
+  background-color: #f8f9fa;
+}
+
+/* Stili per Nome e Badge */
+.user-card-header h3 {
+  margin: 10px 0 5px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.status-badge {
+  background-color: #e1f7ec;
+  color: #2ecc71;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
