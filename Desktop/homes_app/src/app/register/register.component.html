@@ -49,7 +49,7 @@
         </div>
         <div *ngIf="pass.invalid && pass.touched" class="error-text">
           <small *ngIf="pass.errors?.['required']">La password è obbligatoria.</small>
-          <small *ngIf="pass.errors?.['pattern']">Deve contenere min 8 caratteri, una lettera, un numero e un simbolo (@$!%*?&).</small>
+          <small *ngIf="pass.errors?.['pattern']">Deve contenere min 8 caratteri, un numero e un simbolo (@$!%*?&).</small>
         </div>
       </div>
 
