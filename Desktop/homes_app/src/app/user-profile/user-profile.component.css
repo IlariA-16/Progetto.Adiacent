@@ -227,6 +227,7 @@ input:focus, .custom-select:focus {
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(96, 93, 200, 0.2);
   transition: 0.2s;
+   margin-bottom: 40px; 
 }
 
 .btn-save:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
@@ -236,4 +237,7 @@ input:focus, .custom-select:focus {
   .profile-layout { grid-template-columns: 1fr; }
   .profile-sidebar { order: 2; }
   .profile-main-content { order: 1; }
+}
+hr {
+    display: none;
 }
