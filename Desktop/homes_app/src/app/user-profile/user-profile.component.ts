@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
   private db = inject(DbService);
   private router = inject(Router);
 
+  userId: number | undefined; // Memorizza l'ID dell'utente loggato
   mostraConferma = false;
   passwordVisible = false; 
   confermaPasswordVisible = false; 
@@ -58,8 +59,10 @@ export class UserProfileComponent implements OnInit {
   toggleConfirmPassword() { this.confermaPasswordVisible = !this.confermaPasswordVisible; }
 
   async ngOnInit() {
+    // Recuperiamo il profilo dell'utente loggato
     const datiSalvati = await this.db.getUserProfile();
     if (datiSalvati) {
+      this.userId = datiSalvati.id; // Salviamo l'ID per i futuri aggiornamenti
       this.profiloForm.patchValue(datiSalvati);
       if (datiSalvati.foto) {
         this.fotoProfiloUrl = datiSalvati.foto;
@@ -80,7 +83,8 @@ export class UserProfileComponent implements OnInit {
         const base64Image = e.target.result;
         this.fotoProfiloUrl = base64Image;
         try {
-          await this.db.saveUserProfile({ foto: base64Image });
+          // Passiamo l'ID per aggiornare la foto dell'utente corretto
+          await this.db.saveUserProfile({ id: this.userId, foto: base64Image });
           this.notificaSuccesso('Immagine profilo salvata!');
         } catch (error) {
           this.mostraErrore("Impossibile salvare l'immagine.");
@@ -90,9 +94,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  /**
-   * NUOVO: Rimuove la foto dal database e dall'anteprima
-   */
   async rimuoviFoto() {
     const result = await Swal.fire({
       title: 'Eliminare la foto?',
@@ -108,8 +109,7 @@ export class UserProfileComponent implements OnInit {
     if (result.isConfirmed) {
       try {
         this.fotoProfiloUrl = null;
-        // Aggiorniamo il DB settando foto a null
-        await this.db.saveUserProfile({ foto: null });
+        await this.db.saveUserProfile({ id: this.userId, foto: null });
         this.notificaSuccesso('Foto rimossa correttamente!');
       } catch (error) {
         this.mostraErrore("Errore durante la rimozione.");
@@ -120,7 +120,13 @@ export class UserProfileComponent implements OnInit {
   async salvaProfilo() {
     if (this.profiloForm.get('nome')?.valid && this.profiloForm.get('cognome')?.valid) {
       const formValue = this.profiloForm.value;
-      const datiAnagrafici = { ...formValue, foto: this.fotoProfiloUrl };
+      // Includiamo l'ID per attivare la funzione .update() nel DB service
+      const datiAnagrafici = { 
+        ...formValue, 
+        id: this.userId, 
+        foto: this.fotoProfiloUrl 
+      };
+      
       delete (datiAnagrafici as any).password;
       delete (datiAnagrafici as any).confermaPassword;
 
@@ -128,14 +134,18 @@ export class UserProfileComponent implements OnInit {
         await this.db.saveUserProfile(datiAnagrafici);
         this.notificaSuccesso('Profilo aggiornato!');
       } catch (error) {
-        this.mostraErrore("Errore nel salvataggio.");
+        this.mostraErrore("Errore nel salvataggio dei dati anagrafici.");
       }
     }
   }
 
   async salvaAccount() {
     const { email, password } = this.profiloForm.value;
-    const datiDaSalvare: any = { email };
+    const datiDaSalvare: any = { 
+      id: this.userId, // ID necessario per aggiornare email/password
+      email 
+    };
+    
     if (password && password.trim() !== '') datiDaSalvare.password = password;
 
     if (this.profiloForm.get('email')?.valid && !this.profiloForm.hasError('passwordsNotMatching')) {
@@ -144,7 +154,7 @@ export class UserProfileComponent implements OnInit {
         this.profiloForm.patchValue({ password: '', confermaPassword: '' });
         this.notificaSuccesso('Dati account aggiornati!');
       } catch (error) {
-        this.mostraErrore("Errore aggiornamento account.");
+        this.mostraErrore("Errore nell'aggiornamento dell'account.");
       }
     }
   }
@@ -166,7 +176,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('statoLogin');
+    localStorage.clear(); // Pulisce sessione e ID utente
     this.router.navigate(['/login']).then(() => { window.location.reload(); });
   }
 }

@@ -1,5 +1,7 @@
 :host {
   --content-padding: 20px;
+  --primary-color: #605dc8;
+  --danger-color: #e74c3c;
 }
 
 header {
@@ -27,7 +29,7 @@ header img {
   vertical-align: middle;
 }
 
-/* --- STILE UNIFICATO PER TUTTI I BOTTONI (TUTTI A PILLOLA) --- */
+/* --- STILE UNIFICATO BOTTONI A PILLOLA (VIOLA) --- */
 .btn-dashboard-page, 
 .btn-fav-page, 
 .btn-about-page,
@@ -35,10 +37,10 @@ header img {
 .btn-user-profile,
 .btn-accedi, 
 .btn-iscriviti {
-  background-color: #605dc8 !important; /* Viola uniforme */
-  color: white !important;             /* Testo bianco uniforme */
+  background-color: var(--primary-color) !important;
+  color: white !important;
   padding: 10px 22px;
-  border-radius: 50px !important;    /* TUTTI con forma a pillola */
+  border-radius: 50px !important;
   text-decoration: none;
   font-weight: bold;
   font-size: 0.9rem;
@@ -47,12 +49,12 @@ header img {
   justify-content: center;
   white-space: nowrap;
   transition: all 0.2s ease;
-  border: 2px solid #605dc8 !important;
+  border: 2px solid var(--primary-color) !important;
   cursor: pointer;
   box-sizing: border-box;
 }
 
-/* EFFETTO HOVER PER TUTTI */
+/* EFFETTO HOVER PER TUTTI I BOTTONI VIOLA */
 .btn-dashboard-page:hover,
 .btn-fav-page:hover, 
 .btn-about-page:hover,
@@ -65,7 +67,46 @@ header img {
   box-shadow: 0px 4px 10px rgba(96, 93, 200, 0.3);
 }
 
-/* STILE LOGO */
+/* --- AREA UTENTE LOGGATO --- */
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f8f9fa; /* Grigio chiarissimo per staccare dal bianco */
+  padding: 6px 18px;
+  border-radius: 50px; /* Stile pillola anche per il contenitore */
+  border: 1px solid #eee;
+}
+
+.user-welcome {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.user-welcome b {
+  color: var(--primary-color);
+  text-transform: capitalize;
+}
+
+/* TASTO LOGOUT (ROSSO A PILLOLA) */
+.btn-logout {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 50px; /* Uniformato a pillola */
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+/* --- LOGO E GRUPPI --- */
 .brand-name a {
   display: flex;
   align-items: center;
@@ -81,10 +122,8 @@ header img {
   transform: scale(1.05);
 }
 
-/* Contenitore per i tasti di autenticazione */
 .auth-group {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-

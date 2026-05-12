@@ -65,32 +65,81 @@ label {
   margin-left: 15px;
 }
 
-/* INPUT BASE */
-input {
-  width: 100%;
-  padding: 12px 20px;
-  border: 2px solid #605dc8;
-  border-radius: 50px;
-  background-color: #fdfdfd;
-  outline: none;
-  box-sizing: border-box;
+/* INPUT E SELECT - STILE UNIFICATO */
+input, 
+select {
+  width: 100% !important;
+  padding: 12px 20px !important;
+  border: 2px solid #605dc8 !important;
+  border-radius: 50px !important;
+  background-color: #fdfdfd !important;
+  outline: none !important;
+  box-sizing: border-box !important;
   transition: all 0.3s ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+  display: block;
+  height: 48px;
 }
 
-input:focus {
-  box-shadow: 0 0 8px rgba(96, 93, 200, 0.2);
-  background-color: white;
+/* SPECIFICO PER IL SELECT */
+.select-wrapper {
+  position: relative;
+  width: 100%;
 }
 
-/* GESTIONE ERRORI E VALIDAZIONE */
+select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  cursor: pointer !important;
+  padding-right: 45px !important;
+  color: #757575 !important; /* Grigio come i placeholder */
+}
 
-/* Classe per input standard non validi */
+/* LA FRECCETTA VIOLA */
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #605dc8; /* Il tuo viola */
+  pointer-events: none; /* Il click passa al select sotto */
+  z-index: 10;
+}
+
+input:focus, 
+select:focus {
+  box-shadow: 0 0 8px rgba(96, 93, 200, 0.2) !important;
+  background-color: white !important;
+}
+
+/* BOX INFORMATIVO */
+.info-box {
+  background: rgba(94, 90, 219, 0.05) !important;
+  padding: 8px 20px !important;
+  border-radius: 50px !important;
+  color: #605dc8 !important;
+  font-weight: 500;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 5px;
+  border: 1px dashed #605dc8 !important;
+  text-align: left;
+}
+
+/* GESTIONE ERRORI */
 input.ng-invalid.ng-touched, 
+select.ng-invalid.ng-touched,
 input.is-invalid {
   border-color: #ff4d4d !important;
 }
 
-/* Gestione specifica per i campi Password (dentro il wrapper) */
 .password-wrapper {
   position: relative;
   display: flex;
@@ -98,16 +147,10 @@ input.is-invalid {
   width: 100%;
 }
 
-/* Se il wrapper ha la classe d'errore, colora l'input interno */
 .password-wrapper.is-invalid-box input {
   border-color: #ff4d4d !important;
 }
 
-.password-wrapper.is-invalid-box .toggle-password {
-  color: #ff4d4d;
-}
-
-/* MESSAGGIO DI ERRORE SOTTO GLI INPUT */
 .error-text {
   color: #ff4d4d;
   font-size: 0.75rem;
@@ -115,15 +158,8 @@ input.is-invalid {
   margin-top: 5px;
   margin-left: 15px;
   display: block;
-  animation: fadeInError 0.3s ease-in-out;
 }
 
-@keyframes fadeInError {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* TOGGLE MOSTRA/NASCONDI */
 .toggle-password {
   position: absolute;
   right: 20px;
@@ -134,7 +170,6 @@ input.is-invalid {
   color: #605dc8;
   cursor: pointer;
   user-select: none;
-  transition: color 0.3s;
 }
 
 /* BOTTONE REGISTRATI */
@@ -151,16 +186,6 @@ input.is-invalid {
   transition: 0.3s;
 }
 
-.btn-submit:hover:not(:disabled) {
-  filter: brightness(90%);
-  transform: translateY(-2px);
-}
-
-.btn-submit:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-/* STILE BOTTONE DISABILITATO */
 .btn-submit:disabled {
   background-color: #d1d1d1;
   color: #888;
@@ -168,7 +193,7 @@ input.is-invalid {
   border: 1px solid #ccc;
 }
 
-/* LINK ACCEDI IN BASSO */
+/* LINK ACCEDI */
 .login-link {
   margin-top: 20px;
   font-size: 0.9rem;
@@ -182,8 +207,4 @@ input.is-invalid {
   color: #605dc8;
   text-decoration: none;
   font-weight: bold;
-}
-
-.login-link a:hover {
-  text-decoration: underline;
 }

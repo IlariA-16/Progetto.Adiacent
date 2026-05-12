@@ -69,6 +69,19 @@
         </small>
       </div>
 
+     <!-- RUOLO UTENTE -->
+      <div class="form-group">
+        <label>RUOLO UTENTE:</label>
+        <div class="select-wrapper">
+          <select name="role" [(ngModel)]="userData.role" required>
+            <option value="user">Utente Semplice (Sola Lettura)</option>
+            <option value="editor">Editor (Modifica Profilo)</option>
+            <option value="admin">Admin (Tutto il Controllo)</option>
+          </select>
+          <span class="select-arrow"></span>
+        </div>
+      </div>
+
       <button type="submit" class="btn-submit" 
               [disabled]="registerForm.invalid || userData.password !== userData.confermaPassword">
         Registrati ora

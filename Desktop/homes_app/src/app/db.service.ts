@@ -11,7 +11,8 @@ export interface UserProfile {
   cognome: string;
   email: string;
   password: string;
-  foto?: string | null; // Aggiunto per gestire l'immagine profilo
+  role: 'admin' | 'editor' | 'user' | string;
+  foto: string | null;
 }
 
 @Injectable({
@@ -51,7 +52,6 @@ export class DbService extends Dexie {
     this.userProfile$ = from(liveQuery(() => this.userProfile.toArray()));
   }
 
-  // --- FUNZIONI DI SICUREZZA ---
   private encrypt(text: string): string {
     if (!text) return '';
     return CryptoJS.AES.encrypt(text, this.SECRET_KEY).toString();
@@ -67,66 +67,83 @@ export class DbService extends Dexie {
     }
   }
 
-  // --- METODI PER IL PROFILO UTENTE ---
-  
+  /**
+   * SALVATAGGIO UTENTE
+   * Se user.id è presente -> AGGIORNA l'utente esistente.
+   * Se user.id NON è presente -> Controlla duplicati e AGGIUNGE un nuovo utente.
+   */
   async saveUserProfile(user: any) {
-    // Recuperiamo l'utente attuale per non perdere i dati non inviati (es. foto o password)
-    const existingUser = await this.userProfile.get(1);
-
-    const secureUser: any = {
-      // Manteniamo i valori esistenti come base
-      ...existingUser,
+    if (user.id) {
+      // MODIFICA PROFILO ESISTENTE
+      const updates: any = {};
+      if (user.nome !== undefined) updates.nome = user.nome;
+      if (user.cognome !== undefined) updates.cognome = user.cognome;
+      if (user.foto !== undefined) updates.foto = user.foto;
+      if (user.role !== undefined) updates.role = user.role;
+      if (user.email) updates.email = this.encrypt(user.email);
+      if (user.password) updates.password = this.encrypt(user.password);
       
-      // Aggiorniamo solo se i nuovi dati sono definiti
-      nome: user.nome !== undefined ? user.nome : existingUser?.nome,
-      cognome: user.cognome !== undefined ? user.cognome : existingUser?.cognome,
-      foto: user.foto !== undefined ? user.foto : existingUser?.foto,
-      
-      // Email e Password richiedono la criptazione se fornite
-      email: user.email ? this.encrypt(user.email) : existingUser?.email,
-    };
+      return await this.userProfile.update(user.id, updates);
+    } else {
+      // NUOVA REGISTRAZIONE: Controllo se l'email esiste già
+      const allUsers = await this.userProfile.toArray();
+      const isDuplicate = allUsers.some(u => this.decrypt(u.email) === user.email);
 
-    if (user.password && user.password.trim() !== '') {
-      secureUser.password = this.encrypt(user.password);
-    }
+      if (isDuplicate) {
+        // Se l'email esiste già, lanciamo un errore che blocca l'operazione
+        throw new Error("Email già registrata. Usa un altro indirizzo.");
+      }
 
-    // Salviamo all'ID 1 (profilo locale unico)
-    return await this.userProfile.put(secureUser, 1); 
-  }
-
-  async getUserProfile() {
-    const user = await this.userProfile.get(1);
-    if (user) {
-      return {
-        ...user,
+      const newUser: UserProfile = {
         nome: user.nome || '',
         cognome: user.cognome || '',
-        email: this.decrypt(user.email),
-        foto: user.foto || null,
-        password: '' // Non restituiamo la password decriptata per sicurezza
+        email: this.encrypt(user.email || ''),
+        password: this.encrypt(user.password || ''),
+        role: user.role || 'user',
+        foto: user.foto || null
       };
+      return await this.userProfile.add(newUser);
     }
-    return undefined;
   }
 
-  // --- METODO LOGIN ---
-  async login(emailInserita: string, passwordInserita: string): Promise<boolean> {
-    const user = await this.userProfile.get(1);
+  /**
+   * RECUPERO PROFILO
+   * Prende l'utente loggato in base all'ID salvato nella sessione.
+   */
+  async getUserProfile() {
+    const loggedUserId = localStorage.getItem('userId');
     
-    if (!user) {
-      console.warn("Nessun profilo trovato. Registrati prima.");
-      return false;
+    if (loggedUserId) {
+      const user = await this.userProfile.get(Number(loggedUserId));
+      if (user) {
+        return {
+          ...user,
+          email: this.decrypt(user.email || ''),
+          role: user.role || 'user',
+          foto: user.foto || null,
+          password: '' 
+        };
+      }
     }
+    return await this.userProfile.toCollection().first();
+  }
 
-    const emailDecriptata = this.decrypt(user.email);
-    const passwordDecriptata = this.decrypt(user.password);
-
-    if (emailInserita === emailDecriptata && passwordInserita === passwordDecriptata) {
-      localStorage.setItem('statoLogin', 'true');
-      return true;
+  /**
+   * LOGIN
+   * Cerca l'utente tra tutti quelli registrati confrontando le email decriptate.
+   */
+  async login(emailInserita: string, passwordInserita: string): Promise<any | null> {
+    const users = await this.userProfile.toArray();
+    for (const user of users) {
+      const emailDecriptata = this.decrypt(user.email || '');
+      const passwordDecriptata = this.decrypt(user.password || '');
+      
+      if (emailInserita === emailDecriptata && passwordInserita === passwordDecriptata) {
+        if (user.id) localStorage.setItem('userId', user.id.toString());
+        return { ...user, email: emailDecriptata, role: user.role || 'user' };
+      }
     }
-    
-    return false;
+    return null;
   }
 
   // --- ALTRI METODI ---

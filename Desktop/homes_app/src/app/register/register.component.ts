@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './register.component.html',
+  templateUrl: './register.component.html', 
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
@@ -18,7 +18,8 @@ export class RegisterComponent {
     cognome: '',
     email: '',
     password: '',
-    confermaPassword: ''
+    confermaPassword: '',
+    role: 'user' 
   };
 
   passwordVisible: boolean = false;
@@ -38,10 +39,10 @@ export class RegisterComponent {
   }
 
   async registrati() {
-    // Usiamo il trim per evitare errori dovuti a spazi vuoti accidentali
     const nome = this.userData.nome.trim();
     const cognome = this.userData.cognome.trim();
     const email = this.userData.email.trim();
+    const role = this.userData.role; 
     const { password, confermaPassword } = this.userData;
 
     // 1. Controllo campi vuoti
@@ -57,13 +58,11 @@ export class RegisterComponent {
       return;
     }
 
-    // 3. Validazione Password AGGIORNATA
-    // Almeno 8 caratteri, una lettera, un numero E un carattere speciale
+    // 3. Validazione Password (8 car, 1 num, 1 spec)
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    
     if (!passwordRegex.test(password)) {
       this.mostraMessaggio(
-        'La password deve contenere almeno 8 caratteri, un numero e un carattere speciale (es. @, !, #).', 
+        'La password deve contenere almeno 8 caratteri, un numero e un carattere speciale.', 
         'error'
       );
       return;
@@ -76,8 +75,14 @@ export class RegisterComponent {
     }
 
     try {
-      // Passiamo i dati puliti al servizio
-      await this.dbService.saveUserProfile({ ...this.userData, nome, cognome, email });
+      // Chiamata al database per il salvataggio
+      await this.dbService.saveUserProfile({ 
+        nome, 
+        cognome, 
+        email, 
+        password, 
+        role 
+      });
       
       const Toast = Swal.mixin({
         toast: true,
@@ -89,13 +94,20 @@ export class RegisterComponent {
 
       await Toast.fire({
         icon: 'success',
-        title: 'Registrazione completata!'
+        title: `Utente registrato come ${role.toUpperCase()}!`
       });
       
-      this.router.navigate(['/login']);
-    } catch (error) {
-      console.error('Errore:', error);
-      this.mostraMessaggio('Errore durante il salvataggio.', 'error');
+      // Reindirizzamento alla dashboard dopo il successo
+      this.router.navigate(['/dashboard']);
+
+    } catch (error: any) {
+      // Gestione specifica dell'errore email duplicata dal DbService
+      if (error.message === "Email già registrata. Usa un altro indirizzo.") {
+        this.mostraMessaggio('Attenzione: questa email è già registrata!', 'error');
+      } else {
+        console.error('Errore durante la registrazione:', error);
+        this.mostraMessaggio('Si è verificato un errore durante il salvataggio.', 'error');
+      }
     }
   }
 
@@ -103,7 +115,7 @@ export class RegisterComponent {
     Swal.fire({
       text: testo,
       icon: icona,
-      confirmButtonColor: '#5e5adb',
+      confirmButtonColor: '#605dc8', // Usiamo il viola del tuo tema
     });
   }
 }

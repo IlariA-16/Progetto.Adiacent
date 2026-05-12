@@ -80,9 +80,7 @@ import data from '../../../db.json';
       <!-- SEZIONE RISULTATI -->
       <section class="results-container">
         <div class="results-grid">
-          <!-- RIMOSSO IL CLICK DA QUI -->
           <div *ngFor="let housingLocation of (filteredLocationList$ | async)">
-            <!-- IL CLICK ORA È GESTITO DENTRO IL COMPONENTE TRAMITE OUTPUT -->
             <app-housing-location 
               [housingLocation]="housingLocation"
               (apriCandidatureRichiesto)="openApplicationsModal($event)">
@@ -92,8 +90,8 @@ import data from '../../../db.json';
       </section>
     </div>
 
-    <!-- Modale Candidature -->
-    <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <!-- Modale Candidature: ACCESSIBILE SOLO SE ADMIN -->
+    <div class="modal-overlay" *ngIf="showModal && userRole === 'admin'" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <h3>Gestione Candidature: {{ selectedLocation?.name }}</h3>
         <hr>
@@ -151,6 +149,9 @@ export class HomeComponent implements OnInit {
   currentApplications: any[] = [];
   maxPriceValue = 5000;
 
+  // RECUPERO IL RUOLO DALLO STORAGE
+  userRole: string | null = localStorage.getItem('userRole');
+
   private dbService = inject(DbService);
 
   constructor() {
@@ -169,20 +170,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Metodo per chiudere la modale
   closeModal() {
     this.showModal = false;
     this.selectedLocation = null;
   }
 
-   async openApplicationsModal(location: HousingLocation) {
-  
+  async openApplicationsModal(location: HousingLocation) {
+    // Se non sei admin, la modale non deve aprirsi proprio
+    if (this.userRole !== 'admin') {
+      return; 
+    }
+
     if (location.id === undefined || location.id === null) return;
     
     this.selectedLocation = location;
     this.showModal = true;
     
-    // Recupero candidature dal DB
     try {
       this.currentApplications = await this.dbService.table('applications')
         .where('locationId').equals(location.id).toArray();
@@ -192,14 +195,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Gestione colori stati
   getStatusColor(status: string): string {
     if (status === 'Approvata') return 'green';
     if (status === 'Rifiutata') return 'red';
     return 'orange';
   }
 
-  // --- Altri metodi (applyFilters, sortResults, ecc.) rimangono invariati ---
   applyFilters(city: string, hasWifi: boolean, hasLaundry: boolean, minP: string, maxP: string) {
     this.filteredLocationList$ = this.housingLocationList$.pipe(
       map(locations => locations.filter(loc => {
@@ -217,23 +218,22 @@ export class HomeComponent implements OnInit {
     this.filteredLocationList$ = this.filteredLocationList$.pipe(
       map(locations => {
         const sorted = [...locations];
-        if (option === 'cheap') return sorted.sort((a, b) => a.price - b.price);
-        if (option === 'expensive') return sorted.sort((a, b) => b.price - a.price);
-        if (option === 'name') return sorted.sort((a, b) => a.name.localeCompare(b.name));
+        if (option === 'cheap') sorted.sort((a, b) => a.price - b.price);
+        if (option === 'expensive') sorted.sort((a, b) => b.price - a.price);
+        if (option === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name));
         return sorted;
       })
     );
   }
 
-  async updateStatus(id: number, status: string) {
-    await this.dbService.table('applications').update(id, { status });
+  // AGGIUNTO: Metodi per aggiornare lo stato (da implementare nel DbService se non ci sono)
+  async updateStatus(id: number, newStatus: string) {
+    await this.dbService.table('applications').update(id, { status: newStatus });
     if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
   }
 
   async deleteApplication(id: number) {
-    if (confirm("Eliminare questa candidatura?")) {
-      await this.dbService.table('applications').delete(id);
-      if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
-    }
+    await this.dbService.table('applications').delete(id);
+    if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
   }
 }

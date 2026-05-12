@@ -14,37 +14,21 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
 
 const routeConfig: Routes = [
+  // --- ROTTE PUBBLICHE (Accessibili a tutti) ---
   {
     path: '',
     component: HomeComponent,
     title: 'Home page'
   },
-
   {
-    path: 'details-mico/:id',
-    component: DetailsMicoComponent,
-    title:'Details mico'
-  },
-
-  {
-    path: 'details/:id',
-    component: DetailsComponent,
-    title: 'Dettagli Casa'
+    path: 'home',
+    redirectTo: '',
+    pathMatch: 'full'
   },
   {
-  path: 'details/:id/description',
-  component: DetailsDescriptionComponent,
-  title: 'Descrizione Completa'
-  },
-  {
-  path: 'thank-you',
-  component: ThankYouComponent,
-  title: 'Grazie per averci contattato'
-  },
-  {
-    path: 'favorites',
-    component: FavoritesComponent,
-    title: 'I miei Preferiti'
+    path: 'login',
+    component: LoginComponent,
+    title: 'Accedi'
   },
   {
     path: 'about',
@@ -52,37 +36,62 @@ const routeConfig: Routes = [
     title: 'Chi siamo'
   },
   {
-  path: 'dashboard',
-  component: UserDashboardComponent,
-  title: 'La tua Dashboard'
-},
- {
-    path: 'add',
-    component: AddHouseComponent,
-    title: 'Aggiungi Proprietà'
-  },
-  { path: 'user-profile',
-    component: UserProfileComponent,
-    title: 'Profilo Utente',
-    canActivate: [authGuard] 
+    path: 'details-mico/:id',
+    component: DetailsMicoComponent,
+    title: 'Details mico'
   },
   {
-    path: 'home',
-    redirectTo: '',
-    pathMatch: 'full'
+    path: 'details/:id',
+    component: DetailsComponent,
+    title: 'Dettagli Casa'
   },
-   {
-    path: 'login',
-    component: LoginComponent,
-    title: 'Accedi'
+  {
+    path: 'details/:id/description',
+    component: DetailsDescriptionComponent,
+    title: 'Descrizione Completa'
+  },
+  {
+    path: 'thank-you',
+    component: ThankYouComponent,
+    title: 'Grazie per averci contattato'
   },
   {
     path: 'register',
     component: RegisterComponent,
-    title: 'Registrati'
+    title: 'Registrati',
   },
-  
+
+  // --- ROTTE PROTETTE PER RUOLO ---
+
+  {
+    path: 'favorites',
+    component: FavoritesComponent,
+    title: 'I miei Preferiti',
+    canActivate: [authGuard],
+    data: { expectedRoles: ['admin', 'editor', 'user'] } // Tutti i loggati
+  },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    title: 'Profilo Utente',
+    canActivate: [authGuard],
+    data: { expectedRoles: ['admin', 'editor', 'user'] } // Tutti i loggati (Editor può modificare qui)
+  },
+  {
+    path: 'dashboard',
+    component: UserDashboardComponent,
+    title: 'La tua Dashboard',
+    canActivate: [authGuard],
+    data: { expectedRoles: ['admin', 'editor']}
+  },
+  {
+    path: 'add',
+    component: AddHouseComponent,
+    title: 'Aggiungi Proprietà',
+    canActivate: [authGuard],
+    data: { expectedRoles: ['admin'] } // Solo Admin (Creazione immobili)
+  },
   
 ];
 
-export default routeConfig
+export default routeConfig;

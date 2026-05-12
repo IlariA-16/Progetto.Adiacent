@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms'; 
-import { DbService } from '../db.service'; // Controlla che il percorso sia corretto
+import { DbService } from '../db.service'; 
 import Swal from 'sweetalert2'; 
 
 @Component({
@@ -52,7 +52,6 @@ export class LoginComponent {
   }
 
   async handleLogin() {
-    // Controllo se i campi sono vuoti
     if (!this.email || !this.password) {
       Swal.fire({
         title: 'Attenzione',
@@ -63,16 +62,35 @@ export class LoginComponent {
       return;
     }
 
-    // Chiamata al database per la verifica
-    const esito = await this.dbService.login(this.email, this.password);
+    // Qui chiamiamo il dbService. 
+    // Nota: Il tuo dbService deve restituire l'oggetto utente o null.
+    const utente = await this.dbService.login(this.email, this.password);
 
-    if (esito) {
-      // Se il login è corretto, vai al profilo
-      this.router.navigate(['/user-profile']).then(() => {
-        window.location.reload();
+    if (utente) {
+      // SALVIAMO I DATI NEL LOCALSTORAGE
+      localStorage.setItem('statoLogin', 'true');
+      
+      // Salviamo il ruolo che arriva dal database (es. 'admin', 'editor' o 'user')
+      // Se il tuo dbService restituisce solo true/false, dovrai modificarlo per restituire il ruolo.
+      localStorage.setItem('userRole', utente.role || 'user'); 
+      localStorage.setItem('userEmail', utente.email);
+
+      Swal.fire({
+        title: 'Successo',
+        text: `Benvenuto ${utente.role}!`,
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      }).then(() => {
+        // Se è admin, portalo alla dashboard, altrimenti al profilo
+        if (utente.role === 'admin') {
+          this.router.navigate(['/dashboard']).then(() => window.location.reload());
+        } else {
+          this.router.navigate(['/user-profile']).then(() => window.location.reload());
+        }
       });
+
     } else {
-      // Se i dati sono sbagliati
       Swal.fire({
         title: 'Errore',
         text: 'Email o password non corretti.',
