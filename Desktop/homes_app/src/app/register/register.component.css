@@ -208,3 +208,42 @@ input.is-invalid {
   text-decoration: none;
   font-weight: bold;
 }
+
+/* Stile per il gruppo del Codice Invito */
+.form-group .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-group input[name="inviteCode"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px; /* Arrotondato come gli altri tuoi input */
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+/* Effetto focus quando l'utente clicca nel campo */
+.form-group input[name="inviteCode"]:focus {
+  border-color: #605dc8; /* Il viola del tuo tema */
+}
+
+/* Testo informativo sotto il campo */
+.info-text {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+  padding-left: 10px;
+}
+
+/* Se vuoi dare un tocco in più: un'icona o un colore diverso 
+   se il codice inserito è "speciale" (opzionale) */
+.form-group input[name="inviteCode"]::placeholder {
+  color: #bbb;
+}
+

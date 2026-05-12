@@ -69,17 +69,19 @@
         </small>
       </div>
 
-     <!-- RUOLO UTENTE -->
-      <div class="form-group">
-        <label>RUOLO UTENTE:</label>
-        <div class="select-wrapper">
-          <select name="role" [(ngModel)]="userData.role" required>
-            <option value="user">Utente Semplice (Sola Lettura)</option>
-            <option value="editor">Editor (Modifica Profilo)</option>
-            <option value="admin">Admin (Tutto il Controllo)</option>
-          </select>
-          <span class="select-arrow"></span>
+      <!-- CODICE INVITO -->
+       <div class="form-group">
+        <label>CODICE INVITO (OPZIONALE):</label>
+        <div class="password-wrapper">
+          <input [type]="inviteCodeVisible ? 'text' : 'password'" 
+          name="inviteCode" 
+          [(ngModel)]="userData.inviteCode" 
+          placeholder="Inserisci il codice segreto">
+          <span class="toggle-password" (click)="toggleInviteCodeVisibility()">
+            {{ inviteCodeVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
         </div>
+        <small class="info-text">Lascia vuoto per registrarti come Utente Semplice.</small>
       </div>
 
       <button type="submit" class="btn-submit" 

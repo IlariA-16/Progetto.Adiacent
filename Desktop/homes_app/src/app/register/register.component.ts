@@ -19,11 +19,16 @@ export class RegisterComponent {
     email: '',
     password: '',
     confermaPassword: '',
-    role: 'user' 
+    inviteCode: '', 
+    role: 'user'    
   };
+
+  private readonly ADMIN_CODE = 'ADMIN123';
+  private readonly EDITOR_CODE = 'EDIT2026';
 
   passwordVisible: boolean = false;
   confirmPasswordVisible: boolean = false;
+  inviteCodeVisible: boolean = false; // <-- Aggiunta per gestire il codice oscurato
 
   constructor(
     private dbService: DbService, 
@@ -38,27 +43,29 @@ export class RegisterComponent {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
+  // Metodo per mostrare/nascondere il codice invito
+  toggleInviteCodeVisibility() {
+    this.inviteCodeVisible = !this.inviteCodeVisible;
+  }
+
   async registrati() {
     const nome = this.userData.nome.trim();
     const cognome = this.userData.cognome.trim();
     const email = this.userData.email.trim();
-    const role = this.userData.role; 
+    const inviteCode = this.userData.inviteCode.trim();
     const { password, confermaPassword } = this.userData;
 
-    // 1. Controllo campi vuoti
     if (!nome || !cognome || !email || !password || !confermaPassword) {
       this.mostraMessaggio('Tutti i campi sono obbligatori!', 'warning');
       return;
     }
 
-    // 2. Validazione Formato Email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       this.mostraMessaggio('Inserisci un indirizzo email valido.', 'error');
       return;
     }
 
-    // 3. Validazione Password (8 car, 1 num, 1 spec)
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(password)) {
       this.mostraMessaggio(
@@ -68,20 +75,30 @@ export class RegisterComponent {
       return;
     }
 
-    // 4. Controllo corrispondenza password
     if (password !== confermaPassword) {
       this.mostraMessaggio('Le password non corrispondono!', 'error');
       return;
     }
 
+    let finalRole = 'user'; 
+
+    if (inviteCode !== '') {
+      if (inviteCode === this.ADMIN_CODE) {
+        finalRole = 'admin';
+      } else if (inviteCode === this.EDITOR_CODE) {
+        finalRole = 'editor';
+      } else {
+        this.mostraMessaggio('Codice invito non valido. Verrai registrato come utente semplice.', 'warning');
+      }
+    }
+
     try {
-      // Chiamata al database per il salvataggio
       await this.dbService.saveUserProfile({ 
         nome, 
         cognome, 
         email, 
         password, 
-        role 
+        role: finalRole 
       });
       
       const Toast = Swal.mixin({
@@ -94,14 +111,12 @@ export class RegisterComponent {
 
       await Toast.fire({
         icon: 'success',
-        title: `Utente registrato come ${role.toUpperCase()}!`
+        title: `Registrazione completata come ${finalRole.toUpperCase()}!`
       });
       
-      // Reindirizzamento alla dashboard dopo il successo
       this.router.navigate(['/dashboard']);
 
     } catch (error: any) {
-      // Gestione specifica dell'errore email duplicata dal DbService
       if (error.message === "Email già registrata. Usa un altro indirizzo.") {
         this.mostraMessaggio('Attenzione: questa email è già registrata!', 'error');
       } else {
@@ -115,7 +130,7 @@ export class RegisterComponent {
     Swal.fire({
       text: testo,
       icon: icona,
-      confirmButtonColor: '#605dc8', // Usiamo il viola del tuo tema
+      confirmButtonColor: '#605dc8',
     });
   }
 }
