@@ -175,8 +175,10 @@ export class UserProfileComponent implements OnInit {
     Swal.fire({ icon: 'error', title: 'Oops...', text: messaggio, confirmButtonColor: '#605dc8' });
   }
 
-  logout() {
-    localStorage.clear(); // Pulisce sessione e ID utente
-    this.router.navigate(['/login']).then(() => { window.location.reload(); });
-  }
+ logout() {
+  localStorage.removeItem('userId'); 
+  this.router.navigate(['/login']).then(() => { 
+    window.location.reload(); 
+  });
+}
 }

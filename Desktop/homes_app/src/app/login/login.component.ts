@@ -75,6 +75,8 @@ export class LoginComponent {
       localStorage.setItem('userRole', utente.role || 'user'); 
       localStorage.setItem('userEmail', utente.email);
 
+      localStorage.setItem('userId', utente.id.toString()); 
+
       Swal.fire({
         title: 'Successo',
         text: `Benvenuto ${utente.role}!`,
