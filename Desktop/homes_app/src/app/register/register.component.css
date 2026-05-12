@@ -94,7 +94,7 @@ select {
   -moz-appearance: none !important;
   cursor: pointer !important;
   padding-right: 45px !important;
-  color: #757575 !important; /* Grigio come i placeholder */
+  color: #757575 !important; 
 }
 
 /* LA FRECCETTA VIOLA */
@@ -107,8 +107,8 @@ select {
   height: 0; 
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-top: 7px solid #605dc8; /* Il tuo viola */
-  pointer-events: none; /* Il click passa al select sotto */
+  border-top: 7px solid #605dc8; 
+  pointer-events: none; 
   z-index: 10;
 }
 
@@ -220,7 +220,7 @@ input.is-invalid {
   width: 100%;
   padding: 12px 15px;
   border: 2px solid #e0e0e0;
-  border-radius: 25px; /* Arrotondato come gli altri tuoi input */
+  border-radius: 25px; 
   font-size: 14px;
   transition: border-color 0.3s ease;
   outline: none;
@@ -228,7 +228,7 @@ input.is-invalid {
 
 /* Effetto focus quando l'utente clicca nel campo */
 .form-group input[name="inviteCode"]:focus {
-  border-color: #605dc8; /* Il viola del tuo tema */
+  border-color: #605dc8; 
 }
 
 /* Testo informativo sotto il campo */
@@ -240,9 +240,6 @@ input.is-invalid {
   font-style: italic;
   padding-left: 10px;
 }
-
-/* Se vuoi dare un tocco in più: un'icona o un colore diverso 
-   se il codice inserito è "speciale" (opzionale) */
 .form-group input[name="inviteCode"]::placeholder {
   color: #bbb;
 }

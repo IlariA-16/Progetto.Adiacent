@@ -63,7 +63,7 @@ export class LoginComponent {
     }
 
     // Qui chiamiamo il dbService. 
-    // Nota: Il tuo dbService deve restituire l'oggetto utente o null.
+    // Nota: Il  dbService deve restituire l'oggetto utente o null.
     const utente = await this.dbService.login(this.email, this.password);
 
     if (utente) {
@@ -71,7 +71,7 @@ export class LoginComponent {
       localStorage.setItem('statoLogin', 'true');
       
       // Salviamo il ruolo che arriva dal database (es. 'admin', 'editor' o 'user')
-      // Se il tuo dbService restituisce solo true/false, dovrai modificarlo per restituire il ruolo.
+      // Se il dbService restituisce solo true/false, dovrà modificarlo per restituire il ruolo.
       localStorage.setItem('userRole', utente.role || 'user'); 
       localStorage.setItem('userEmail', utente.email);
 

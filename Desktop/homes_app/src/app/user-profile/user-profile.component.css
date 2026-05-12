@@ -261,7 +261,7 @@ input:focus, .custom-select:focus {
 @media (max-width: 900px) {
   .profile-layout { grid-template-columns: 1fr; }
   .profile-sidebar { 
-    position: static; /* Rimuove lo sticky su mobile */
+    position: static; 
     order: 2; 
   }
   .profile-main-content { order: 1; }

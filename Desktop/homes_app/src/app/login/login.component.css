@@ -13,7 +13,7 @@
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 400px; /* Un po' più stretta della registrazione */
+  max-width: 400px; 
   text-align: center;
 }
 
@@ -32,12 +32,12 @@ label {
 
 input {
   width: 100%;
-  padding: 12px 20px;       /* Più padding laterale per la forma tonda */
-  border: 2px solid #605dc8; /* Bordo violino più visibile */
-  border-radius: 50px;       /* Stondatura massima a pillola */
+  padding: 12px 20px;       
+  border: 2px solid #605dc8; 
+  border-radius: 50px;      
   background-color: #fdfdfd;
-  outline: none;             /* Toglie il bordo di default al click */
-  box-sizing: border-box;    /* Evita che l'input esca dai margini */
+  outline: none;            
+  box-sizing: border-box;    
   transition: 0.3s;
 }
 input:focus {
@@ -56,14 +56,14 @@ input:focus {
 
 .toggle-password {
   position: absolute;
-  right: 20px; /* Spostato leggermente più a sinistra per la curva tonda */
+  right: 20px; 
   top: 50%;
-  transform: translateY(-50%); /* Centra perfettamente la scritta verticalmente */
+  transform: translateY(-50%); 
   font-size: 0.7rem;
   font-weight: bold;
   color: #605dc8;
   cursor: pointer;
-  background: white; /* Copre leggermente l'input sotto se serve */
+  background: white; 
   padding: 2px 5px;
 }
 
@@ -99,7 +99,7 @@ h2 {
   font-weight: 900;
   text-align: center;
   color: transparent;
-  -webkit-text-stroke: 1.5px #5e5adb; /* Il viola del tuo bottone */
+  -webkit-text-stroke: 1.5px #5e5adb; 
   text-transform: uppercase;
   letter-spacing: 4px;
   transition: all 0.4s;
@@ -112,15 +112,15 @@ h2:hover {
   transform: scale(1.05);
 }
 p {
-  background: rgba(94, 90, 219, 0.05); /* Un tocco del tuo viola quasi invisibile */
+  background: rgba(94, 90, 219, 0.05); 
   padding: 10px 20px;
-  border-radius: 50px; /* Forma a pillola */
+  border-radius: 50px; 
   color: #5e5adb;
   font-weight: 500;
   font-size: 0.9rem;
   display: inline-block;
   margin: 15px 0 25px 0;
-  border: 1px dashed #5e5adb; /* Bordo tratteggiato che richiama l'outline */
+  border: 1px dashed #5e5adb;
 }
 
 
