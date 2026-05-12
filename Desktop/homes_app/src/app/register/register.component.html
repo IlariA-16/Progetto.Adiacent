@@ -1,0 +1,95 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Crea il tuo Account</h2>
+    <p>Compila i campi sottostanti per registrarti a Homes</p>
+
+    <form (ngSubmit)="registrati()" #registerForm="ngForm" novalidate>
+      
+      <!-- NOME -->
+      <div class="form-group">
+        <label>NOME:</label>
+        <input type="text" name="nome" [(ngModel)]="userData.nome" #nome="ngModel" 
+               [class.is-invalid]="nome.invalid && nome.touched"
+               placeholder="Inserisci il tuo nome" required>
+        <small *ngIf="nome.invalid && nome.touched" class="error-text">Il nome è obbligatorio.</small>
+      </div>
+
+      <!-- COGNOME -->
+      <div class="form-group">
+        <label>COGNOME:</label>
+        <input type="text" name="cognome" [(ngModel)]="userData.cognome" #cognome="ngModel" 
+               [class.is-invalid]="cognome.invalid && cognome.touched"
+               placeholder="Inserisci il tuo cognome" required>
+        <small *ngIf="cognome.invalid && cognome.touched" class="error-text">Il cognome è obbligatorio.</small>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label>EMAIL:</label>
+        <input type="email" name="email" [(ngModel)]="userData.email" #email="ngModel" 
+               [class.is-invalid]="email.invalid && email.touched"
+               placeholder="esempio@testo.it" required email>
+        <div *ngIf="email.invalid && email.touched" class="error-text">
+          <small *ngIf="email.errors?.['required']">L'email è obbligatoria.</small>
+          <small *ngIf="email.errors?.['email']">Inserisci un indirizzo email valido.</small>
+        </div>
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label>PASSWORD:</label>
+        <div class="password-wrapper" [class.is-invalid-box]="pass.invalid && pass.touched">
+          <input [type]="passwordVisible ? 'text' : 'password'" name="password" 
+                 [(ngModel)]="userData.password" #pass="ngModel" 
+                 placeholder="Nuova password" required 
+                 pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+          <span class="toggle-password" (click)="togglePasswordVisibility()">
+            {{ passwordVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
+        </div>
+        <div *ngIf="pass.invalid && pass.touched" class="error-text">
+          <small *ngIf="pass.errors?.['required']">La password è obbligatoria.</small>
+          <small *ngIf="pass.errors?.['pattern']">Deve contenere min 8 caratteri, un numero e un simbolo (@$!%*?&).</small>
+        </div>
+      </div>
+
+      <!-- CONFERMA PASSWORD -->
+      <div class="form-group">
+        <label>CONFERMA PASSWORD:</label>
+        <div class="password-wrapper" [class.is-invalid-box]="confPass.touched && userData.password !== userData.confermaPassword">
+          <input [type]="confirmPasswordVisible ? 'text' : 'password'" name="confermaPassword" 
+                 [(ngModel)]="userData.confermaPassword" #confPass="ngModel" 
+                 placeholder="Conferma la tua password" required>
+          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+            {{ confirmPasswordVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
+        </div>
+        <small *ngIf="confPass.touched && userData.password !== userData.confermaPassword" class="error-text">
+          Le password non coincidono.
+        </small>
+      </div>
+
+      <!-- CODICE INVITO -->
+       <div class="form-group">
+        <label>CODICE INVITO:</label>
+        <div class="password-wrapper">
+          <input [type]="inviteCodeVisible ? 'text' : 'password'" 
+          name="inviteCode" 
+          [(ngModel)]="userData.inviteCode" 
+          placeholder="Inserisci il codice segreto">
+          <span class="toggle-password" (click)="toggleInviteCodeVisibility()">
+            {{ inviteCodeVisible ? 'NASCONDI' : 'MOSTRA' }}
+          </span>
+        </div>
+        <small class="info-text">Lascia vuoto per registrarti come Utente Semplice</small>
+      </div>
+
+      <button type="submit" class="btn-submit" 
+              [disabled]="registerForm.invalid || userData.password !== userData.confermaPassword">
+        Registrati ora
+      </button>
+    </form>
+    
+    <p class="login-link">Hai già un account? <a [routerLink]="['/login']">Accedi</a></p>
+  </div>
+</div>

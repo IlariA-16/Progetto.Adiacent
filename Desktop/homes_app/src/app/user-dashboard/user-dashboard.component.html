@@ -1,0 +1,59 @@
+<section class="dashboard">
+  <header class="dashboard-header">
+    <h1>La tua Dashboard</h1>
+    <p><strong>{{ (saluto$ | async) || 'Bentornato, Ospite' }}</strong>! Qui puoi monitorare le tue richieste.</p>
+  </header>
+
+  <div class="stats-overview">
+    <div class="stat-box">
+      <span class="number">{{ (applicationsCount$ | async) || 0 }}</span>
+      <span class="label">Domande Inviate</span>
+    </div>
+    
+    <div class="stat-box">
+        <span class="number">{{ (favoritesCount$ | async) || 0 }}</span>
+        <span class="label">Alloggi Preferiti</span>
+    </div>
+  </div>
+
+  <section class="applications-section">
+    <h2>Stato delle Candidature</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Alloggio</th>
+            <th>Località</th>
+            <th>Data Invio</th>
+            <th>Stato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of (appliedHouses$ | async)">
+            <td>{{ app.locationName }}</td>
+            <td>{{ app.city }}</td>
+            <td>{{ app.date }}</td>
+            <td>
+              <span class="status-badge" 
+                    [ngClass]="{
+                      'approved': app.status === 'Approvata',
+                      'rejected': app.status === 'Rifiutata',
+                      'pending': app.status !== 'Approvata' && app.status !== 'Rifiutata'
+                    }">
+                {{ app.status }}
+              </span>
+            </td>
+          </tr>
+
+          <tr *ngIf="(appliedHouses$ | async)?.length === 0">
+            <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
+              Non hai ancora inviato nessuna candidatura.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <button class="primary" routerLink="/">Cerca nuovi alloggi</button>
+</section>

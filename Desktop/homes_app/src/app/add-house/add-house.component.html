@@ -1,0 +1,44 @@
+<section class="form-container">
+  <h2>🏡 Aggiungi una nuova proprietà</h2>
+  
+  <form [formGroup]="applyForm" (submit)="submitApplication()">
+    
+    <div class="field">
+      <label>🏷️ Nome Casa</label>
+      <input type="text" formControlName="name" placeholder="Es: Villa Sole">
+    </div>
+
+    <div class="field">
+      <label>📍 Città</label>
+      <input type="text" formControlName="city" placeholder="Es: Milano">
+    </div>
+     <div class="field">
+      <label>💰 Prezzo (€)</label>
+      <input type="number" formControlName="price" placeholder="Es: 1200">
+    </div>
+
+    <div class="field">
+      <label>📐 Metratura (mq)</label>
+      <input type="number" formControlName="metratura">
+    </div>
+
+    <div class="field">
+      <label>🖼️ URL Immagine</label>
+      <input type="text" formControlName="photo" placeholder="Incolla il link della foto...">
+    </div>
+
+    <div class="checkbox-container">
+      <label class="check-item">
+        <input type="checkbox" formControlName="wifi"> 🌐 WiFi
+      </label>
+      <label class="check-item">
+        <input type="checkbox" formControlName="laundry"> 🧺 Lavanderia
+      </label>
+    </div>
+
+    <button type="submit" [disabled]="!applyForm.valid" class="primary">
+      ✨ Salva Proprietà
+    </button>
+    
+  </form>
+</section>

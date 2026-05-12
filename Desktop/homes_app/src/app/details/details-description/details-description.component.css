@@ -1,0 +1,190 @@
+/* Contenitore principale con sfondo leggermente grigio per far risaltare la card */
+.description-page-container {
+  min-height: 80vh;
+  padding: 40px 20px;
+  background-color: #fcfcfc;
+}
+
+.content-wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* Link Torna Indietro */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #605dec;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.back-link:hover {
+  color: #4a47b1;
+  transform: translateX(-5px);
+}
+
+/* Banner Immagine */
+.house-banner {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.house-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1));
+}
+
+/* Header e Titolo */
+.header-section {
+  margin-bottom: 40px;
+}
+
+.house-title {
+  color: #2c3e50;
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin: 0 0 15px 0;
+  letter-spacing: -1px;
+}
+
+.accent-bar {
+  height: 6px;
+  width: 80px;
+  background: linear-gradient(90deg, #605dec, #a29bfe);
+  border-radius: 3px;
+}
+
+/* Card Principale */
+.main-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.card-header {
+  padding: 20px 40px 0;
+}
+
+.badge {
+  background-color: rgba(96, 93, 236, 0.1);
+  color: #605dec;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.card-body {
+  padding: 30px 40px 50px;
+}
+
+.description-text {
+  font-size: 1.2rem;
+  line-height: 1.9;
+  color: #4a4a4a;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* --- NUOVA SEZIONE CONTATTI --- */
+.contact-section {
+  margin-top: 60px;
+  text-align: center;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.contact-header {
+  font-size: 1.6rem;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  background: white;
+  padding: 35px 25px;
+  border-radius: 20px;
+  width: 250px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+  border-top: 5px solid #605dec; /* Richiama il tuo viola */
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(96, 93, 236, 0.1);
+}
+
+.icon-circle {
+  font-size: 1.8rem;
+  background: rgba(96, 93, 236, 0.1); /* Stesso stile del badge */
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-item h3 {
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-item p, .contact-item a {
+  font-size: 0.95rem;
+  color: #605dec;
+  font-weight: 700;
+  margin: 0;
+  text-decoration: none;
+}
+
+/* Animazione per l'entrata */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .house-title { font-size: 2rem; }
+  .card-body { padding: 30px 20px; }
+  .description-text { font-size: 1.1rem; }
+  .contact-item { width: 100%; }
+}
