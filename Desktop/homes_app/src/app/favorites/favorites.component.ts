@@ -4,25 +4,28 @@ import { HousingLocationComponent } from '../housing-location/housing-location.c
 import { HousingLocation } from '../housing-location';
 import { HousingService } from '../housing.service';
 import { RouterModule } from '@angular/router';
-import { Observable, map } from 'rxjs'; // Importiamo gli strumenti per gestire i dati reattivi
+import { Observable, map } from 'rxjs';
+
+// IMPORTA IL MODULO DI TRADUZIONE
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule, HousingLocationComponent, RouterModule],
+  // AGGIUNGI TranslateModule NEGLI IMPORTS
+  imports: [CommonModule, HousingLocationComponent, RouterModule, TranslateModule],
   template: `
     <section class="content">
-      <h2 class="section-heading">I miei Preferiti ⭐</h2>
+      <h2 class="section-heading">{{ 'FAVORITES.TITLE' | translate }}</h2>
+      
       <div class="results">
-        <!-- Usiamo il pipe async per leggere i dati reattivi da Dexie -->
         <app-housing-location 
           *ngFor="let housingLocation of (favoriteList$ | async)" 
           [housingLocation]="housingLocation">
         </app-housing-location>
         
-        <!-- Messaggio se non ci sono preferiti -->
         <p *ngIf="(favoriteList$ | async)?.length === 0">
-          Non hai ancora aggiunto nessuna casa ai tuoi preferiti.
+          {{ 'FAVORITES.EMPTY_MESSAGE' | translate }}
         </p>
       </div>
     </section>
@@ -30,13 +33,10 @@ import { Observable, map } from 'rxjs'; // Importiamo gli strumenti per gestire 
   styleUrls: ['./favorites.component.css']
 })
 export class FavoritesComponent implements OnInit {
-  // Definiamo un Observable invece di un semplice array
   favoriteList$: Observable<HousingLocation[]> | undefined;
   housingService: HousingService = inject(HousingService);
 
   ngOnInit() {
-    // 1. Chiediamo al servizio tutte le case (che arrivano da Dexie come Observable)
-    // 2. Usiamo 'map' per filtrare solo quelle che hanno isFavorite: true
     this.favoriteList$ = this.housingService.getAllHousingLocation().pipe(
       map(locations => locations.filter(location => location.isFavorite === true))
     );

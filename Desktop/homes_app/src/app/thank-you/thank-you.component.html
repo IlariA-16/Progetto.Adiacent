@@ -6,45 +6,44 @@
       <div class="success-icon-wrapper">
         <span class="check-icon">✓</span>
       </div>
-      <h1>Grazie, {{ userName }}!</h1>
-      <p class="main-subtitle">La tua richiesta è stata presa in carico con successo.</p>
+      <h1>{{ 'THANK_YOU.TITLE' | translate }}, {{ userName }}!</h1>
+      <p class="main-subtitle">{{ 'THANK_YOU.SUBTITLE' | translate }}</p>
     </header>
 
     <hr class="divider">
 
-    <!-- 2. Cosa succede ora? (Dà sicurezza all'utente) -->
+    <!-- 2. Cosa succede ora? -->
     <article class="next-steps">
-      <h2>Cosa succederà adesso?</h2>
+      <h2>{{ 'THANK_YOU.STEPS_TITLE' | translate }}</h2>
       <div class="steps-grid">
         <div class="step">
           <span class="step-number">1</span>
-          <p><strong>Riceverai una conferma:</strong> Ti abbiamo appena inviato un'email con il riepilogo della tua richiesta.</p>
+          <p><strong>{{ 'THANK_YOU.STEP1_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP1_TEXT' | translate }}</p>
         </div>
         <div class="step">
           <span class="step-number">2</span>
-          <p><strong>Analisi della richiesta:</strong> Un nostro esperto immobiliare valuterà le tue preferenze nelle prossime 2 ore.</p>
+          <p><strong>{{ 'THANK_YOU.STEP2_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP2_TEXT' | translate }}</p>
         </div>
         <div class="step">
           <span class="step-number">3</span>
-          <p><strong>Contatto diretto:</strong> Verrai ricontattato telefonicamente o via email per fissare un appuntamento o ricevere maggiori dettagli.</p>
+          <p><strong>{{ 'THANK_YOU.STEP3_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP3_TEXT' | translate }}</p>
         </div>
       </div>
     </article>
 
-    <!-- 3. Contenuto extra per "riempire" e dare valore -->
+    <!-- 3. Contenuto extra -->
     <div class="support-info">
-      <h3>Hai bisogno di assistenza immediata?</h3>
-      <p>Se hai dimenticato di aggiungere un dettaglio importante o hai domande urgenti, il nostro team è a tua disposizione.</p>
-      <p class="contact-hours">Siamo attivi dal lunedì al venerdì, dalle 9:00 alle 18:00.</p>
+      <h3>{{ 'THANK_YOU.ASSISTANCE_TITLE' | translate }}</h3>
+      <p>{{ 'THANK_YOU.ASSISTANCE_TEXT' | translate }}</p>
+      <p class="contact-hours">{{ 'THANK_YOU.HOURS' | translate }}</p>
     </div>
 
     <!-- 4. Azioni Finali (CTA) -->
     <footer class="card-footer">
       <div class="button-group">
-        <a routerLink="/" class="btn-primary">Torna alla lista delle case</a>   
+        <a routerLink="/" class="btn-primary">{{ 'THANK_YOU.BACK_HOME' | translate }}</a>   
       </div>
     </footer>
 
   </section>
 </main>
-

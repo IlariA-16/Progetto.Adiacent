@@ -7,77 +7,62 @@ import { HousingLocation } from '../housing-location';
 import { Observable, map } from 'rxjs';
 import data from '../../../db.json';
 
+// IMPORTA IL MODULO DI TRADUZIONE
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HousingLocationComponent, RouterModule],
+  imports: [CommonModule, HousingLocationComponent, RouterModule, TranslateModule],
   template: `
     <div class="main-layout">
-      <!-- SIDEBAR LATERALE CON FILTRI -->
       <aside class="sidebar">
           <form (submit)="$event.preventDefault()">
             <section class="search-box">
-              <h3>Cerca Alloggio</h3>
-              <input type="text" placeholder="Città, nome o stato..." #filter id="city-filter" name="city-filter">
+              <h3>{{ 'HOME.SEARCH_TITLE' | translate }}</h3>
+              <input type="text" [placeholder]="'HOME.PLACEHOLDER' | translate" #filter id="city-filter" name="city-filter">
               
               <div class="price-range-container">
-                <label for="priceRange">Prezzo Max: <b>€{{maxPriceValue}}</b></label>
-                <input type="range" 
-                #maxPrice
-                id="priceRange" 
-                min="0" 
-                max="5000" 
-                step="100" 
-                [value]="maxPriceValue"
-                (input)="
-                maxPriceValue = +maxPrice.value;
-                applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)
-                ">
+                <label for="priceRange">{{ 'HOME.MAX_PRICE' | translate }}: <b>€{{maxPriceValue}}</b></label>
+                <input type="range" #maxPrice id="priceRange" min="0" max="5000" step="100" [value]="maxPriceValue"
+                (input)="maxPriceValue = +maxPrice.value; applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)">
               </div>
 
               <div class="sort-box">
-                <label for="sortSelect">Ordina per:</label>
+                <label for="sortSelect">{{ 'HOME.SORT_BY' | translate }}:</label>
                 <select id="sortSelect" #sortOption (change)="sortResults(sortOption.value)">
-                  <option value="none">Seleziona...</option>
-                  <option value="cheap">Più economica</option>
-                  <option value="expensive">Più costosa</option>
-                  <option value="name">Nome (A-Z)</option>
+                  <option value="none">{{ 'HOME.SELECT' | translate }}</option>
+                  <option value="cheap">{{ 'HOME.CHEAP' | translate }}</option>
+                  <option value="expensive">{{ 'HOME.EXPENSIVE' | translate }}</option>
+                  <option value="name">{{ 'HOME.NAME' | translate }}</option>
                 </select>
               </div>
             </section>
 
             <section class="filters-box">
-              <h3>Filtra per servizi</h3>
+              <h3>{{ 'HOME.FILTER_SERVICES' | translate }}</h3>
               <div class="filter-group">
                 <label>
                   <input type="checkbox" #wifi (change)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)"> 
-                  <span>📶 Wi-Fi incluso</span>
+                  <span>📶 {{ 'HOME.WIFI' | translate }}</span>
                 </label>
                 <label>
                   <input type="checkbox" #laundry (change)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)"> 
-                  <span>🧺 Lavanderia</span>
+                  <span>🧺 {{ 'HOME.LAUNDRY' | translate }}</span>
                 </label>
               </div>
               
               <button class="primary" type="button" (click)="applyFilters(filter.value, wifi.checked, laundry.checked, '0', maxPrice.value)">
-                Cerca
+                {{ 'HOME.SEARCH_BTN' | translate }}
               </button>
               
-              <button class="btn-clear" (click)="
-              filter.value='';
-              maxPrice.value='5000';
-              maxPriceValue=5000;
-              wifi.checked=false;
-              laundry.checked=false;
-              applyFilters('', false, false, '0', '5000')
-              ">
-                Svuota filtri
+              <button class="btn-clear" (click)="filter.value=''; maxPrice.value='5000'; maxPriceValue=5000; wifi.checked=false; laundry.checked=false; applyFilters('', false, false, '0', '5000')">
+                {{ 'HOME.CLEAR_FILTERS' | translate }}
               </button>
             </section>
           </form>
       </aside>
 
-      <!-- SEZIONE RISULTATI -->
       <section class="results-container">
         <div class="results-grid">
           <div *ngFor="let housingLocation of (filteredLocationList$ | async)">
@@ -90,20 +75,24 @@ import data from '../../../db.json';
       </section>
     </div>
 
+<<<<<<< HEAD
     <!-- Modale Candidature: ACCESSIBILE SOLO SE ADMIN -->
     <div class="modal-overlay" *ngIf="showModal && userRole === 'admin'" (click)="closeModal()">
+=======
+    <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+>>>>>>> language
       <div class="modal-content" (click)="$event.stopPropagation()">
-        <h3>Gestione Candidature: {{ selectedLocation?.name }}</h3>
+        <h3>{{ 'HOME.MODAL_TITLE' | translate }}: {{ selectedLocation?.name }}</h3>
         <hr>
         
         <div *ngIf="currentApplications.length > 0; else noApps">
           <table class="app-table">
             <thead>
               <tr>
-                <th>Candidato</th>
-                <th>Data</th>
-                <th>Stato</th>
-                <th>Azioni</th>
+                <th>{{ 'HOME.CANDIDATE' | translate }}</th>
+                <th>{{ 'HOME.DATE' | translate }}</th>
+                <th>{{ 'HOME.STATUS' | translate }}</th>
+                <th>{{ 'HOME.ACTIONS' | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -114,14 +103,9 @@ import data from '../../../db.json';
                   {{ app.status }}
                 </td>
                 <td class="action-cell">
-                  <button *ngIf="app.status !== 'Approvata'" 
-                          (click)="updateStatus(app.id, 'Approvata')" 
-                          class="btn-icon approve">✔</button>
-                  <button *ngIf="app.status !== 'Rifiutata'" 
-                          (click)="updateStatus(app.id, 'Rifiutata')" 
-                          class="btn-icon reject">✖</button>
-                  <button (click)="deleteApplication(app.id)" 
-                          class="btn-icon delete">🗑</button>
+                  <button *ngIf="app.status !== 'Approvata'" (click)="updateStatus(app.id, 'Approvata')" class="btn-icon approve">✔</button>
+                  <button *ngIf="app.status !== 'Rifiutata'" (click)="updateStatus(app.id, 'Rifiutata')" class="btn-icon reject">✖</button>
+                  <button (click)="deleteApplication(app.id)" class="btn-icon delete">🗑</button>
                 </td>
               </tr>
             </tbody>
@@ -130,11 +114,11 @@ import data from '../../../db.json';
 
         <ng-template #noApps>
           <div class="empty-state">
-            <p>Nessuna candidatura ricevuta per questa proprietà.</p>
+            <p>{{ 'HOME.NO_APPS' | translate }}</p>
           </div>
         </ng-template>
 
-        <button class="primary close-btn" (click)="closeModal()">Chiudi</button>
+        <button class="primary close-btn" (click)="closeModal()">{{ 'HOME.CLOSE' | translate }}</button>
       </div>
     </div>
   `,
@@ -153,10 +137,14 @@ export class HomeComponent implements OnInit {
   userRole: string | null = localStorage.getItem('userRole');
 
   private dbService = inject(DbService);
+  private translate = inject(TranslateService);
 
   constructor() {
     this.housingLocationList$ = this.dbService.locations$;
     this.filteredLocationList$ = this.housingLocationList$;
+    
+    // RIMOSSE LE RIGHE CHE FORZAVANO .use('it')
+    // Ora la Home eredita la lingua caricata in AppComponent
   }
 
   async ngOnInit() {
@@ -170,6 +158,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   closeModal() {
     this.showModal = false;
     this.selectedLocation = null;
@@ -186,21 +175,46 @@ export class HomeComponent implements OnInit {
     this.selectedLocation = location;
     this.showModal = true;
     
+=======
+  async deleteApplication(id: number) {
+    // Traduzione dinamica basata sulla lingua attuale
+    const confirmMsg = this.translate.instant('HOME.CONFIRM_DELETE');
+    if (confirm(confirmMsg)) {
+      await this.dbService.table('applications').delete(id);
+      if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
+    }
+  }
+
+  getStatusColor(status: string): string {
+    if (status === 'Approvata' || status === 'Approved') return 'green';
+    if (status === 'Rifiutata' || status === 'Rejected') return 'red';
+    return 'orange';
+  }
+  
+  closeModal() { this.showModal = false; this.selectedLocation = null; }
+  
+  async openApplicationsModal(location: HousingLocation) {
+    if (!location.id) return;
+    this.selectedLocation = location;
+    this.showModal = true;
+>>>>>>> language
     try {
       this.currentApplications = await this.dbService.table('applications')
         .where('locationId').equals(location.id).toArray();
     } catch (error) {
-      console.error("Errore nel recupero candidature:", error);
       this.currentApplications = [];
     }
   }
 
+<<<<<<< HEAD
   getStatusColor(status: string): string {
     if (status === 'Approvata') return 'green';
     if (status === 'Rifiutata') return 'red';
     return 'orange';
   }
 
+=======
+>>>>>>> language
   applyFilters(city: string, hasWifi: boolean, hasLaundry: boolean, minP: string, maxP: string) {
     this.filteredLocationList$ = this.housingLocationList$.pipe(
       map(locations => locations.filter(loc => {
@@ -231,9 +245,13 @@ export class HomeComponent implements OnInit {
     await this.dbService.table('applications').update(id, { status: newStatus });
     if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
   }
+<<<<<<< HEAD
 
   async deleteApplication(id: number) {
     await this.dbService.table('applications').delete(id);
     if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
   }
 }
+=======
+}
+>>>>>>> language

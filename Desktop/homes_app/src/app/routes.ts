@@ -13,6 +13,7 @@ import { authGuard } from "./auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
 
+
 const routeConfig: Routes = [
   // --- ROTTE PUBBLICHE (Accessibili a tutti) ---
   {
@@ -92,6 +93,11 @@ const routeConfig: Routes = [
     data: { expectedRoles: ['admin'] } // Solo Admin (Creazione immobili)
   },
   
+<<<<<<< HEAD
+=======
+  
+  
+>>>>>>> language
 ];
 
 export default routeConfig;

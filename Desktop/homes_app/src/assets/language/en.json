@@ -1,0 +1,182 @@
+{
+  "NAV": {
+    "DASHBOARD": "My Dashboard",
+    "ADD": "Add House",
+    "FAVORITES": "My Favorites",
+    "ABOUT": "About Us"
+  },
+  
+  "DASHBOARD": {
+    "WELCOME_M": "Welcome back",
+    "WELCOME_F": "Welcome back",
+    "GUEST": "Guest",
+    "REMOVED_HOUSE": "Housing removed",
+    "FAV_TITLE": "Your Favorites",
+    "APP_TITLE": "Your Applications",
+    "PAGE_TITLE": "Your Dashboard",
+    "SUBTITLE": "Here you can monitor your requests.",
+    "DEFAULT_WELCOME": "Welcome back, Guest",
+    "SENT_APPS": "Sent Applications",
+    "FAV_HOUSES": "Favorite Houses",
+    "APPS_STATUS": "Application Status",
+    "NO_APPS": "You haven't sent any applications yet.",
+    "SEARCH_MORE": "Search for more housing",
+    "TABLE": {
+      "HOUSE": "Housing",
+      "LOCATION": "Location",
+      "DATE": "Submission Date",
+      "STATUS": "Status"
+    }
+  },
+  
+  "THANK_YOU": {
+    "TITLE": "Thank You",
+    "GUEST": "Guest",
+    "SUBTITLE": "Your request has been successfully received.",
+    "STEPS_TITLE": "What happens next?",
+    "STEP1_BOLD": "You will receive a confirmation:",
+    "STEP1_TEXT": "We have just sent you an email with a summary of your request.",
+    "STEP2_BOLD": "Request analysis:",
+    "STEP2_TEXT": "One of our real estate experts will evaluate your preferences within the next 2 hours.",
+    "STEP3_BOLD": "Direct contact:",
+    "STEP3_TEXT": "You will be contacted by phone or email to schedule an appointment or receive more details.",
+    "ASSISTANCE_TITLE": "Need immediate assistance?",
+    "ASSISTANCE_TEXT": "If you forgot to add an important detail or have urgent questions, our team is at your disposal.",
+    "HOURS": "We are available Monday to Friday, from 9:00 AM to 6:00 PM.",
+    "BACK_HOME": "Back to house list"
+  },
+  
+  "LISTING": {
+    "PHOTO_ALT": "Exterior photo of",
+    "DETAILS_ILARIA": "Ilaria Details",
+    "DETAILS_MICO": "Mico Details",
+    "APPLICATIONS": "Applications",
+    "PHOTOS_BTN": "Photos",
+    "DELETE_BTN": "Delete",
+    "MODAL_MAP_TITLE": "Position of",
+    "MODAL_MAP_BODY": "Do you want to view the map for",
+    "OPEN_MAPS": "Open in Google Maps",
+    "MODAL_PHOTO_TITLE": "Gallery of",
+    "CONFIRM_DELETE": "Are you sure you want to delete this property?"
+  },
+
+  "HOME": {
+    "SEARCH_TITLE": "Search Housing",
+    "PLACEHOLDER": "City, name or state...",
+    "MAX_PRICE": "Max Price",
+    "SORT_BY": "Sort by",
+    "SELECT": "Select...",
+    "CHEAP": "Cheapest",
+    "EXPENSIVE": "Most expensive",
+    "NAME": "Name (A-Z)",
+    "FILTER_SERVICES": "Filter by services",
+    "WIFI": "Wi-Fi included",
+    "LAUNDRY": "Laundry",
+    "SEARCH_BTN": "Search",
+    "CLEAR_FILTERS": "Clear filters",
+    "MODAL_TITLE": "Application Management",
+    "CANDIDATE": "Applicant",
+    "DATE": "Date",
+    "STATUS": "Status",
+    "ACTIONS": "Actions",
+    "NO_APPS": "No applications received for this property.",
+    "CLOSE": "Close",
+    "CONFIRM_DELETE": "Delete this application?"
+  },
+
+  "FAVORITES": {
+    "TITLE": "My Favorites ⭐",
+    "EMPTY_MESSAGE": "You haven't added any homes to your favorites yet."
+  },
+  
+  "DETAILS": {
+    "PHOTO_ALT": "Exterior photo of",
+    "CITY": "City",
+    "STATE": "State"
+  },
+
+  "HOUSING_DETAILS": {
+    "FAQ_TITLE": "Frequently Asked Questions 💡",
+    "ABOUT_SECTION": "About this housing location",
+    "UNITS": "Available units",
+    "SQUARE_METERS": "Square footage",
+    "FLOOR": "Floor",
+    "HAS_WIFI": "This facility has wifi",
+    "HAS_LAUNDRY": "This facility has laundry",
+    "YES": "Yes",
+    "NO": "No",
+    "FULL_DESCRIPTION": "Read full description",
+    "APPLY_TITLE": "Apply now to live here",
+    "FIRST_NAME": "FIRST NAME",
+    "LAST_NAME": "LAST NAME",
+    "EMAIL": "EMAIL",
+    "APPLY_BTN": "Apply now",
+    "STATUS_PENDING": "Under Review",
+    "FAQ_1_Q": "Are all facilities furnished?",
+    "FAQ_1_A": "Yes, each of our housing solutions is delivered complete with essential furnishings.",
+    "FAQ_2_Q": "Are utilities included?",
+    "FAQ_2_A": "Yes, water, electricity, and heating costs are included."
+  },
+
+"DESCRIPTION_PAGE": {
+    "TITLE": "Full Description",
+    "BACK_LINK": "Back to property details",
+    "NO_DATA": "Loading description or data not available.",
+    "BADGE": "Full Description",
+    "CONTACT_TITLE": "Need more information?",
+    "CALL_US": "Call us",
+    "WRITE_US": "Email us",
+    "WHATSAPP": "WhatsApp"
+  },
+  
+  "ERRORS": {
+    "INVALID_FORM": "Please enter at least the house name and city.",
+    "SAVE_FAILED": "An error occurred while saving."
+  },
+  "SUCCESS": {
+    "HOUSE_SAVED": "Property saved successfully!"
+  },
+
+  
+  "ADD_HOUSE": {
+    "TITLE": "Add a new property"
+  },
+  "FORM": {
+    "NAME": "House Name",
+    "PLACEHOLDER_NAME": "e.g. Sun Villa",
+    "CITY": "City",
+    "PLACEHOLDER_CITY": "e.g. Milan",
+    "PRICE": "Price (€)",
+    "PLACEHOLDER_PRICE": "e.g. 1200",
+    "METRATURA": "Square Meters (sqm)",
+    "PHOTO_URL": "Image URL",
+    "PLACEHOLDER_PHOTO": "Paste photo link...",
+    "WIFI": "WiFi",
+    "LAUNDRY": "Laundry",
+    "SUBMIT_BUTTON": "Save Property"
+  },
+  
+
+  "ABOUT": {
+    "PAGE_TITLE": "About Us",
+    "MISSIONE_TITLE": "Beyond the walls: our mission is your peace of mind",
+    "MISSIONE_BODY": "In a fast-paced and often impersonal real estate market, we have chosen with conviction to focus on active listening and empathy. We know very well that looking for a home does not simply mean browsing a list of ads or visiting properties; it means projecting your dreams, your sacrifices, and your future into a space that will welcome you for years. Our mission is to protect this vision, transforming an often stressful search into a smooth, safe, and, above all, serene journey.",
+    "FILOSOFIA_TITLE": "Our philosophy: the client before the property",
+    "FILOSOFIA_BODY": "For us, integrity is not just a simple slogan, but a daily commitment that translates into total transparency towards those who trust us. We are not interested in closing a sale 'at any cost' or proposing a house to anyone; our goal is to find the solution that fits perfectly with your real needs, guaranteeing you honest advice that highlights the pros and cons of every opportunity, eliminating any source of uncertainty or stress.",
+    "VALORI": {
+      "ETICA_TITLE": "Ethics and Transparency",
+      "ETICA_BODY": "Every property in our portfolio undergoes rigorous technical-legal checks before even being proposed, to guarantee you a purchase free of unpleasant bureaucratic surprises.",
+      "SARTORIALITA_TITLE": "Tailor-made approach",
+      "SARTORIALITA_BODY": "We do not believe in standard solutions. We deeply analyze your lifestyle, your habits, and future prospects to tailor a targeted search that respects your time and your priorities.",
+      "PRESENZA_TITLE": "Constant presence",
+      "PRESENZA_BODY": "Our work does not end with the signing of the preliminary agreement. We stay by your side with constant dedication throughout the entire bureaucratic phase, accompanying you until the moment of the deed and remaining a point of reference even after the keys are handed over."
+    },
+    "CLOSING_TEXT": "Our greatest achievement is not a commission, but your sincere smile the day you finally turn the key in the lock of your new home. We are here to prove to you, day after day, that finding a home can and must be an exciting, safe, and deeply human experience."
+  }
+
+
+
+
+
+  
+}
