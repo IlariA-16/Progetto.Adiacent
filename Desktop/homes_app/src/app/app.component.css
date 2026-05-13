@@ -1,24 +1,94 @@
 :host {
   --content-padding: 20px;
+  --primary-color: #605dc8;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Logo a sinistra, pulsanti a destra */
+  justify-content: space-between;
   height: 80px;
   padding: 0 var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
   background-color: white;
 }
 
-/* CONTENITORE PULSANTI: Li mette uno accanto all'altro */
+/* CONTENITORE NAVIGAZIONE */
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 12px; /* Spazio preciso e uguale tra i pulsanti */
+  gap: 12px;
 }
 
+/* --- SELETTORE LINGUE --- */
+.lang-selector {
+  display: flex;
+  gap: 5px;
+  margin-right: 15px;
+  border-right: 2px solid #eee; /* Separatore visivo dagli altri tasti */
+  padding-right: 15px;
+  align-items: center;
+}
+
+.lang-selector button {
+  background-color: #f8f9fa;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+}
+
+.lang-selector button:hover {
+  background-color: #eef0f2;
+  color: var(--primary-color);
+}
+
+/* Stato attivo per la lingua selezionata */
+.lang-selector button.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(96, 93, 200, 0.3);
+}
+
+/* --- STILE PULSANTI PAGINA (UNIFICATO) --- */
+.btn-dashboard-page, 
+.btn-fav-page, 
+.btn-about-page,
+.btn-add-page,
+.btn-list-page {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+/* EFFETTO HOVER PULSANTI */
+.btn-dashboard-page:hover,
+.btn-fav-page:hover, 
+.btn-about-page:hover,
+.btn-add-page:hover,
+.btn-list-page:hover {
+  filter: brightness(90%);
+  transform: translateY(-2px);
+}
+
+/* LOGO E CONTENUTO */
 .content {
   padding: var(--content-padding);
 }
@@ -26,40 +96,6 @@ header {
 header img {
   height: 40px;
   vertical-align: middle;
-}
-
-/* STILE PULSANTI UNIFICATO */
-.btn-dashboard-page, 
-.btn-fav-page, 
-.btn-about-page {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 10px; /* Angoli più moderni */
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  white-space: nowrap; /* Impedisce al testo di andare a capo */
-  transition: all 0.2s ease;
-}
-
-/* EFFETTO AL PASSAGGIO DEL MOUSE */
-.btn-dashboard-page:hover,
-.btn-fav-page:hover, 
-.btn-about-page:hover {
-  filter: brightness(90%);
-  transform: translateY(-2px); /* Leggero movimento verso l'alto */
-}
-
-/* STILE LOGO CLICCABILE */
-.brand-name a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  border: none;
-  outline: none;
 }
 
 .brand-logo {
@@ -72,31 +108,9 @@ header img {
   opacity: 0.8;
 }
 
-.brand-name a:focus {
+.brand-name a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
   outline: none;
-}
-.btn-add-page {
-  display: inline-block;
-  background-color: #605dc8; /* Il viola dei tuoi bottoni */
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 10px; /* Spazio tra i bottoni */
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.btn-add-page:hover {
-  background-color: #4a47a3; 
-}
-.btn-list-page {
-  padding: 10px 20px;
-  background-color: #6200ee; /* Il viola che usi nel form */
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
 }

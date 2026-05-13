@@ -9,6 +9,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { DetailsDescriptionComponent } from './details/details-description/details-description.component';
 import { AddHouseComponent } from './add-house/add-house.component';
 
+
 const routeConfig: Routes = [
   {
     path: '',
@@ -57,6 +58,7 @@ const routeConfig: Routes = [
     component: AddHouseComponent,
     title: 'Aggiungi Proprietà'
   },
+  
   
   
 ];

@@ -3,23 +3,24 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HousingLocation } from '../housing-location';
 import { DbService } from '../db.service';
-
-
 import { Router } from '@angular/router';
+// 1. Importa i moduli necessari per la traduzione
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-house',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  // 2. Aggiungi TranslateModule agli imports
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './add-house.component.html',
   styleUrls: ['./add-house.component.css']
 })
 export class AddHouseComponent {
-  // Iniettiamo il servizio del database e il router per la navigazione
   private dbService = inject(DbService);
   private router = inject(Router);
+  // 3. Inietta il servizio di traduzione
+  private translate = inject(TranslateService);
 
-  // Definizione del form con i nomi corretti per il tuo DB
   applyForm = new FormGroup({
     name: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
@@ -37,16 +38,13 @@ export class AddHouseComponent {
     price: new FormControl(0),
   });
 
-  // Funzione chiamata al click sul tasto "Salva Proprietà"
   async submitApplication() {
-    // Se il form non è valido (mancano nome o città), non fare nulla
     if (this.applyForm.invalid) {
-      alert('Per favore, inserisci almeno il nome della casa e la città.');
+      // 4. Traduzione del messaggio di errore del form
+      alert(this.translate.instant('ERRORS.INVALID_FORM'));
       return;
     }
 
-    // Mappiamo i valori del form nell'oggetto HousingLocation
-    // Usiamo Number() e !! per assicurarci che i tipi siano corretti
     const newLocation: HousingLocation = {
       name: this.applyForm.value.name ?? '',
       city: this.applyForm.value.city ?? '',
@@ -63,15 +61,13 @@ export class AddHouseComponent {
       long: Number(this.applyForm.value.long) ?? 0,
       price: Number(this.applyForm.value.price ?? 0),
     };
-    
 
     try {
-      // Salvataggio nel database locale Dexie
       await this.dbService.addLocation(newLocation);
       
-      alert('Proprietà salvata con successo!');
+      // 5. Traduzione del messaggio di successo
+      alert(this.translate.instant('SUCCESS.HOUSE_SAVED'));
       
-      // Reset del form ai valori iniziali
       this.applyForm.reset({ 
         availableUnits: 1, 
         metratura: 0, 
@@ -82,12 +78,12 @@ export class AddHouseComponent {
         laundry: false 
       });
 
-      // Opzionale: Reindirizza l'utente alla Home per vedere la nuova casa
       this.router.navigate(['/']);
 
     } catch (error) {
       console.error("Errore durante il salvataggio:", error);
-      alert('Si è verificato un errore durante il salvataggio.');
+      // 6. Traduzione del messaggio di errore tecnico
+      alert(this.translate.instant('ERRORS.SAVE_FAILED'));
     }
   }
 }
