@@ -1,0 +1,226 @@
+{
+  "locations": [
+    {
+      "id": 0,
+      "name": "Acme Fresh Start Housings",
+      "city": "Chicago",
+      "state": "IL",
+      "photo": "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+      "photos":[
+        "/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg",
+        "/assets/bagno.jpg",
+        "/assets/salotto.webp",
+        "/assets/camera1.jpg"
+      ],
+      "availableUnits": 4,
+      "wifi": true,
+      "laundry": true,
+      "metratura": 85,
+      "piano": "3° piano con ascensore",
+      "description": "Questo spazioso trilocale a Chicago offre una zona giorno molto luminosa e rifiniture moderne. Ideale per famiglie, si trova in una zona ricca di servizi e parchi pubblici.",
+      "lati": 41.8781,
+      "long": -87.6298,
+      "price": 1250
+    },
+    {
+      "id": 1,
+      "name": "A113 Transitional Housing",
+      "city": "Santa Monica",
+      "state": "CA",
+      "photo": "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+      "photos":[
+        "/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg",
+        "/assets/bagno2.webp",
+        "/assets/camera2.webp",
+        "/assets/salotto2.jpg"
+       
+        
+      ],
+      "availableUnits": 0,
+      "wifi": false,
+      "laundry": true,
+      "metratura": 45,
+      "piano": "Piano terra",
+      "description": "Accogliente bilocale situato a pochi passi dalla spiaggia. Nonostante la metratura contenuta, gli spazi sono ottimizzati perfettamente per garantire il massimo comfort in una delle zone più ambite di Santa Monica.",
+      "lati": 34.0195,
+      "long": -118.4912,
+      "price": 1800
+    },
+    {
+      "id": 2,
+      "name": "Warm Beds Housing Support",
+      "city": "Juneau",
+      "state": "AK",
+      "photo": "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+      "photos":[
+        "/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg",
+        "/assets/bagno3.webp",
+        "/assets/camera3.jpg",
+        "assets/cucinasoggiorno3.webp"
+      ],
+      "availableUnits": 1,
+      "wifi": false,
+      "laundry": false,
+      "metratura": 60,
+      "piano": "1° piano",
+      "description": "Una soluzione abitativa calda e sicura nel cuore di Juneau. Gli interni presentano dettagli in legno tipici della zona e un eccellente isolamento termico per affrontare i climi più rigidi.",
+      "lati": 58.3019,
+      "long": -134.4197,
+      "price": 950
+    },
+    {
+      "id": 3,
+      "name": "Homesteady Housing",
+      "city": "Chicago",
+      "state": "IL",
+      "photo": "/assets/ian-macdonald-W8z6aifi1E-unsplash.jpg",
+      "photos":[
+        "/assets/ian-macdonald-W8z6aifi1E-unsplash.jpg",
+        "/assets/bagno4.jpg",
+        "/assets/camera4.jpg",
+        "assets/cucinasoggiorno4.jpg"
+      ],
+      "availableUnits": 1,
+      "wifi": true,
+      "laundry": false,
+      "metratura": 110,
+      "piano": "Ultimo piano (Attico)",
+      "description": "Elegante villa luminosa con finiture di pregio, immersa in un giardino alberato.Include garage e sottotetto abitabile, ideale per chi cerca stile e tranquillità.",
+      "lati": 41.8818,
+      "long": -87.6231,
+      "price": 2100
+    },
+    {
+      "id": 4,
+      "name": "Happy Homes Group",
+      "city": "Gary",
+      "state": "IN",
+      "photo": "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+      "photos":[
+        "/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg",
+        "/assets/bagno5.jpg",
+        "/assets/camera5.jpg",
+        "assets/cucinasoggiorno5.webp"
+      ],
+      "availableUnits": 1,
+      "wifi": true,
+      "laundry": false,
+      "metratura": 70,
+      "piano": "2° piano",
+      "description": "Appartamento tranquillo e ben collegato, situato in un contesto residenziale curato. La soluzione ideale per chi cerca un equilibrio tra vita cittadina e serenità domestica.",
+      "lati": 41.5934,
+      "long": -87.3464,
+      "price": 750
+    },
+    {
+      "id": 5,
+      "name": "Hopeful Apartment Group",
+      "city": "Oakland",
+      "state": "CA",
+      "photo": "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+      "photos":[
+        "/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg",
+        "/assets/bagno6.jpg",
+        "/assets/camera6.webp",
+        "assets/cucinasoggiorno6.webp"
+      ],
+      "availableUnits": 2,
+      "wifi": true,
+      "laundry": true,
+      "metratura": 95,
+      "piano": "4° piano con balcone",
+      "description": "Moderno appartamento ad Oakland con un ampio balcone vivibile. La struttura è recente e dotata di sistemi di risparmio energetico all'avanguardia e fibra ottica già installata.",
+      "lati": 37.8044,
+      "long": -122.2712,
+      "price": 1400
+    },
+    {
+      "id": 6,
+      "name": "Seriously Safe Towns",
+      "city": "Oakland",
+      "state": "CA",
+      "photo": "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+      "photos":[
+        "/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg",
+        "/assets/bagno7.webp",
+        "/assets/camera7.jpg",
+        "assets/cucinasoggiorno7.jpg"
+      ],
+      "availableUnits": 5,
+      "wifi": true,
+      "laundry": true,
+      "metratura": 120,
+      "piano": "Casa indipendente",
+      "description": "Villetta indipendente con giardino privato. Perfetta per chi possiede animali domestici o per chi ama il giardinaggio. Zona estremamente sicura e silenziosa.",
+      "lati": 37.8100,
+      "long": -122.2500,
+      "price": 2500
+    },
+    {
+      "id": 7,
+      "name": "Hopeful Housing Solutions",
+      "city": "Oakland",
+      "state": "CA",
+      "photo": "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+      "photos":[
+        "/assets/r-architecture-GGupkreKwxA-unsplash.jpg",
+        "/assets/bagno8.jpg",
+        "/assets/camera88.jpg",
+        "assets/cucinasoggiorno8.jpg"
+      ],
+      "availableUnits": 2,
+      "wifi": true,
+      "laundry": true,
+      "metratura": 55,
+      "piano": "3° piano",
+      "description": "Bilocale ristrutturato di recente con uno stile minimalista ed elegante. Situato vicino alle principali arterie di comunicazione, è ottimo per pendolari.",
+      "lati": 37.7900,
+      "long": -122.2400,
+      "price": 1100
+    },
+    {
+      "id": 8,
+      "name": "Seriously Safe Towns",
+      "city": "Oakland",
+      "state": "CA",
+      "photo": "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+      "photos":[
+        "/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg",
+        "/assets/bagno9.jpg",
+        "/assets/camera9.png",
+        "assets/cucinasoggiorno9.jpg"
+      ],
+      "availableUnits": 10,
+      "wifi": false,
+      "laundry": false,
+      "metratura": 150,
+      "piano": "Su più livelli (Duplex)",
+      "description": "Ampio duplex perfetto per la condivisione o per famiglie numerose. Gli ampi spazi comuni permettono una vivibilità eccellente, pur mantenendo la privacy nelle zone notte separate.",
+      "lati": 37.8200,
+      "long": -122.2800,
+      "price": 2800
+    },
+    {
+      "id": 9,
+      "name": "Capital Safe Towns",
+      "city": "Portland",
+      "state": "OR",
+      "photo": "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+       "photos":[
+        "/assets/webaliser-_TPTXZd9mOo-unsplash.jpg",
+        "/assets/bagno10.webp",
+        "/assets/camera10.webp",
+        "assets/cucinasoggiorno10.jpg"
+      ],
+      "availableUnits": 6,
+      "wifi": true,
+      "laundry": true,
+      "metratura": 80,
+      "piano": "1° piano con parcheggio",
+      "description": "Comodo appartamento a Portland con posto auto riservato incluso. La casa è ben isolata acusticamente e offre un'atmosfera rilassante e moderna.",
+      "lati": 45.5152,
+      "long": -122.6784,
+      "price": 1350
+    }
+  ]
+}

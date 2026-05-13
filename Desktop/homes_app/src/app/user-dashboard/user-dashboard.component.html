@@ -1,0 +1,67 @@
+<section class="dashboard">
+  <header class="dashboard-header">
+    <!-- 1. Titolo tradotto -->
+    <h1>{{ 'DASHBOARD.PAGE_TITLE' | translate }}</h1>
+    <p>
+      <strong>{{ (saluto$ | async) || ('DASHBOARD.DEFAULT_WELCOME' | translate) }}</strong>! 
+      {{ 'DASHBOARD.SUBTITLE' | translate }}
+    </p>
+  </header>
+
+  <div class="stats-overview">
+    <div class="stat-box">
+      <span class="number">{{ (applicationsCount$ | async) || 0 }}</span>
+      <!-- 2. Etichette statistiche -->
+      <span class="label">{{ 'DASHBOARD.SENT_APPS' | translate }}</span>
+    </div>
+    
+    <div class="stat-box">
+        <span class="number">{{ (favoritesCount$ | async) || 0 }}</span>
+        <span class="label">{{ 'DASHBOARD.FAV_HOUSES' | translate }}</span>
+    </div>
+  </div>
+
+  <section class="applications-section">
+    <!-- 3. Titolo tabella -->
+    <h2>{{ 'DASHBOARD.APPS_STATUS' | translate }}</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>{{ 'DASHBOARD.TABLE.HOUSE' | translate }}</th>
+            <th>{{ 'DASHBOARD.TABLE.LOCATION' | translate }}</th>
+            <th>{{ 'DASHBOARD.TABLE.DATE' | translate }}</th>
+            <th>{{ 'DASHBOARD.TABLE.STATUS' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let app of (appliedHouses$ | async)">
+            <td>{{ app.locationName }}</td>
+            <td>{{ app.city }}</td>
+            <td>{{ app.date }}</td>
+            <td>
+              <span class="status-badge" 
+                    [ngClass]="{
+                      'approved': app.status === 'Approvata',
+                      'rejected': app.status === 'Rifiutata',
+                      'pending': app.status !== 'Approvata' && app.status !== 'Rifiutata'
+                    }">
+                {{ app.status }}
+              </span>
+            </td>
+          </tr>
+
+          <!-- 4. Messaggio tabella vuota -->
+          <tr *ngIf="(appliedHouses$ | async)?.length === 0">
+            <td colspan="4" style="text-align: center; padding: 20px; color: #667085;">
+              {{ 'DASHBOARD.NO_APPS' | translate }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5. Bottone finale -->
+  <button class="primary" routerLink="/">{{ 'DASHBOARD.SEARCH_MORE' | translate }}</button>
+</section>

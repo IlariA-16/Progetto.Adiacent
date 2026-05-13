@@ -1,0 +1,39 @@
+<section class="about-container" *ngIf="aboutData$ | async as data">
+  <h2>{{ 'ABOUT.PAGE_TITLE' | translate }}</h2>
+  
+  <article class="mission">
+    <h3>{{ 'ABOUT.MISSIONE_TITLE' | translate }}</h3>
+    <p>{{ 'ABOUT.MISSIONE_BODY' | translate }}</p>
+  </article>
+
+  <article class="values">
+    <h3>{{ 'ABOUT.FILOSOFIA_TITLE' | translate }}</h3>
+    <p>{{ 'ABOUT.FILOSOFIA_BODY' | translate }}</p>
+    
+    <ul>
+      <li *ngFor="let valore of data.valori">
+        <strong>{{ 'ABOUT.VALORI.' + valore.id.toUpperCase() + '_TITLE' | translate }}:</strong> 
+        {{ 'ABOUT.VALORI.' + valore.id.toUpperCase() + '_BODY' | translate }}
+      </li>
+      
+      <ng-container *ngIf="data.valori?.length === 0">
+        <li>
+          <strong>{{ 'ABOUT.VALORI.ETICA_TITLE' | translate }}:</strong> 
+          {{ 'ABOUT.VALORI.ETICA_BODY' | translate }}
+        </li>
+        <li>
+          <strong>{{ 'ABOUT.VALORI.SARTORIALITA_TITLE' | translate }}:</strong> 
+          {{ 'ABOUT.VALORI.SARTORIALITA_BODY' | translate }}
+        </li>
+        <li>
+          <strong>{{ 'ABOUT.VALORI.PRESENZA_TITLE' | translate }}:</strong> 
+          {{ 'ABOUT.VALORI.PRESENZA_BODY' | translate }}
+        </li>
+      </ng-container>
+    </ul>
+  </article>
+
+  <article class="closing">
+    <p>{{ 'ABOUT.CLOSING_TEXT' | translate }}</p>
+  </article>
+</section>

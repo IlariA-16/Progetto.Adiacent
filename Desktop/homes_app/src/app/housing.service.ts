@@ -1,120 +1,93 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HousingLocation } from './housing-location';
+import { DbService } from './db.service'; 
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HousingService {
-  protected housingLocationList : HousingLocation[]=[
-     {
-      id: 0,
-      name: 'Acme Fresh Start Housing',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/bernard-hermant-CLKGGwIBTaY-unsplash.jpg',
-      availableUnits: 4,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 1,
-      name: 'A113 Transitional Housing',
-      city: 'Santa Monica',
-      state: 'CA',
-      photo: '/assets/brandon-griggs-wR11KBaB86U-unsplash.jpg',
-      availableUnits: 0,
-      wifi: false,
-      laundry: true
-    },
-    {
-      id: 2,
-      name: 'Warm Beds Housing Support',
-      city: 'Juneau',
-      state: 'AK',
-      photo: '/assets/i-do-nothing-but-love-lAyXdl1-Wmc-unsplash.jpg',
-      availableUnits: 1,
-      wifi: false,
-      laundry: false
-    },
-    {
-      id: 3,
-      name: 'Homesteady Housing',
-      city: 'Chicago',
-      state: 'IL',
-      photo: '/assets/ian-macdonald-W8z6aiwfi1E-unsplash.jpg',
-      availableUnits: 1,
-      wifi: true,
-      laundry: false
-    },
-    {
-      id: 4,
-      name: 'Happy Homes Group',
-      city: 'Gary',
-      state: 'IN',
-      photo: '/assets/krzysztof-hepner-978RAXoXnH4-unsplash.jpg',
-      availableUnits: 1,
-      wifi: true,
-      laundry: false
-    },
-    {
-      id: 5,
-      name: 'Hopeful Apartment Group',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/r-architecture-JvQ0Q5IkeMM-unsplash.jpg',
-      availableUnits: 2,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 6,
-      name: 'Seriously Safe Towns',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/phil-hearing-IYfp2Ixe9nM-unsplash.jpg',
-      availableUnits: 5,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 7,
-      name: 'Hopeful Housing Solutions',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/r-architecture-GGupkreKwxA-unsplash.jpg',
-      availableUnits: 2,
-      wifi: true,
-      laundry: true
-    },
-    {
-      id: 8,
-      name: 'Seriously Safe Towns',
-      city: 'Oakland',
-      state: 'CA',
-      photo: '/assets/saru-robert-9rP3mxf8qWI-unsplash.jpg',
-      availableUnits: 10,
-      wifi: false,
-      laundry: false
-    },
-    {
-      id: 9,
-      name: 'Capital Safe Towns',
-      city: 'Portland',
-      state: 'OR',
-      photo: '/assets/webaliser-_TPTXZd9mOo-unsplash.jpg',
-      availableUnits: 6,
-      wifi: true,
-      laundry: true
-    }
-  ];
+  private url = 'http://localhost:3000/locations';
+  
+  // Iniezione del DbService (Dexie)
+  private dbService = inject(DbService);
 
-  constructor() { }
-
-  getAllHousingLocation() :HousingLocation[] {
-    return this.housingLocationList;
+  constructor() {
+    // Inizializza il database caricando i dati dal server all'avvio
+    this.initDatabase();
   }
 
-  getHousingLocationById(id:number) : HousingLocation | undefined {
-    return this.housingLocationList.find (housingLocation => housingLocation.id === id)
+  // --- SINCRONIZZAZIONE ---
+  private async initDatabase() {
+    try {
+      const response = await fetch(this.url);
+      const data: HousingLocation[] = await response.json();
+      if (data) {
+        await this.dbService.seedDatabase(data);
+        console.log('Dexie sincronizzato con i dati del server');
+      }
+    } catch (error) {
+      console.warn("Server non raggiungibile, utilizzo dati locali Dexie.");
+    }
+  }
+
+  // --- GESTIONE DATI (REATTIVA) ---
+  
+  // Ritorna l'Observable del DbService: l'interfaccia si aggiornerà automaticamente
+  getAllHousingLocation() {
+    return this.dbService.locations$;
+  }
+
+  async getHousingLocationById(id: number): Promise<HousingLocation | undefined> {
+    // Cerchiamo prima nel database locale Dexie
+    return await this.dbService.locations.get(id);
+  }
+
+  // --- GESTIONE PREFERITI ---
+  // Nota: Assicurati di aver aggiunto 'isFavorite?: boolean' nel file housing-location.ts
+  async toggleFavorite(location: HousingLocation) {
+    if (location.id !== undefined) {
+      const currentStatus = location.isFavorite || false;
+      await this.dbService.locations.update(location.id, { isFavorite: !currentStatus });
+    }
+  }
+
+  // --- GESTIONE DOMANDE (Ora su Dexie!) ---
+  
+  getApplicationsList() {
+    return this.dbService.applications$; // Ritorna Observable reattivo
+  }
+
+  async submitApplication(firstName: string, lastName: string, email: string, housingName: string, city: string, locationId: number) {
+    const newApplication = {
+      locationId,
+      applicantName: `${firstName} ${lastName}`,
+      email: email,
+      housingName: housingName,
+      city: city,
+      date: new Date().toLocaleDateString(),
+      status: 'In Revisione'
+    };
+
+    try {
+      await this.dbService.applications.add(newApplication);
+      console.log('Domanda salvata in Dexie per:', housingName);
+    } catch (error) {
+      console.error('Errore nel salvataggio della domanda:', error);
+    }
+  }
+
+  // --- ELIMINAZIONE (SERVER + DEXIE) ---
+  async deleteHousingLocation(id: number): Promise<void> {
+    // 1. Tenta la cancellazione sul server
+    try {
+      await fetch(`${this.url}/${id}`, { method: 'DELETE' });
+      console.log(`Proprietà ${id} eliminata dal server.`);
+    } catch (error) {
+      console.warn("Server offline, eliminazione solo locale su Dexie.");
+    }
+
+    // 2. Cancella da Dexie
+    await this.dbService.deleteLocation(id);
   }
 }
