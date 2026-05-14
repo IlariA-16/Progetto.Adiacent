@@ -31,8 +31,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
           
           <!-- SELETTORE DELLA LINGUA (Menu a tendina) -->
           <select #langSelect (change)="changelang(langSelect.value)" [value]="translate.currentLang" class="lang-selector">
-            <option value="it">🇮🇹 IT</option>
-            <option value="en">🇬🇧 EN</option>
+            <option value="it">IT</option>
+            <option value="en">EN</option>
           </select>
 
           <!-- Se loggato mostra Nome, Profilo e Logout -->
