@@ -1,0 +1,182 @@
+{
+  "NAV": {
+    "DASHBOARD": "La mia Dashboard",
+    "ADD": "Aggiungi Casa",
+    "FAVORITES": "I miei Preferiti",
+    "ABOUT": "Chi Siamo"
+  },
+  
+  "DASHBOARD": {
+    "WELCOME_M": "Bentornato",
+    "WELCOME_F": "Bentornata",
+    "GUEST": "Ospite",
+    "REMOVED_HOUSE": "Alloggio rimosso",
+    "FAV_TITLE": "I tuoi Preferiti",
+    "APP_TITLE": "Le tue Candidature",
+    "PAGE_TITLE": "La tua Dashboard",
+    "SUBTITLE": "Qui puoi monitorare le tue richieste.",
+    "DEFAULT_WELCOME": "Bentornato, Ospite",
+    "SENT_APPS": "Domande Inviate",
+    "FAV_HOUSES": "Alloggi Preferiti",
+    "APPS_STATUS": "Stato delle Candidature",
+    "NO_APPS": "Non hai ancora inviato nessuna candidatura.",
+    "SEARCH_MORE": "Cerca nuovi alloggi",
+    "TABLE": {
+      "HOUSE": "Alloggio",
+      "LOCATION": "Località",
+      "DATE": "Data Invio",
+      "STATUS": "Stato"
+    }
+  },
+  
+  "THANK_YOU": {
+    "TITLE": "Grazie",
+    "GUEST": "Ospite",
+    "SUBTITLE": "La tua richiesta è stata presa in carico con successo.",
+    "STEPS_TITLE": "Cosa succederà adesso?",
+    "STEP1_BOLD": "Riceverai una conferma:",
+    "STEP1_TEXT": "Ti abbiamo appena inviato un'email con il riepilogo della tua richiesta.",
+    "STEP2_BOLD": "Analisi della richiesta:",
+    "STEP2_TEXT": "Un nostro esperto immobiliare valuterà le tue preferenze nelle prossime 2 ore.",
+    "STEP3_BOLD": "Contatto diretto:",
+    "STEP3_TEXT": "Verrai ricontattato telefonicamente o via email per fissare un appuntamento o ricevere maggiori dettagli.",
+    "ASSISTANCE_TITLE": "Hai bisogno di assistenza immediata?",
+    "ASSISTANCE_TEXT": "Se hai dimenticato di aggiungere un dettaglio importante o hai domande urgenti, il nostro team è a tua disposizione.",
+    "HOURS": "Siamo attivi dal lunedì al venerdì, dalle 9:00 alle 18:00.",
+    "BACK_HOME": "Torna alla lista delle case"
+  },
+  
+  "LISTING": {
+    "PHOTO_ALT": "Foto esterna di",
+    "DETAILS_ILARIA": "Dettaglio Ilaria",
+    "DETAILS_MICO": "Dettaglio Mico",
+    "APPLICATIONS": "Candidature",
+    "PHOTOS_BTN": "Foto",
+    "DELETE_BTN": "Elimina",
+    "MODAL_MAP_TITLE": "Posizione di",
+    "MODAL_MAP_BODY": "Vuoi visualizzare la mappa per",
+    "OPEN_MAPS": "Apri in Google Maps",
+    "MODAL_PHOTO_TITLE": "Galleria di",
+    "CONFIRM_DELETE": "Sei sicuro di voler eliminare questa proprietà?"
+  },
+
+  "HOME": {
+    "SEARCH_TITLE": "Cerca Alloggio",
+    "PLACEHOLDER": "Città, nome o stato...",
+    "MAX_PRICE": "Prezzo Max",
+    "SORT_BY": "Ordina per",
+    "SELECT": "Seleziona...",
+    "CHEAP": "Più economica",
+    "EXPENSIVE": "Più costosa",
+    "NAME": "Nome (A-Z)",
+    "FILTER_SERVICES": "Filtra per servizi",
+    "WIFI": "Wi-Fi incluso",
+    "LAUNDRY": "Lavanderia",
+    "SEARCH_BTN": "Cerca",
+    "CLEAR_FILTERS": "Svuota filtri",
+    "MODAL_TITLE": "Gestione Candidature",
+    "CANDIDATE": "Candidato",
+    "DATE": "Data",
+    "STATUS": "Stato",
+    "ACTIONS": "Azioni",
+    "NO_APPS": "Nessuna candidatura ricevuta per questa proprietà.",
+    "CLOSE": "Chiudi",
+    "CONFIRM_DELETE": "Eliminare questa candidatura?"
+  },
+
+  "FAVORITES": {
+    "TITLE": "I miei Preferiti ⭐",
+    "EMPTY_MESSAGE": "Non hai ancora aggiunto nessuna casa ai tuoi preferiti."
+  },
+  
+  "DETAILS": {
+    "PHOTO_ALT": "Foto esterna di",
+    "CITY": "Città",
+    "STATE": "Stato"
+  },
+  "HOUSING_DETAILS": {
+    "FAQ_TITLE": "Domande Frequenti 💡",
+    "ABOUT_SECTION": "A proposito di questa posizione abitativa",
+    "UNITS": "Unità disponibili",
+    "SQUARE_METERS": "Metratura",
+    "FLOOR": "Piano",
+    "HAS_WIFI": "Questa struttura ha il wifi",
+    "HAS_LAUNDRY": "Questa struttura ha la lavanderia",
+    "YES": "Sì",
+    "NO": "No",
+    "FULL_DESCRIPTION": "Leggi descrizione completa",
+    "APPLY_TITLE": "Fai domanda ora per vivere qui",
+    "FIRST_NAME": "NOME",
+    "LAST_NAME": "COGNOME",
+    "EMAIL": "EMAIL",
+    "APPLY_BTN": "Applica ora",
+    "STATUS_PENDING": "In Revisione",
+    "FAQ_1_Q": "Tutte le strutture sono arredate?",
+    "FAQ_1_A": "Sì, ogni nostra soluzione abitativa viene consegnata completa di arredi essenziali.",
+    "FAQ_2_Q": "Le utenze sono incluse?",
+    "FAQ_2_A": "Sì, i costi di acqua, luce e riscaldamento sono inclusi."
+  },
+
+    "DESCRIPTION_PAGE": {
+    "TITLE": "Descrizione Completa",
+    "BACK_LINK": "Torna alla scheda dell'immobile",
+    "NO_DATA": "Caricamento descrizione in corso o dati non disponibili.",
+    "BADGE": "Descrizione Completa",
+    "CONTACT_TITLE": "Hai bisogno di più informazioni?",
+    "CALL_US": "Chiamaci",
+    "WRITE_US": "Scrivici",
+    "WHATSAPP": "WhatsApp"
+  },
+  
+  "ERRORS": {
+    "INVALID_FORM": "Per favore, inserisci almeno il nome della casa e la città.",
+    "SAVE_FAILED": "Si è verificato un errore durante il salvataggio."
+  },
+  "SUCCESS": {
+    "HOUSE_SAVED": "Proprietà salvata con successo!"
+  },
+
+  
+  "ADD_HOUSE": {
+    "TITLE": "Aggiungi una nuova proprietà"
+  },
+  "FORM": {
+    "NAME": "Nome Casa",
+    "PLACEHOLDER_NAME": "Es: Villa Sole",
+    "CITY": "Città",
+    "PLACEHOLDER_CITY": "Es: Milano",
+    "PRICE": "Prezzo (€)",
+    "PLACEHOLDER_PRICE": "Es: 1200",
+    "METRATURA": "Metratura (mq)",
+    "PHOTO_URL": "URL Immagine",
+    "PLACEHOLDER_PHOTO": "Incolla il link della foto...",
+    "WIFI": "WiFi",
+    "LAUNDRY": "Lavanderia",
+    "SUBMIT_BUTTON": "Salva Proprietà"
+  },
+  
+
+  "ABOUT": {
+    "PAGE_TITLE": "Chi Siamo",
+    "MISSIONE_TITLE": "Oltre le mura: la nostra missione è la vostra serenità",
+    "MISSIONE_BODY": "In un mercato veloce e spesso impersonale come quello immobiliare, abbiamo scelto con convinzione di mettere al centro l’ascolto attivo e l’empatia. Sappiamo bene che cercare casa non significa semplicemente sfogliare una lista di annunci o visitare immobili; significa proiettare i propri sogni, i propri sacrifici e il proprio futuro in uno spazio che dovrà accogliervi per anni. La nostra missione è proteggere questa visione, trasformando una ricerca spesso stressante in un percorso lineare, sicuro e, soprattutto, sereno.",
+    "FILOSOFIA_TITLE": "La nostra filosofia: il cliente prima dell'immobile",
+    "FILOSOFIA_BODY": "Per noi, la serietà non è un semplice slogan, ma un impegno quotidiano che si traduce in una trasparenza totale verso chi si affida a noi. Non ci interessa concludere una vendita 'a qualunque costo' o proporre una casa a chiunque; il nostro obiettivo è trovare la soluzione che si incastri perfettamente con le vostre esigenze reali, garantendovi una consulenza onesta che metta in luce pregi e difetti di ogni opportunità, eliminando ogni fonte di incertezza o stress.",
+    "VALORI": {
+      "ETICA_TITLE": "Etica e Trasparenza",
+      "ETICA_BODY": "Ogni immobile nel nostro portafoglio viene sottoposto a verifiche tecnico-legali rigorose prima ancora di essere proposto, per garantirvi un acquisto privo di sgradevoli sorprese burocratiche.",
+      "SARTORIALITA_TITLE": "Sartorialità",
+      "SARTORIALITA_BODY": "Non crediamo nelle soluzioni standard. Analizziamo a fondo il vostro stile di vita, le vostre abitudini e le prospettive future per cucirvi addosso una ricerca mirata che rispetti il vostro tempo e le vostre priorità.",
+      "PRESENZA_TITLE": "Presenza costante",
+      "PRESENZA_BODY": "Il nostro lavoro non finisce con la firma del preliminare. Restiamo al vostro fianco con dedizione costante durante tutta la fase burocratica, accompagnandovi fino al momento del rogito e restando un punto di riferimento anche dopo la consegna delle chiavi."
+    },
+    "CLOSING_TEXT": "Il nostro traguardo più grande non è una provvigione, ma il vostro sorriso sincero il giorno in cui, finalmente, girate la chiave nella serratura della vostra nuova casa. Siamo qui per dimostrarvi, giorno dopo giorno, che trovare casa può e deve essere un’esperienza emozionante, sicura e profondamente umana."
+  }
+
+
+  
+
+
+
+
+}

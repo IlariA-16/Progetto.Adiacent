@@ -1,0 +1,50 @@
+<div class="description-page-container" *ngIf="housingLocation">
+  <div class="content-wrapper">
+    <a [routerLink]="['/details', housingLocation.id]" class="back-link">
+      <span class="arrow">←</span> {{ 'DESCRIPTION_PAGE.BACK_LINK' | translate }}
+    </a>
+
+    <div class="house-banner">
+      <img [src]="housingLocation.photo" [alt]="housingLocation.name">
+      <div class="banner-overlay"></div>
+    </div>
+
+    <header class="header-section">
+      <h1 class="house-title">{{ housingLocation.name }}</h1>
+      <div class="accent-bar"></div>
+    </header>
+
+    <main class="main-card">
+      <div class="card-header">
+        <span class="badge">{{ 'DESCRIPTION_PAGE.BADGE' | translate }}</span>
+      </div>
+      <div class="card-body">
+        <p class="description-text">{{ housingLocation.description | translate  }}</p>
+      </div>
+    </main>
+
+    <section class="contact-section">
+      <h2 class="contact-header">{{ 'DESCRIPTION_PAGE.CONTACT_TITLE' | translate }}</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="icon-circle">📞</div>
+          <h3>{{ 'DESCRIPTION_PAGE.CALL_US' | translate }}</h3>
+          <p>+39 02 123 4567</p>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon-circle">📧</div>
+          <h3>{{ 'DESCRIPTION_PAGE.WRITE_US' | translate }}</h3>
+          <p><a href="mailto:support@homes.com">support@homes.com</a></p>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon-circle">💬</div>
+          <h3>{{ 'DESCRIPTION_PAGE.WHATSAPP' | translate }}</h3>
+          <p>+39 345 678 9101</p>
+        </div>
+      </div>
+    </section>
+
+  </div> </div> ```
+

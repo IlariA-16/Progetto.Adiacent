@@ -1,0 +1,74 @@
+/* Contenitore principale */
+.about-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Titolo Principale */
+.about-container h2 {
+    text-align: center;
+    color: #4a42b2; 
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Sottotitoli delle sezioni */
+.about-container h3 {
+    color: #6b63ff; /* Il viola del tuo logo */
+    font-size: 1.5rem;
+    margin-top: 30px;
+    border-left: 4px solid #6b63ff;
+    padding-left: 15px;
+}
+
+/* Paragrafi */
+.about-container p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+/* Lista dei valori */
+.about-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 25px 0;
+}
+
+.about-container li {
+    background: #f0efff; /* Sfondo viola chiarissimo */
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.about-container li:hover {
+    transform: translateX(10px);
+    border-left: 2px solid #6b63ff; /* Compare una linea al passaggio */
+    background: #e6e4ff;
+}
+
+.about-container li strong {
+    color: #4a42b2;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Sezione finale di chiusura */
+.closing {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #7770f3; /* Sfondo con il colore del logo */
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(107, 99, 255, 0.3);
+}

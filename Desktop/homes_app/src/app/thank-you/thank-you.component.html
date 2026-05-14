@@ -1,0 +1,49 @@
+<main class="thank-you-page">
+  <section class="thank-you-card">
+    
+    <!-- 1. Testata con Feedback Visivo -->
+    <header class="card-header">
+      <div class="success-icon-wrapper">
+        <span class="check-icon">✓</span>
+      </div>
+      <h1>{{ 'THANK_YOU.TITLE' | translate }}, {{ userName }}!</h1>
+      <p class="main-subtitle">{{ 'THANK_YOU.SUBTITLE' | translate }}</p>
+    </header>
+
+    <hr class="divider">
+
+    <!-- 2. Cosa succede ora? -->
+    <article class="next-steps">
+      <h2>{{ 'THANK_YOU.STEPS_TITLE' | translate }}</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-number">1</span>
+          <p><strong>{{ 'THANK_YOU.STEP1_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP1_TEXT' | translate }}</p>
+        </div>
+        <div class="step">
+          <span class="step-number">2</span>
+          <p><strong>{{ 'THANK_YOU.STEP2_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP2_TEXT' | translate }}</p>
+        </div>
+        <div class="step">
+          <span class="step-number">3</span>
+          <p><strong>{{ 'THANK_YOU.STEP3_BOLD' | translate }}</strong> {{ 'THANK_YOU.STEP3_TEXT' | translate }}</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Contenuto extra -->
+    <div class="support-info">
+      <h3>{{ 'THANK_YOU.ASSISTANCE_TITLE' | translate }}</h3>
+      <p>{{ 'THANK_YOU.ASSISTANCE_TEXT' | translate }}</p>
+      <p class="contact-hours">{{ 'THANK_YOU.HOURS' | translate }}</p>
+    </div>
+
+    <!-- 4. Azioni Finali (CTA) -->
+    <footer class="card-footer">
+      <div class="button-group">
+        <a routerLink="/" class="btn-primary">{{ 'THANK_YOU.BACK_HOME' | translate }}</a>   
+      </div>
+    </footer>
+
+  </section>
+</main>

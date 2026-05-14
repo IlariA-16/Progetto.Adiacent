@@ -1,0 +1,45 @@
+<section class="form-container">
+  <h2>🏡 {{ 'ADD_HOUSE.TITLE' | translate }}</h2>
+  
+  <form [formGroup]="applyForm" (submit)="submitApplication()">
+    
+    <div class="field">
+      <label>🏷️ {{ 'FORM.NAME' | translate }}</label>
+      <input type="text" formControlName="name" [placeholder]="'FORM.PLACEHOLDER_NAME' | translate">
+    </div>
+
+    <div class="field">
+      <label>📍 {{ 'FORM.CITY' | translate }}</label>
+      <input type="text" formControlName="city" [placeholder]="'FORM.PLACEHOLDER_CITY' | translate">
+    </div>
+
+    <div class="field">
+      <label>💰 {{ 'FORM.PRICE' | translate }}</label>
+      <input type="number" formControlName="price" [placeholder]="'FORM.PLACEHOLDER_PRICE' | translate">
+    </div>
+
+    <div class="field">
+      <label>📐 {{ 'FORM.METRATURA' | translate }}</label>
+      <input type="number" formControlName="metratura">
+    </div>
+
+    <div class="field">
+      <label>🖼️ {{ 'FORM.PHOTO_URL' | translate }}</label>
+      <input type="text" formControlName="photo" [placeholder]="'FORM.PLACEHOLDER_PHOTO' | translate">
+    </div>
+
+    <div class="checkbox-container">
+      <label class="check-item">
+        <input type="checkbox" formControlName="wifi"> 🌐 {{ 'FORM.WIFI' | translate }}
+      </label>
+      <label class="check-item">
+        <input type="checkbox" formControlName="laundry"> 🧺 {{ 'FORM.LAUNDRY' | translate }}
+      </label>
+    </div>
+
+    <button type="submit" [disabled]="!applyForm.valid" class="primary">
+      ✨ {{ 'FORM.SUBMIT_BUTTON' | translate }}
+    </button>
+    
+  </form>
+</section>
