@@ -10,6 +10,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 @Component({
   standalone: true,
   selector: 'app-root',
+  styleUrls: ['./app.component.css'],
+  imports: [HomeComponent, CommonModule, RouterModule, TranslateModule],
   template: `
     <main>
       <header class="brand-name">
@@ -18,16 +20,21 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         </a>
 
         <div class="nav-links">
-<<<<<<< HEAD
           <!-- VISIBILI SOLO SE ADMIN -->
-          <a *ngIf="isAdmin()" [routerLink]="['/dashboard']" class="btn-dashboard-page">🚀 Dashboard</a>
-          <a *ngIf="isAdmin()" [routerLink]="['/add']" class="btn-add-page">➕ Aggiungi Casa</a>
+          <a *ngIf="isAdmin()" [routerLink]="['/dashboard']" class="btn-dashboard-page">🚀 {{ 'NAV.DASHBOARD' | translate }}</a>
+          <a *ngIf="isAdmin()" [routerLink]="['/add']" class="btn-add-page">➕ {{ 'NAV.ADD' | translate }}</a>
           
           <!-- VISIBILE SOLO SE LOGGATO -->
-          <a *ngIf="isLogged()" [routerLink]="['/favorites']" class="btn-fav-page">⭐ Preferiti</a>
+          <a *ngIf="isLogged()" [routerLink]="['/favorites']" class="btn-fav-page">⭐ {{ 'NAV.FAVORITES' | translate }}</a>
           
-          <a [routerLink]="['/about']" class="btn-about-page">ℹ️ Chi Siamo</a>
+          <a [routerLink]="['/about']" class="btn-about-page">ℹ️ {{ 'NAV.ABOUT' | translate }}</a>
           
+          <!-- SELETTORE DELLA LINGUA (Menu a tendina) -->
+          <select #langSelect (change)="changelang(langSelect.value)" [value]="translate.currentLang" class="lang-selector">
+            <option value="it">🇮🇹 IT</option>
+            <option value="en">🇬🇧 EN</option>
+          </select>
+
           <!-- Se loggato mostra Nome, Profilo e Logout -->
           <div *ngIf="isLogged(); else authButtons" class="user-actions">
             <span class="user-welcome">Ciao, <b>{{ userName }}</b> ({{ userRole }})</span>
@@ -41,17 +48,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
               <a [routerLink]="['/register']" class="btn-iscriviti">Iscriviti</a>
             </div>
           </ng-template>
-=======
-          <div class="lang-selector">
-            <button (click)="changelang('it')" [class.active]="translate.currentLang === 'it'" class="btn-it">IT</button>
-            <button (click)="changelang('en')" [class.active]="translate.currentLang === 'en'" class="btn-en">EN</button>
-          </div>
-          
-          <a [routerLink]="['/dashboard']" class="btn-dashboard-page">🚀 {{ 'NAV.DASHBOARD' | translate }}</a>
-          <a [routerLink]="['/add']" class="btn-add-page">➕ {{ 'NAV.ADD' | translate }}</a>
-          <a [routerLink]="['/favorites']" class="btn-fav-page">⭐ {{ 'NAV.FAVORITES' | translate }}</a>
-          <a [routerLink]="['/about']" class="btn-about-page">ℹ️ {{ 'NAV.ABOUT' | translate }}</a>
->>>>>>> language
         </div>
       </header>
 
@@ -59,13 +55,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         <router-outlet></router-outlet>
       </section>
     </main>
-  `,
-  styleUrls: ['./app.component.css'],
-<<<<<<< HEAD
-  imports: [HomeComponent, RouterModule, CommonModule]
-=======
-  imports: [HomeComponent, RouterModule, TranslateModule]
->>>>>>> language
+  `
 })
 export class AppComponent implements OnInit {
   title = 'homes';
@@ -74,15 +64,11 @@ export class AppComponent implements OnInit {
   private router = inject(Router);
 
   constructor(private dbService: DbService, public translate: TranslateService) {
-    // MODIFICA: Usiamo setFallbackLang per evitare il warning di deprecazione
     this.translate.setFallbackLang('it');
-    
-    // Recupera la lingua salvata nel localStorage o usa l'italiano come default
     const savedLang = localStorage.getItem('userLanguage') || 'it';
     this.translate.use(savedLang);
   }
 
-  // Funzione per cambiare lingua e salvare la preferenza nel browser
   changelang(lang: string) {
     this.translate.use(lang);
     localStorage.setItem('userLanguage', lang);
@@ -104,18 +90,15 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    // 1. Inizializzazione Database
     try {
       const data = (housingData as any)?.locations as HousingLocation[];
       if (data && data.length > 0) {
-        // Popola il database Dexie all'avvio
         await this.dbService.seedDatabase(data);
       }
     } catch (error) {
       console.error('Errore Dexie:', error);
     }
 
-    // 2. Recupero nome utente se loggato
     if (this.isLogged()) {
       const profile = await this.dbService.getUserProfile();
       if (profile) {

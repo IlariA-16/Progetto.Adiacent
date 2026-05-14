@@ -75,12 +75,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
       </section>
     </div>
 
-<<<<<<< HEAD
-    <!-- Modale Candidature: ACCESSIBILE SOLO SE ADMIN -->
     <div class="modal-overlay" *ngIf="showModal && userRole === 'admin'" (click)="closeModal()">
-=======
-    <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
->>>>>>> language
       <div class="modal-content" (click)="$event.stopPropagation()">
         <h3>{{ 'HOME.MODAL_TITLE' | translate }}: {{ selectedLocation?.name }}</h3>
         <hr>
@@ -132,8 +127,6 @@ export class HomeComponent implements OnInit {
   selectedLocation: HousingLocation | null = null;
   currentApplications: any[] = [];
   maxPriceValue = 5000;
-
-  // RECUPERO IL RUOLO DALLO STORAGE
   userRole: string | null = localStorage.getItem('userRole');
 
   private dbService = inject(DbService);
@@ -142,9 +135,6 @@ export class HomeComponent implements OnInit {
   constructor() {
     this.housingLocationList$ = this.dbService.locations$;
     this.filteredLocationList$ = this.housingLocationList$;
-    
-    // RIMOSSE LE RIGHE CHE FORZAVANO .use('it')
-    // Ora la Home eredita la lingua caricata in AppComponent
   }
 
   async ngOnInit() {
@@ -158,26 +148,31 @@ export class HomeComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   closeModal() {
     this.showModal = false;
     this.selectedLocation = null;
   }
 
   async openApplicationsModal(location: HousingLocation) {
-    // Se non sei admin, la modale non deve aprirsi proprio
-    if (this.userRole !== 'admin') {
-      return; 
-    }
-
-    if (location.id === undefined || location.id === null) return;
+    if (this.userRole !== 'admin' || !location.id) return;
     
     this.selectedLocation = location;
     this.showModal = true;
     
-=======
+    try {
+      this.currentApplications = await this.dbService.table('applications')
+        .where('locationId').equals(location.id).toArray();
+    } catch (error) {
+      this.currentApplications = [];
+    }
+  }
+
+  async updateStatus(id: number, newStatus: string) {
+    await this.dbService.table('applications').update(id, { status: newStatus });
+    if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
+  }
+
   async deleteApplication(id: number) {
-    // Traduzione dinamica basata sulla lingua attuale
     const confirmMsg = this.translate.instant('HOME.CONFIRM_DELETE');
     if (confirm(confirmMsg)) {
       await this.dbService.table('applications').delete(id);
@@ -190,31 +185,7 @@ export class HomeComponent implements OnInit {
     if (status === 'Rifiutata' || status === 'Rejected') return 'red';
     return 'orange';
   }
-  
-  closeModal() { this.showModal = false; this.selectedLocation = null; }
-  
-  async openApplicationsModal(location: HousingLocation) {
-    if (!location.id) return;
-    this.selectedLocation = location;
-    this.showModal = true;
->>>>>>> language
-    try {
-      this.currentApplications = await this.dbService.table('applications')
-        .where('locationId').equals(location.id).toArray();
-    } catch (error) {
-      this.currentApplications = [];
-    }
-  }
 
-<<<<<<< HEAD
-  getStatusColor(status: string): string {
-    if (status === 'Approvata') return 'green';
-    if (status === 'Rifiutata') return 'red';
-    return 'orange';
-  }
-
-=======
->>>>>>> language
   applyFilters(city: string, hasWifi: boolean, hasLaundry: boolean, minP: string, maxP: string) {
     this.filteredLocationList$ = this.housingLocationList$.pipe(
       map(locations => locations.filter(loc => {
@@ -239,19 +210,4 @@ export class HomeComponent implements OnInit {
       })
     );
   }
-
-  // AGGIUNTO: Metodi per aggiornare lo stato (da implementare nel DbService se non ci sono)
-  async updateStatus(id: number, newStatus: string) {
-    await this.dbService.table('applications').update(id, { status: newStatus });
-    if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
-  }
-<<<<<<< HEAD
-
-  async deleteApplication(id: number) {
-    await this.dbService.table('applications').delete(id);
-    if (this.selectedLocation) this.openApplicationsModal(this.selectedLocation);
-  }
 }
-=======
-}
->>>>>>> language

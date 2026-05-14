@@ -93,11 +93,6 @@ const routeConfig: Routes = [
     data: { expectedRoles: ['admin'] } // Solo Admin (Creazione immobili)
   },
   
-<<<<<<< HEAD
-=======
-  
-  
->>>>>>> language
 ];
 
 export default routeConfig;

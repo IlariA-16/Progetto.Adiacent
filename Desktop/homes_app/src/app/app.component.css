@@ -1,11 +1,7 @@
 :host {
   --content-padding: 20px;
   --primary-color: #605dc8;
-<<<<<<< HEAD
   --danger-color: #e74c3c;
-=======
-  --shadow-color: rgba(0, 0, 0, 0.1);
->>>>>>> language
 }
 
 header {
@@ -18,50 +14,36 @@ header {
   background-color: white;
 }
 
-<<<<<<< HEAD
-=======
 /* CONTENITORE NAVIGAZIONE */
->>>>>>> language
 .nav-links {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-/* --- SELETTORE LINGUE --- */
-.lang-selector {
-  display: flex;
-  gap: 5px;
-  margin-right: 15px;
-  border-right: 2px solid #eee; /* Separatore visivo dagli altri tasti */
-  padding-right: 15px;
-  align-items: center;
-}
-
-.lang-selector button {
+/* --- SELETTORE LINGUE (Menu a tendina) --- */
+select.lang-selector {
   background-color: #f8f9fa;
-  color: #666;
+  color: #333;
   border: 1px solid #ddd;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   transition: all 0.2s ease-in-out;
-  text-transform: uppercase;
+  outline: none;
+  margin-right: 5px;
 }
 
-.lang-selector button:hover {
+select.lang-selector:hover {
   background-color: #eef0f2;
-  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-/* Stato attivo per la lingua selezionata */
-.lang-selector button.active {
-  background-color: var(--primary-color);
-  color: white;
+select.lang-selector:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(96, 93, 200, 0.3);
+  box-shadow: 0 0 0 2px rgba(96, 93, 200, 0.2);
 }
 
 /* --- STILE PULSANTI PAGINA (UNIFICATO) --- */
@@ -105,93 +87,6 @@ header img {
   vertical-align: middle;
 }
 
-<<<<<<< HEAD
-/* --- STILE UNIFICATO BOTTONI A PILLOLA (VIOLA) --- */
-.btn-dashboard-page, 
-.btn-fav-page, 
-.btn-about-page,
-.btn-add-page,
-.btn-user-profile,
-.btn-accedi, 
-.btn-iscriviti {
-  background-color: var(--primary-color) !important;
-  color: white !important;
-  padding: 10px 22px;
-  border-radius: 50px !important;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  border: 2px solid var(--primary-color) !important;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-/* EFFETTO HOVER PER TUTTI I BOTTONI VIOLA */
-.btn-dashboard-page:hover,
-.btn-fav-page:hover, 
-.btn-about-page:hover,
-.btn-add-page:hover,
-.btn-user-profile:hover,
-.btn-accedi:hover,
-.btn-iscriviti:hover {
-  filter: brightness(90%);
-  transform: translateY(-2px);
-  box-shadow: 0px 4px 10px rgba(96, 93, 200, 0.3);
-}
-
-/* --- AREA UTENTE LOGGATO --- */
-.user-actions {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: #f8f9fa; 
-  padding: 6px 18px;
-  border-radius: 50px; 
-  border: 1px solid #eee;
-}
-
-.user-welcome {
-  font-size: 0.85rem;
-  color: #555;
-}
-
-.user-welcome b {
-  color: var(--primary-color);
-  text-transform: capitalize;
-}
-
-/* TASTO LOGOUT (ROSSO A PILLOLA) */
-.btn-logout {
-  background-color: var(--danger-color);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 50px; 
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.85rem;
-  transition: all 0.2s ease;
-}
-
-.btn-logout:hover {
-  background-color: #c0392b;
-  transform: translateY(-1px);
-}
-
-/* --- LOGO E GRUPPI --- */
-.brand-name a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-=======
->>>>>>> language
 .brand-logo {
   transition: transform 0.2s ease;
   cursor: pointer;
@@ -201,17 +96,10 @@ header img {
   transform: scale(1.05);
 }
 
-<<<<<<< HEAD
-.auth-group {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-=======
 .brand-name a {
   display: flex;
   align-items: center;
   text-decoration: none;
   outline: none;
 }
->>>>>>> language
+ 
